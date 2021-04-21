@@ -29,7 +29,7 @@
 
 | 参数                   | 默认值                  | 说明                                            |
 |------------------------|------------------------|------------------------------------------------|
-| OPENWRT_ARMVIRT_PATH   | no                     | 必选项. 设置 `openwrt-armvirt-64-default-rootfs.tar.gz` 的文件路径，可以使用相对路径如 `openwrt/bin/targets/*/*/*.tar.gz` 或 网络文件下载地址如 `https://github.com/.../releases/.../openwrt-armvirt-64-default-rootfs.tar.gz` |
+| OPENWRT_ARMVIRT_PATH   | no                     | 必选项. 设置 `openwrt-armvirt-64-default-rootfs.tar.gz` 的文件路径，可以使用相对路径如 `openwrt/bin/targets/*/*/*.tar.gz` 或 网络文件下载地址如 `https://github.com/*/releases/*/openwrt-armvirt-64-default-rootfs.tar.gz` |
 | SCRIPT_REPO_URL        | unifreq/openwrt_packit | 设置打包脚本源码仓库                             |
 | SCRIPT_REPO_BRANCH     | master                 | 设置打包脚本源码仓库的分支                        |
 | PACKAGE_SOC            | all                    | 设置打包盒子的 `SOC` ，默认 `all` 打包全部盒子，可指定单个盒子如 `s905x3` ，可选择多个盒子用_连接如 `s905x3_s905d` |
