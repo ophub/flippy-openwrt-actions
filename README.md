@@ -4,6 +4,8 @@ View Chinese description  |  [查看中文说明](README.cn.md)
 
 The packaging scripts of the [Flippy repository](https://github.com/unifreq/openwrt_packit) are completely used, without any script modification, and only intelligent Action application development is carried out, making the packaging operation easier and more personalized.
 
+Support vplus, beikeyun, l1pro, And Amlogic S9xxx STB are S905x3, S905x2, S922x, S905x, S905d, s905, s912.
+
 ## Instructions
 
 Introduce this Actions in the `.github/workflows/*.yml` cloud compilation script to use, for example [build-openwrt-armvirt.yml](https://github.com/ophub/op/blob/main/.github/workflows/build-openwrt-armvirt.yml) . code show as below:
@@ -53,11 +55,11 @@ According to the latest kernel packaging script released by `Flippy`, optional p
 
 According to the standard of github.com, 3 environment variables are output to facilitate the subsequent use of the compilation step.
 
-| parameter                            | For example             | Description      |
-|--------------------------------------|-------------------------|------------------|
-| ${{ env.PACKAGED_OUTPUTPATH }}       | /opt/openwrt_packit/tmp | The path of the folder where the packaged firmware is located |
-| ${{ env.PACKAGED_OUTPUTDATE }}       | 2021.04.21.1058         | Packing date     |
-| ${{ env.PACKAGED_STATUS }}           | success / failure       | Package status.  |
+| parameter                                | For example             | Description                   |
+|------------------------------------------|-------------------------|-------------------------------|
+| ${{ env.PACKAGED_OUTPUTPATH }}           | /opt/openwrt_packit/tmp | OpenWrt firmware storage path |
+| ${{ env.PACKAGED_OUTPUTDATE }}           | 2021.04.21.1058         | Packing date                  |
+| ${{ env.PACKAGED_STATUS }}               | success / failure       | Package status                |
 
 ## Acknowledgments
 
