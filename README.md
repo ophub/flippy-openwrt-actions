@@ -4,7 +4,7 @@ View Chinese description  |  [查看中文说明](README.cn.md)
 
 The packaging scripts of the [Flippy repository](https://github.com/unifreq/openwrt_packit) are completely used, without any script modification, and only intelligent Action application development is carried out, making the packaging operation easier and more personalized.
 
-Support vplus, beikeyun, l1pro, And Amlogic S9xxx STB are S905x3, S905x2, S922x, S905x, S905d, s905, s912.
+Support vplus, beikeyun, l1pro, and Amlogic S9xxx STB are S905x3, S905x2, S922x, S905x, S905d, s905, s912.
 
 ## Instructions
 
@@ -29,7 +29,7 @@ According to the latest kernel packaging script released by `Flippy`, optional p
 
 | parameter              | Defaults               | Description                                                   |
 |------------------------|------------------------|---------------------------------------------------------------|
-| OPENWRT_ARMVIRT_PATH   | no                     | required. Set the file path of `openwrt-armvirt-64-default-rootfs.tar.gz` , you can use a relative path such as `openwrt/bin/targets/*/*/*.tar.gz` or the network file download address. E.g `https://github.com/.../releases/.../openwrt-armvirt-64-default-rootfs.tar.gz` . |
+| OPENWRT_ARMVIRT_PATH   | no                     | required. Set the file path of `openwrt-armvirt-64-default-rootfs.tar.gz` , you can use a relative path such as `openwrt/bin/targets/*/*/*.tar.gz` or the network file download address. E.g `https://github.com/*/releases/*/openwrt-armvirt-64-default-rootfs.tar.gz` . |
 | SCRIPT_REPO_URL        | unifreq/openwrt_packit | Set up the packaging script source code repository.           |
 | SCRIPT_REPO_BRANCH     | master                 | Set the branch of the packaged script source code repository. |
 | PACKAGE_SOC            | all                    | Set the `SoC` of the packaging box, the default `all` packs all boxes, you can specify a single box such as `s905x3`, you can choose multiple boxes to use _ connection such as `s905x3_s905d` |
