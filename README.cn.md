@@ -29,7 +29,7 @@
 
 | 参数                   | 默认值                  | 说明                                            |
 |------------------------|------------------------|------------------------------------------------|
-| OPENWRT_ARMVIRT_PATH   | no                     | 必选项. 设置 `openwrt-armvirt-64-default-rootfs.tar.gz` 的文件路径，可以使用相对路径如 `openwrt/bin/targets/*/*/*.tar.gz` 或 `http` 开始的公网文件下载地址。 |
+| OPENWRT_ARMVIRT_PATH   | no                     | 必选项. 设置 `openwrt-armvirt-64-default-rootfs.tar.gz` 的文件路径，可以使用相对路径如 `openwrt/bin/targets/*/*/*.tar.gz` 或 网络文件下载地址如 `https://github.com/.../releases/.../openwrt-armvirt-64-default-rootfs.tar.gz` |
 | SCRIPT_REPO_URL        | unifreq/openwrt_packit | 设置打包脚本源码仓库                             |
 | SCRIPT_REPO_BRANCH     | master                 | 设置打包脚本源码仓库的分支                        |
 | PACKAGE_SOC            | all                    | 设置打包盒子的 `SOC` ，默认 `all` 打包全部盒子，可指定单个盒子如 `s905x3` ，可选择多个盒子用_连接如 `s905x3_s905d` |
@@ -60,7 +60,11 @@
 | ${{ env.PACKAGED_OUTPUTPATH }} | /opt/openwrt_packit/tmp | 打包后的固件所在文件夹的路径  |
 | ${{ env.PACKAGED_OUTPUTDATE }} | 2021.04.21.1058         | 打包日期                    |
 | ${{ env.PACKAGED_STATUS }}     | success / failure       | 打包状态。成功 / 失败        |
-      
+
+## OpenWrt 固件个性化定制说明
+
+此 `Actions` 仅提供 OpenWrt 打包服务，你需要自己编译 `openwrt-armvirt-64-default-rootfs.tar.gz` 。有个性化编译需要的可以查看 [armvirt_64](https://github.com/ophub/op/tree/main/router/armvirt_64)
+
 ## 鸣谢
 
 - [OpenWrt](https://github.com/openwrt/openwrt)
