@@ -29,7 +29,7 @@ According to the latest kernel packaging script released by `Flippy`, optional p
 
 | parameter              | Defaults               | Description                                                   |
 |------------------------|------------------------|---------------------------------------------------------------|
-| OPENWRT_ARMVIRT_PATH   | no                     | required. Set the file path of `openwrt-armvirt-64-default-rootfs.tar.gz` , you can use a relative path such as `openwrt/bin/targets/*/*/*.tar.gz` or the public network file download address starting from `http` . |
+| OPENWRT_ARMVIRT_PATH   | no                     | required. Set the file path of `openwrt-armvirt-64-default-rootfs.tar.gz` , you can use a relative path such as `openwrt/bin/targets/*/*/*.tar.gz` or the network file download address. E.g `https://github.com/.../releases/.../openwrt-armvirt-64-default-rootfs.tar.gz` . |
 | SCRIPT_REPO_URL        | unifreq/openwrt_packit | Set up the packaging script source code repository.           |
 | SCRIPT_REPO_BRANCH     | master                 | Set the branch of the packaged script source code repository. |
 | PACKAGE_SOC            | all                    | Set the `SoC` of the packaging box, the default `all` packs all boxes, you can specify a single box such as `s905x3`, you can choose multiple boxes to use _ connection such as `s905x3_s905d` |
@@ -60,6 +60,10 @@ According to the standard of github.com, 3 environment variables are output to f
 | ${{ env.PACKAGED_OUTPUTPATH }}           | /opt/openwrt_packit/tmp | OpenWrt firmware storage path |
 | ${{ env.PACKAGED_OUTPUTDATE }}           | 2021.04.21.1058         | Packing date                  |
 | ${{ env.PACKAGED_STATUS }}               | success / failure       | Package status                |
+
+## OpenWRT firmware personalized custom description
+
+This `Actions` only provides OpenWrt packaging services, you need to compile the `openwrt-armvirt-64-default-rootfs.tar.gz` . You can view [armvirt_64](https://github.com/ophub/op/tree/main/router/armvirt_64)
 
 ## Acknowledgments
 
