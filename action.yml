@@ -1,0 +1,16 @@
+name: 'package openwrt'
+author: 'codesnas'
+description: 'Use flippy script to package openwrt'
+inputs:
+  mode:
+    description: 'choose script'
+    required: false
+    default: 'flippy'
+runs:
+  using: "composite"
+  steps: 
+    - run: ${GITHUB_ACTION_PATH}/openwrt_${{ inputs.mode }}.sh
+      shell: bash
+branding:
+  icon: 'terminal'
+  color: 'gray-dark'
