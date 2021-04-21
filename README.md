@@ -1,6 +1,6 @@
 # Flippy's OpenWrt packaging script Actions
 
-## Function Description
+View Chinese description  |  [查看中文说明](README.cn.md)
 
 The packaging scripts of the [Flippy repository](https://github.com/unifreq/openwrt_packit) are completely used, without any script modification, and only intelligent Action application development is carried out, making the packaging operation easier and more personalized.
 
@@ -25,27 +25,27 @@ Introduce this Actions in the `.github/workflows/*.yml` cloud compilation script
 
 According to the latest kernel packaging script released by `Flippy`, optional parameter configuration is carried out on `package file`, `make.env`, `select kernel version`, `select box SoC`, etc.
 
-| parameter              | Defaults                                  | Description                                                   |
-|------------------------|-------------------------------------------|---------------------------------------------------------------|
-| OPENWRT_ARMVIRT_PATH   | no                                        | required. Set the file path of `openwrt-armvirt-64-default-rootfs.tar.gz` , you can use a relative path such as `openwrt/bin/targets/*/*/*.tar.gz` or the public network file download address starting from `http` . |
-| SCRIPT_REPO_URL        | https://github.com/unifreq/openwrt_packit | Set up the packaging script source code repository.           |
-| SCRIPT_REPO_BRANCH     | master                                    | Set the branch of the packaged script source code repository. |
-| PACKAGE_SOC            | all                                       | Set the `SoC` of the packaging box, the default `all` packs all boxes, you can specify a single box such as `s905x3`, you can choose multiple boxes to use _ connection such as `s905x3_s905d` |
-| KERNEL_VERSION_NAME    | 5.4.108_5.10.26.TF                        | Set the kernel version，Ophub's [kernel](https://github.com/ophub/amlogic-s9xxx-openwrt/tree/main/amlogic-s9xxx/amlogic-kernel/kernel) library contains many original kernels of `Flippy`, you can view and choose to specify. |
-| GZIP_IMGS_VALUE        | true                                      | Set whether to automatically compress to .img.gz file after packaging (compression package upload and download faster) |
-| SCRIPT_VPLUS_FILE      | mk_h6_vplus.sh                            | Set the script file name for packaging `h6 vplus` |
-| SCRIPT_BEIKEYUN_FILE   | mk_rk3328_beikeyun.sh                     | Set the script file name for packaging `rk3328 beikeyun` |
-| SCRIPT_L1PRO_FILE      | mk_rk3328_l1pro.sh                        | Set the script file name for packaging `rk3328 l1pro` |
-| SCRIPT_S905_FILE       | mk_s905_mxqpro+.sh                        | Set the script file name for packaging `s905 mxqpro+` |
-| SCRIPT_S905D_FILE      | mk_s905d_n1.sh                            | Set the script file name for packaging `s905d n1` |
-| SCRIPT_S905X2_FILE     | mk_s905x2_x96max.sh                       | Set the script file name for packaging `s905x2 x96max` |
-| SCRIPT_S905X3_FILE     | mk_s905x3_multi.sh                        | Set the script file name for packaging `s905x3 multi` |
-| SCRIPT_S912_FILE       | mk_s912_zyxq.sh                           | Set the script file name for packaging `s912 zyxq` |
-| SCRIPT_S022X_FILE      | mk_s922x_gtking.sh                        | Set the script file name for packaging `s922x gtking` |
-| WHOAMI_VALUE           | flippy                                    | Set the value of the `WHOAMI` parameter in `make.env` |
-| OPENWRT_VER_VALUE      | R21.4.18                                  | Set the value of the `OPENWRT_VER_VALUE` parameter in `make.env` |
-| SFE_FLAG_VALUE         | 0                                         | Set the value of the `SFE_FLAG_VALUE` parameter in `make.env` |
-| FLOWOFFLOAD_FLAG_VALUE | 1                                         | Set the value of the `FLOWOFFLOAD_FLAG_VALUE` parameter in `make.env` |
+| parameter              | Defaults               | Description                                                   |
+|------------------------|------------------------|---------------------------------------------------------------|
+| OPENWRT_ARMVIRT_PATH   | no                     | required. Set the file path of `openwrt-armvirt-64-default-rootfs.tar.gz` , you can use a relative path such as `openwrt/bin/targets/*/*/*.tar.gz` or the public network file download address starting from `http` . |
+| SCRIPT_REPO_URL        | unifreq/openwrt_packit | Set up the packaging script source code repository.           |
+| SCRIPT_REPO_BRANCH     | master                 | Set the branch of the packaged script source code repository. |
+| PACKAGE_SOC            | all                    | Set the `SoC` of the packaging box, the default `all` packs all boxes, you can specify a single box such as `s905x3`, you can choose multiple boxes to use _ connection such as `s905x3_s905d` |
+| KERNEL_VERSION_NAME    | 5.4.108_5.10.26.TF     | Set the kernel version，Ophub's [kernel](https://github.com/ophub/amlogic-s9xxx-openwrt/tree/main/amlogic-s9xxx/amlogic-kernel/kernel) library contains many original kernels of `Flippy`, you can view and choose to specify. |
+| GZIP_IMGS_VALUE        | true                   | Set whether to automatically compress to .img.gz file after packaging (compression package upload and download faster) |
+| SCRIPT_VPLUS_FILE      | mk_h6_vplus.sh         | Set the script file name for packaging `h6 vplus` |
+| SCRIPT_BEIKEYUN_FILE   | mk_rk3328_beikeyun.sh  | Set the script file name for packaging `rk3328 beikeyun` |
+| SCRIPT_L1PRO_FILE      | mk_rk3328_l1pro.sh     | Set the script file name for packaging `rk3328 l1pro` |
+| SCRIPT_S905_FILE       | mk_s905_mxqpro+.sh     | Set the script file name for packaging `s905 mxqpro+` |
+| SCRIPT_S905D_FILE      | mk_s905d_n1.sh         | Set the script file name for packaging `s905d n1` |
+| SCRIPT_S905X2_FILE     | mk_s905x2_x96max.sh    | Set the script file name for packaging `s905x2 x96max` |
+| SCRIPT_S905X3_FILE     | mk_s905x3_multi.sh     | Set the script file name for packaging `s905x3 multi` |
+| SCRIPT_S912_FILE       | mk_s912_zyxq.sh        | Set the script file name for packaging `s912 zyxq` |
+| SCRIPT_S022X_FILE      | mk_s922x_gtking.sh     | Set the script file name for packaging `s922x gtking` |
+| WHOAMI_VALUE           | flippy                 | Set the value of the `WHOAMI` parameter in `make.env` |
+| OPENWRT_VER_VALUE      | R21.4.18               | Set the value of the `OPENWRT_VER_VALUE` parameter in `make.env` |
+| SFE_FLAG_VALUE         | 0                      | Set the value of the `SFE_FLAG_VALUE` parameter in `make.env` |
+| FLOWOFFLOAD_FLAG_VALUE | 1                      | Set the value of the `FLOWOFFLOAD_FLAG_VALUE` parameter in `make.env` |
 
 💡 Normally, you can use the default parameters, but you can also configure them according to your needs. For example, after Flippy renamed the packaging script, the original default script file cannot be found, and the firmware version number in make.env has not been updated. You can use optional parameters for real-time designation and personalized configuration.
 
@@ -53,11 +53,11 @@ According to the latest kernel packaging script released by `Flippy`, optional p
 
 According to the standard of github.com, 3 environment variables are output to facilitate the subsequent use of the compilation step.
 
-| parameter                      | For example             | Description                        |
-|--------------------------------|-------------------------|------------------------------------|
-| ${{ env.PACKAGED_OUTPUTPATH }} | /opt/openwrt_packit/tmp | The path of the folder where the packaged firmware is located |
-| ${{ env.PACKAGED_OUTPUTDATE }} | 2021.04.21.1058         | Packing date                       |
-| ${{ env.PACKAGED_STATUS }}     | success / failure       | Package status. success / failure  |
+| parameter                            | For example             | Description      |
+|--------------------------------------|-------------------------|------------------|
+| ${{ env.PACKAGED_OUTPUTPATH }}       | /opt/openwrt_packit/tmp | The path of the folder where the packaged firmware is located |
+| ${{ env.PACKAGED_OUTPUTDATE }}       | 2021.04.21.1058         | Packing date     |
+| ${{ env.PACKAGED_STATUS }}           | success / failure       | Package status.  |
 
 ## Acknowledgments
 
