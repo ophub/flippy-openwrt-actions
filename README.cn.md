@@ -63,7 +63,7 @@
 
 ## OpenWrt 固件个性化定制说明
 
-此 `Actions` 仅提供 OpenWrt 打包服务，你需要自己编译 `openwrt-armvirt-64-default-rootfs.tar.gz` 。有个性化编译需要的可以查看 [armvirt_64](https://github.com/ophub/op/tree/main/router/armvirt_64)
+此 `Actions` 仅提供 OpenWrt 打包服务，你需要自己编译 `openwrt-armvirt-64-default-rootfs.tar.gz` ，方法可以查看 [armvirt_64](https://github.com/ophub/op/tree/main/router/armvirt_64)
 
 ## 鸣谢
 
