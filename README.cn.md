@@ -4,7 +4,7 @@
 
 完全使用 [Flippy 原站](https://github.com/unifreq/openwrt_packit) 的打包脚本，不做任何脚本修改，仅进行了智能化 Action 应用开发，让打包操作变得更加简单化和个性化。
 
-支持 ***`贝壳云、我家云、微加云*** , 以及 Amlogic S9xxx 系列型号如 ***`S905x3, S905x2, S922x, S905x, S905d, S905, s912`*** 等
+支持 贝壳云、我家云、微加云，以及 Amlogic S9xxx 系列型号如 S905x3、S905x2、S922x、S905x、S905d，S905，s912 等。
 
 ## 使用方法
 
