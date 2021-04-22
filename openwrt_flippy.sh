@@ -19,7 +19,7 @@ PACKAGE_OPENWRT=("vplus" "beikeyun" "l1pro" "s905" "s905d" "s905x2" "s905x3" "s9
 SELECT_ARMBIANKERNEL=("5.10.26.TF" "5.4.108")
 KERNEL_REPO="https://github.com/ophub/amlogic-s9xxx-openwrt/trunk/amlogic-s9xxx/amlogic-kernel/kernel"
 MAKE_PATH=${PWD}
-SCRIPT_REPO_URL_VALUE="https://github.com/unifreq/openwrt_packit"
+SCRIPT_REPO_URL_VALUE="unifreq/openwrt_packit"
 SCRIPT_REPO_BRANCH_VALUE="master"
 PACKAGE_SOC_VALUE="s905d_s905x3_beikeyun"
 KERNEL_VERSION_NAME_VALUE="5.10.26.TF_5.4.108"
@@ -59,6 +59,7 @@ ERROR="[${red_font_prefix}ERROR${font_color_suffix}]"
 
 # Specify the default value
 [[ -n "${SCRIPT_REPO_URL}" ]] || SCRIPT_REPO_URL="${SCRIPT_REPO_URL_VALUE}"
+[[ ${SCRIPT_REPO_URL} == http* ]] || SCRIPT_REPO_URL="https://github.com/${SCRIPT_REPO_URL}"
 [[ -n "${SCRIPT_REPO_BRANCH}" ]] || SCRIPT_REPO_BRANCH="${SCRIPT_REPO_BRANCH_VALUE}"
 [[ -n "${PACKAGE_SOC}" ]] || PACKAGE_SOC="${PACKAGE_SOC_VALUE}"
 [[ -n "${KERNEL_VERSION_NAME}" ]] || KERNEL_VERSION_NAME="${KERNEL_VERSION_NAME_VALUE}"
