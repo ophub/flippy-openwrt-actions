@@ -178,7 +178,16 @@ sync
     i=1
     for PACKAGE_VAR in ${PACKAGE_OPENWRT[*]}; do
         {
-            echo -e "${STEPS} (${k}.${i}) Start packaging OpenWrt, SoC is [ ${PACKAGE_VAR} ] and Kernel is [ ${KERNEL_VAR} ]"
+            echo -e "${STEPS} (${k}.${i}) Start packaging OpenWrt, SoC is [ ${PACKAGE_VAR} ] and Kernel is [ ${KERNEL_VAR} ] \n"
+
+            now_remaining_space=$(df -hT ${PWD} | grep '/dev/' | awk '{print $5}' | sed 's/.$//')
+            if  [[ "${now_remaining_space}" -le "2" ]]; then
+                echo -e "${WARNING} If the remaining space is less than 2G, exit this packaging. \n"
+                break
+            else
+                echo -e "${INFO} Remaining space is ${now_remaining_space}G. \n"
+            fi
+
             case "${PACKAGE_VAR}" in
                   vplus | s1) sudo ./${SCRIPT_VPLUS} ;;
                   beikeyun | s2) sudo ./${SCRIPT_BEIKEYUN} ;;
@@ -203,6 +212,7 @@ sync
             let i++
         }
     done
+
     cd ../
     
     let k++
