@@ -12,7 +12,7 @@
 
 ```yaml
 
-- name: OpenWrt Packaging
+- name: Package Armvirt as OpenWrt
   uses: ophub/flippy-openwrt-actions@main
   env:
     OPENWRT_ARMVIRT: openwrt/bin/targets/*/*/*.tar.gz
