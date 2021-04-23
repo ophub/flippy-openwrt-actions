@@ -12,7 +12,7 @@ Introduce this Actions in the `.github/workflows/*.yml` cloud compilation script
 
 ```yaml
 
-- name: Packaged OpenWrt
+- name: Package Armvirt as OpenWrt
   uses: ophub/flippy-openwrt-actions@main
   env:
     OPENWRT_ARMVIRT: openwrt/bin/targets/*/*/*.tar.gz
