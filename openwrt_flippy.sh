@@ -15,14 +15,14 @@ if [[ -z "${OPENWRT_ARMVIRT}" ]]; then
 fi
 
 # Set the default value
+MAKE_PATH=${PWD}
 PACKAGE_OPENWRT=("vplus" "beikeyun" "l1pro" "s905" "s905d" "s905x2" "s905x3" "s912" "s922x")
 SELECT_ARMBIANKERNEL=("5.10.26.TF" "5.4.108")
-KERNEL_REPO="https://github.com/ophub/amlogic-s9xxx-openwrt/trunk/amlogic-s9xxx/amlogic-kernel/kernel"
-MAKE_PATH=${PWD}
 SCRIPT_REPO_URL_VALUE="unifreq/openwrt_packit"
 SCRIPT_REPO_BRANCH_VALUE="master"
-PACKAGE_SOC_VALUE="s905d_s905x3_beikeyun"
+KERNEL_REPO_URL_VALUE="https://github.com/ophub/amlogic-s9xxx-openwrt/trunk/amlogic-s9xxx/amlogic-kernel/kernel"
 KERNEL_VERSION_NAME_VALUE="5.10.26.TF_5.4.108"
+PACKAGE_SOC_VALUE="s905d_s905x3_beikeyun"
 GZIP_IMGS_VALUE="true"
 SELECT_OUTPUTPATH_VALUE="/opt/openwrt_packit/tmp"
 SAVE_OPENWRT_ARMVIRT_VALUE="true"
@@ -41,8 +41,8 @@ SCRIPT_S022X_FILE="mk_s922x_gtking.sh"
 # Set make.env related parameters
 WHOAMI_VALUE="flippy"
 OPENWRT_VER_VALUE="R21.4.18"
-SFE_FLAG_VALUE=0
-FLOWOFFLOAD_FLAG_VALUE=1
+SFE_FLAG_VALUE="0"
+FLOWOFFLOAD_FLAG_VALUE="1"
 
 # Set font color
 blue_font_prefix="\033[34m"
@@ -61,6 +61,8 @@ ERROR="[${red_font_prefix}ERROR${font_color_suffix}]"
 [[ -n "${SCRIPT_REPO_URL}" ]] || SCRIPT_REPO_URL="${SCRIPT_REPO_URL_VALUE}"
 [[ ${SCRIPT_REPO_URL} == http* ]] || SCRIPT_REPO_URL="https://github.com/${SCRIPT_REPO_URL}"
 [[ -n "${SCRIPT_REPO_BRANCH}" ]] || SCRIPT_REPO_BRANCH="${SCRIPT_REPO_BRANCH_VALUE}"
+[[ -n "${KERNEL_REPO_URL}" ]] || KERNEL_REPO_URL="${KERNEL_REPO_URL_VALUE}"
+[[ ${KERNEL_REPO_URL} == http* ]] || KERNEL_REPO_URL="https://github.com/${KERNEL_REPO_URL}"
 [[ -n "${PACKAGE_SOC}" ]] || PACKAGE_SOC="${PACKAGE_SOC_VALUE}"
 [[ -n "${KERNEL_VERSION_NAME}" ]] || KERNEL_VERSION_NAME="${KERNEL_VERSION_NAME_VALUE}"
 [[ -n "${GZIP_IMGS}" ]] || GZIP_IMGS=${GZIP_IMGS_VALUE}
@@ -129,7 +131,7 @@ echo -e "${INFO} Package OpenWrt Kernel List: [ ${SELECT_ARMBIANKERNEL[*]} ]"
 i=1
 for KERNEL_VAR in ${SELECT_ARMBIANKERNEL[*]}; do
     echo -e "${INFO} (${i}) ${KERNEL_VAR} Kernel loading..."
-    svn checkout ${KERNEL_REPO}/${KERNEL_VAR} kernel
+    svn checkout ${KERNEL_REPO_URL}/${KERNEL_VAR} kernel
     pushd kernel && sudo rm -rf .svn && popd >/dev/null
     let i++
 done
