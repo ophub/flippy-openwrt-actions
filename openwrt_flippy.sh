@@ -130,7 +130,7 @@ echo -e "${INFO} Package OpenWrt Kernel List: [ ${SELECT_ARMBIANKERNEL[*]} ]"
 
 i=1
 for KERNEL_VAR in ${SELECT_ARMBIANKERNEL[*]}; do
-    echo -e "${INFO} (${i}) ${KERNEL_VAR} Kernel loading..."
+    echo -e "${INFO} (${i}) ${KERNEL_VAR} Kernel loading from [ ${KERNEL_REPO_URL}/${KERNEL_VAR} ]"
     svn checkout ${KERNEL_REPO_URL}/${KERNEL_VAR} kernel
     pushd kernel && sudo rm -rf .svn && popd >/dev/null
     let i++
