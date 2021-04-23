@@ -18,7 +18,7 @@ fi
 MAKE_PATH=${PWD}
 PACKAGE_OPENWRT=("vplus" "beikeyun" "l1pro" "s905" "s905d" "s905x2" "s905x3" "s912" "s922x")
 SELECT_ARMBIANKERNEL=("5.10.26.TF" "5.4.108")
-SCRIPT_REPO_URL_VALUE="unifreq/openwrt_packit"
+SCRIPT_REPO_URL_VALUE="https://github.com/unifreq/openwrt_packit"
 SCRIPT_REPO_BRANCH_VALUE="master"
 KERNEL_REPO_URL_VALUE="https://github.com/ophub/amlogic-s9xxx-openwrt/trunk/amlogic-s9xxx/amlogic-kernel/kernel"
 KERNEL_VERSION_NAME_VALUE="5.10.26.TF_5.4.108"
