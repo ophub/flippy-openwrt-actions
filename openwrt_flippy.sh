@@ -92,7 +92,7 @@ cd /opt
 echo -e "${INFO} Server space usage before starting to compile:\n$(df -hT ${PWD}) \n"
 
 # clone openwrt_packit repo
-echo -e "${STEPS} Cloning package script repository [ ${SCRIPT_REPO_URL} ], branch [ ${SCRIPT_REPO_BRANCH} ] into openwrt_packit. \n"
+echo -e "${STEPS} Cloning package script repository [ ${SCRIPT_REPO_URL} ], branch [ ${SCRIPT_REPO_BRANCH} ] into openwrt_packit."
 git clone --depth 1 ${SCRIPT_REPO_URL} -b ${SCRIPT_REPO_BRANCH} openwrt_packit
 
 # Load openwrt-armvirt-64-default-rootfs.tar.gz
@@ -124,6 +124,7 @@ if  [[ -n "${KERNEL_VERSION_NAME}" ]]; then
     SELECT_ARMBIANKERNEL=(${KERNEL_VERSION_NAME})
     IFS=$oldIFS
 fi
+echo -e "${INFO} Package OpenWrt Kernel List: [ ${SELECT_ARMBIANKERNEL[*]} ] \n"
 
 i=1
 for KERNEL_VAR in ${SELECT_ARMBIANKERNEL[*]}; do
@@ -133,7 +134,6 @@ for KERNEL_VAR in ${SELECT_ARMBIANKERNEL[*]}; do
     let i++
 done
 sync
-echo -e "${INFO} Package OpenWrt Kernel List: [ ${SELECT_ARMBIANKERNEL[*]} ]"
 
 # Confirm package object
 if  [[ -n "${PACKAGE_SOC}" && "${PACKAGE_SOC}" != "all" ]]; then
@@ -143,7 +143,7 @@ if  [[ -n "${PACKAGE_SOC}" && "${PACKAGE_SOC}" != "all" ]]; then
     PACKAGE_OPENWRT=(${PACKAGE_SOC})
     IFS=$oldIFS
 fi
-echo -e "${INFO} Package OpenWrt SoC List: [ ${PACKAGE_OPENWRT[*]} ]"
+echo -e "${INFO} Package OpenWrt SoC List: [ ${PACKAGE_OPENWRT[*]} ] \n"
 
 # Packaged OpenWrt
 echo -e "${STEPS} Start packaging openwrt..."
