@@ -161,7 +161,7 @@ for KERNEL_VAR in ${SELECT_ARMBIANKERNEL[*]}; do
     
     cd openwrt_packit
     
-    rm -f make.env
+    rm -f make.env 2>/dev/null
     cat > make.env <<EOF
 WHOAMI="${WHOAMI}"
 OPENWRT_VER="${OPENWRT_VER}"
