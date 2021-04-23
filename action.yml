@@ -1,4 +1,4 @@
-name: 'package openwrt'
+name: 'flippy-openwrt-actions'
 author: 'codesnas'
 description: 'Use flippy script to package openwrt'
 inputs:
