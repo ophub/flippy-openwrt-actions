@@ -1,9 +1,9 @@
-name: 'flippy-openwrt-actions'
-author: 'codesnas'
-description: 'Use flippy script to package openwrt'
+name: 'Package Armvirt as OpenWrt'
+author: 'ophub'
+description: 'Package Armvirt as OpenWrt. Support Amlogic S9xxx STB, vplus, beikeyun and l1pro, etc.'
 inputs:
   mode:
-    description: 'choose script'
+    description: 'Choose script.'
     required: false
     default: 'flippy'
 runs:
