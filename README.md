@@ -4,7 +4,7 @@ View Chinese description  |  [查看中文说明](README.cn.md)
 
 The packaging scripts of the [Flippy repository](https://github.com/unifreq/openwrt_packit) are completely used, without any script modification, and only intelligent Action application development is carried out, making the packaging operation easier and more personalized.
 
-Support vplus, beikeyun, l1pro, and Amlogic S9xxx STB are S905x3, S905x2, S922x, S905x, S905d, s905, s912.
+Support vplus, beikeyun, l1pro, and Amlogic S9xxx STB are S905x3, S905x2, S922x, S905x, S905d, S905, S912.
 
 ## Instructions
 
@@ -14,8 +14,6 @@ Introduce this Actions in the `.github/workflows/*.yml` cloud compilation script
 
 - name: Packaged OpenWrt
   uses: ophub/flippy-openwrt-actions@main
-  with:
-    mode: flippy
   env:
     OPENWRT_ARMVIRT: openwrt/bin/targets/*/*/*.tar.gz
     PACKAGE_SOC: s905d_s905x3_beikeyun
@@ -63,7 +61,7 @@ According to the standard of github.com, 3 environment variables are output to f
 
 ## OpenWRT firmware personalized custom description
 
-This `Actions` only provides OpenWrt packaging services, you need to compile the `openwrt-armvirt-64-default-rootfs.tar.gz` . You can view [armvirt_64](https://github.com/ophub/op/tree/main/router/armvirt_64)
+This `Actions` only provides OpenWrt packaging services, you need to compile the `openwrt-armvirt-64-default-rootfs.tar.gz` . The compilation method can be viewed [armvirt_64](https://github.com/ophub/op/tree/main/router/armvirt_64)
 
 ## Acknowledgments
 

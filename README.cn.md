@@ -4,7 +4,7 @@
 
 完全使用 [Flippy 原站](https://github.com/unifreq/openwrt_packit) 的打包脚本，不做任何脚本修改，仅进行了智能化 Action 应用开发，让打包操作变得更加简单化和个性化。
 
-支持 贝壳云、我家云、微加云，以及 Amlogic S9xxx 系列型号如 S905x3、S905x2、S922x、S905x、S905d，S905，s912 等。
+支持 贝壳云、我家云、微加云，以及 Amlogic S9xxx 系列型号如 S905x3、S905x2、S922x、S905x、S905d，S905，S912 等。
 
 ## 使用方法
 
@@ -14,8 +14,6 @@
 
 - name: OpenWrt Packaging
   uses: ophub/flippy-openwrt-actions@main
-  with:
-    mode: flippy
   env:
     OPENWRT_ARMVIRT: openwrt/bin/targets/*/*/*.tar.gz
     PACKAGE_SOC: s905d_s905x3_beikeyun
@@ -63,7 +61,7 @@
 
 ## OpenWrt 固件个性化定制说明
 
-此 `Actions` 仅提供 OpenWrt 打包服务，你需要自己编译 `openwrt-armvirt-64-default-rootfs.tar.gz` ，方法可以查看 [armvirt_64](https://github.com/ophub/op/tree/main/router/armvirt_64)
+此 `Actions` 仅提供 OpenWrt 打包服务，你需要自己编译 `openwrt-armvirt-64-default-rootfs.tar.gz` ，编译方法可以查看 [armvirt_64](https://github.com/ophub/op/tree/main/router/armvirt_64)
 
 ## 鸣谢
 
