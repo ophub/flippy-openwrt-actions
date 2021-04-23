@@ -92,30 +92,28 @@ cd /opt
 echo -e "${INFO} Server space usage before starting to compile:\n$(df -hT ${PWD}) \n"
 
 # clone openwrt_packit repo
-echo -e "${STEPS} Cloning repo into openwrt_packit"
+echo -e "${STEPS} Cloning package script repository [ ${SCRIPT_REPO_URL} ], branch [ ${SCRIPT_REPO_BRANCH} ] into openwrt_packit. \n"
 git clone --depth 1 ${SCRIPT_REPO_URL} -b ${SCRIPT_REPO_BRANCH} openwrt_packit
-echo -e "done. \n"
 
 # Load openwrt-armvirt-64-default-rootfs.tar.gz
 if [[ ${OPENWRT_ARMVIRT} == http* ]]; then
-   echo -e "${STEPS} wget openwrt-armvirt-64-default-rootfs.tar.gz file into openwrt_packit"
+   echo -e "${STEPS} wget [ ${OPENWRT_ARMVIRT} ] file into openwrt_packit"
    wget ${OPENWRT_ARMVIRT} -q -P openwrt_packit
 else
-   echo -e "${STEPS} copy openwrt-armvirt-64-default-rootfs.tar.gz file into openwrt_packit"
+   echo -e "${STEPS} copy [ ${GITHUB_WORKSPACE}/${OPENWRT_ARMVIRT} ] file into openwrt_packit"
    cp -f ${GITHUB_WORKSPACE}/${OPENWRT_ARMVIRT} openwrt_packit
 fi
 sync
-echo -e "done. \n"
 
 # Normal openwrt-armvirt-64-default-rootfs.tar.gz file should not be less than 10MB
 armvirt_rootfs_size=$(ls -l openwrt_packit/openwrt-armvirt-64-default-rootfs.tar.gz 2>/dev/null | awk '{print $5}')
-echo -e "${INFO} armvirt_rootfs_size: ${armvirt_rootfs_size}"
+echo -e "${INFO} armvirt_rootfs_size: [ ${armvirt_rootfs_size} ]"
 if [[ "${armvirt_rootfs_size}" -ge "10000000" ]]; then
-   echo -e "${INFO} openwrt_packit/openwrt-armvirt-64-default-rootfs.tar.gz loaded successfully"
+   echo -e "${INFO} openwrt_packit/openwrt-armvirt-64-default-rootfs.tar.gz loaded successfully. \n"
 else
-   echo -e "${ERROR} openwrt_packit/openwrt-armvirt-64-default-rootfs.tar.gz failed to load."
+   echo -e "${ERROR} openwrt_packit/openwrt-armvirt-64-default-rootfs.tar.gz failed to load. \n"
+   exit 1
 fi
-echo -e "done. \n"
 
 # Load all selected kernels
 [ -d kernel ] || sudo mkdir kernel
@@ -135,7 +133,7 @@ for KERNEL_VAR in ${SELECT_ARMBIANKERNEL[*]}; do
     let i++
 done
 sync
-echo -e "${INFO} Package OpenWrt Kernel List: ${SELECT_ARMBIANKERNEL[*]} \n"
+echo -e "${INFO} Package OpenWrt Kernel List: [ ${SELECT_ARMBIANKERNEL[*]} ]"
 
 # Confirm package object
 if  [[ -n "${PACKAGE_SOC}" && "${PACKAGE_SOC}" != "all" ]]; then
@@ -145,7 +143,7 @@ if  [[ -n "${PACKAGE_SOC}" && "${PACKAGE_SOC}" != "all" ]]; then
     PACKAGE_OPENWRT=(${PACKAGE_SOC})
     IFS=$oldIFS
 fi
-echo -e "${INFO} Package OpenWrt SoC List: ${PACKAGE_OPENWRT[*]} \n"
+echo -e "${INFO} Package OpenWrt SoC List: [ ${PACKAGE_OPENWRT[*]} ]"
 
 # Packaged OpenWrt
 echo -e "${STEPS} Start packaging openwrt..."
@@ -178,11 +176,11 @@ sync
     i=1
     for PACKAGE_VAR in ${PACKAGE_OPENWRT[*]}; do
         {
-            echo -e "${STEPS} (${k}.${i}) Start packaging OpenWrt, SoC is [ ${PACKAGE_VAR} ] and Kernel is [ ${KERNEL_VAR} ] \n"
+            echo -e "${STEPS} (${k}.${i}) Start packaging OpenWrt, SoC is [ ${PACKAGE_VAR} ] and Kernel is [ ${KERNEL_VAR} ]"
 
             now_remaining_space=$(df -hT ${PWD} | grep '/dev/' | awk '{print $5}' | sed 's/.$//')
             if  [[ "${now_remaining_space}" -le "2" ]]; then
-                echo -e "${WARNING} If the remaining space is less than 2G, exit this packaging. \n"
+                echo -e "${WARNING} If the remaining space is less than 2G, exit this packaging."
                 break
             else
                 echo -e "${INFO} Remaining space is ${now_remaining_space}G. \n"
@@ -219,22 +217,22 @@ sync
 done
 echo -e "${SUCCESS} All packaged completed. \n"
 
-echo -e "${STEPS} Output environment variables. \n"
+echo -e "${STEPS} Output environment variables."
 if  [[ -d openwrt_packit/tmp ]]; then
 
     cd openwrt_packit/tmp
 
     if  [[ "${SAVE_OPENWRT_ARMVIRT}" == "true" ]]; then
-        echo -e "${STEPS} copy openwrt-armvirt-64-default-rootfs.tar.gz files into tmp folder. \n"
+        echo -e "${STEPS} copy openwrt-armvirt-64-default-rootfs.tar.gz files into tmp folder."
         cp -f ../openwrt-armvirt-64-default-rootfs.tar.gz . && sync
     fi
     
-    echo -e "${STEPS} Output environment variables. \n"
+    echo -e "${STEPS} Output environment variables."
     echo "PACKAGED_OUTPUTPATH=${PWD}" >> $GITHUB_ENV
     echo "PACKAGED_OUTPUTDATE=$(date +"%Y.%m.%d.%H%M")" >> $GITHUB_ENV
     echo "PACKAGED_STATUS=success" >> $GITHUB_ENV
     echo -e "${INFO} PACKAGED_OUTPUTPATH files list:"
-    echo -e "$(ls /opt/openwrt_packit/tmp 2>/dev/null) \n"   
+    echo -e "$(ls /opt/openwrt_packit/tmp 2>/dev/null) \n"
 else
     echo -e "${ERROR} Packaging failed. \n"
     echo "PACKAGED_STATUS=failure" >> $GITHUB_ENV
