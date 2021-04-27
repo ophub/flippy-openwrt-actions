@@ -233,6 +233,9 @@ if  [[ -d openwrt_packit/tmp ]]; then
     echo "PACKAGED_OUTPUTPATH=${PWD}" >> $GITHUB_ENV
     echo "PACKAGED_OUTPUTDATE=$(date +"%Y.%m.%d.%H%M")" >> $GITHUB_ENV
     echo "PACKAGED_STATUS=success" >> $GITHUB_ENV
+    echo -e "PACKAGED_OUTPUTPATH: ${PWD}"
+    echo -e "PACKAGED_OUTPUTDATE: $(date +"%Y.%m.%d.%H%M")"
+    echo -e "PACKAGED_STATUS: success"
     echo -e "${INFO} PACKAGED_OUTPUTPATH files list:"
     echo -e "$(ls /opt/openwrt_packit/tmp 2>/dev/null) \n"
 else
@@ -242,5 +245,5 @@ fi
 
 # Server space usage and packaged files
 echo -e "${INFO} Server space usage after compilation:\n$(df -hT ${PWD}) \n"
-echo -e "${STEPS} SThe packaging process has been completed. \n"
+echo -e "${STEPS} The packaging process has been completed. \n"
 
