@@ -11,8 +11,9 @@ runs:
   steps: 
     - shell: bash
       run: |
+        cd ${GITHUB_ACTION_PATH}
         sudo chmod +x openwrt_${{ inputs.mode }}.sh
-        sudo ${GITHUB_ACTION_PATH}/openwrt_${{ inputs.mode }}.sh
+        sudo openwrt_${{ inputs.mode }}.sh
       
 branding:
   icon: 'terminal'
