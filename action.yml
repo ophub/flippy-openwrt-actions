@@ -6,14 +6,12 @@ inputs:
     description: 'Choose script.'
     required: false
     default: 'flippy'
+
 runs:
   using: "composite"
   steps: 
-    - shell: bash
-      run: |
-        cd ${GITHUB_ACTION_PATH}
-        sudo chmod +x openwrt_${{ inputs.mode }}.sh
-        sudo ./openwrt_${{ inputs.mode }}.sh
+    - run: ${GITHUB_ACTION_PATH}/openwrt_${{ inputs.mode }}.sh
+      shell: bash
       
 branding:
   icon: 'terminal'
