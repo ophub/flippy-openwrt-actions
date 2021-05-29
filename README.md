@@ -18,7 +18,7 @@ Introduce this Actions in the `.github/workflows/*.yml` cloud compilation script
     OPENWRT_ARMVIRT: openwrt/bin/targets/*/*/*.tar.gz
     PACKAGE_SOC: s905d_s905x3_beikeyun
     KERNEL_VERSION_NAME: 5.10.41.TF_5.12.8.TF_5.4.123
-    OPENWRT_VER_VALUE: R21.6.1
+    OPENWRT_VER: R21.6.1
 
 ```
 
@@ -44,10 +44,10 @@ According to the latest kernel packaging script released by `Flippy`, optional p
 | SCRIPT_S905X3_FILE     | mk_s905x3_multi.sh     | Set the script file name for packaging `s905x3 multi` |
 | SCRIPT_S912_FILE       | mk_s912_zyxq.sh        | Set the script file name for packaging `s912 zyxq` |
 | SCRIPT_S022X_FILE      | mk_s922x_gtking.sh     | Set the script file name for packaging `s922x gtking` |
-| WHOAMI_VALUE           | flippy                 | Set the value of the `WHOAMI` parameter in `make.env` |
-| OPENWRT_VER_VALUE      | R21.4.18               | Set the value of the `OPENWRT_VER_VALUE` parameter in `make.env` |
-| SFE_FLAG_VALUE         | 0                      | Set the value of the `SFE_FLAG_VALUE` parameter in `make.env` |
-| FLOWOFFLOAD_FLAG_VALUE | 1                      | Set the value of the `FLOWOFFLOAD_FLAG_VALUE` parameter in `make.env` |
+| WHOAMI                 | flippy                 | Set the value of the `WHOAMI` parameter in `make.env` |
+| OPENWRT_VER            | R21.4.18               | Set the value of the `OPENWRT_VER_VALUE` parameter in `make.env` |
+| SFE_FLAG               | 0                      | Set the value of the `SFE_FLAG_VALUE` parameter in `make.env` |
+| FLOWOFFLOAD_FLAG       | 1                      | Set the value of the `FLOWOFFLOAD_FLAG_VALUE` parameter in `make.env` |
 
 💡 Normally, you can use the default parameters, but you can also configure them according to your needs. For example, after Flippy renamed the packaging script, the original default script file cannot be found, and the firmware version number in make.env has not been updated. You can use optional parameters for real-time designation and personalized configuration.
 
