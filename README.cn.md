@@ -17,7 +17,8 @@
   env:
     OPENWRT_ARMVIRT: openwrt/bin/targets/*/*/*.tar.gz
     PACKAGE_SOC: s905d_s905x3_beikeyun
-    KERNEL_VERSION_NAME: 5.10.31.TF_5.4.113
+    KERNEL_VERSION_NAME: 5.10.41.TF_5.12.8.TF_5.4.123
+    OPENWRT_VER: R21.6.1
 
 ```
 
@@ -33,20 +34,20 @@
 | KERNEL_REPO_URL        | [ophub/*/kernel](https://github.com/ophub/flippy-openwrt-actions/blob/main/openwrt_flippy.sh#L23) | 设置内核下载地址，默认从 ophub 的 [kernel](https://github.com/ophub/amlogic-s9xxx-openwrt/tree/main/amlogic-s9xxx/amlogic-kernel/kernel) 库里下载 Flippy 的原版内核，你可以设置为其他网络下载地址。`svn checkout` 地址格式如 `https://github.com/ophub/amlogic-s9xxx-openwrt/trunk/amlogic-s9xxx/amlogic-kernel/kernel` |
 | KERNEL_VERSION_NAME    | 5.4.108_5.10.26.TF     | 设置内核版本，ophub 的 [kernel](https://github.com/ophub/amlogic-s9xxx-openwrt/tree/main/amlogic-s9xxx/amlogic-kernel/kernel) 库里收藏了众多 Flippy 的原版内核，可以查看并选择指定。可指定单个内核如 `5.4.108` ，可选择多个内核用`_`连接如 `5.4.108_5.10.26.TF` ，内核名称以 kernel 目录中的文件夹名称为准。 |
 | PACKAGE_SOC            | s905d_s905x3_beikeyun  | 设置打包盒子的 `SOC` ，默认 `all` 打包全部盒子，可指定单个盒子如 `s905x3` ，可选择多个盒子用`_`连接如 `s905x3_s905d` 。各盒子的SoC代码为：`vplus` `beikeyun` `l1pro` `s905` `s905d` `s905x2` `s905x3` `s912` `s922x` |
-| GZIP_IMGS_VALUE        | true                   | 设置打包完毕是否自动压缩为 .img.gz 文件 (压缩包上传下载更快) |
-| SCRIPT_VPLUS_FILE      | mk_h6_vplus.sh         | 设置打包 `h6 vplus` 的脚本文件名                 |
-| SCRIPT_BEIKEYUN_FILE   | mk_rk3328_beikeyun.sh  | 设置打包 `rk3328 beikeyun` 的脚本文件名          |
-| SCRIPT_L1PRO_FILE      | mk_rk3328_l1pro.sh     | 设置打包 `rk3328 l1pro` 的脚本文件名             |
-| SCRIPT_S905_FILE       | mk_s905_mxqpro+.sh     | 设置打包 `s905 mxqpro+` 的脚本文件名             |
-| SCRIPT_S905D_FILE      | mk_s905d_n1.sh         | 设置打包 `s905d n1` 的脚本文件名                 |
-| SCRIPT_S905X2_FILE     | mk_s905x2_x96max.sh    | 设置打包 `s905x2 x96max` 的脚本文件名            |
-| SCRIPT_S905X3_FILE     | mk_s905x3_multi.sh     | 设置打包 `s905x3 multi` 的脚本文件名             |
-| SCRIPT_S912_FILE       | mk_s912_zyxq.sh        | 设置打包 `s912 zyxq` 的脚本文件名                |
-| SCRIPT_S022X_FILE      | mk_s922x_gtking.sh     | 设置打包 `s922x gtking` 的脚本文件名             |
-| WHOAMI_VALUE           | flippy                 | 设置 `make.env` 中 `WHOAMI` 参数的值            |
-| OPENWRT_VER_VALUE      | R21.4.18               | 设置 `make.env` 中 `OPENWRT_VER` 参数的值       |
-| SFE_FLAG_VALUE         | 0                      | 设置 `make.env` 中 `SFE_FLAG` 参数的值          |
-| FLOWOFFLOAD_FLAG_VALUE | 1                      | 设置 `make.env` 中 `FLOWOFFLOAD_FLAG` 参数的值  |
+| GZIP_IMGS              | true                   | 设置打包完毕是否自动压缩为 .img.gz 文件 (压缩包上传下载更快) |
+| SCRIPT_VPLUS           | mk_h6_vplus.sh         | 设置打包 `h6 vplus` 的脚本文件名                 |
+| SCRIPT_BEIKEYUN        | mk_rk3328_beikeyun.sh  | 设置打包 `rk3328 beikeyun` 的脚本文件名          |
+| SCRIPT_L1PRO           | mk_rk3328_l1pro.sh     | 设置打包 `rk3328 l1pro` 的脚本文件名             |
+| SCRIPT_S905            | mk_s905_mxqpro+.sh     | 设置打包 `s905 mxqpro+` 的脚本文件名             |
+| SCRIPT_S905D           | mk_s905d_n1.sh         | 设置打包 `s905d n1` 的脚本文件名                 |
+| SCRIPT_S905X2          | mk_s905x2_x96max.sh    | 设置打包 `s905x2 x96max` 的脚本文件名            |
+| SCRIPT_S905X3          | mk_s905x3_multi.sh     | 设置打包 `s905x3 multi` 的脚本文件名             |
+| SCRIPT_S912            | mk_s912_zyxq.sh        | 设置打包 `s912 zyxq` 的脚本文件名                |
+| SCRIPT_S022X           | mk_s922x_gtking.sh     | 设置打包 `s922x gtking` 的脚本文件名             |
+| WHOAMI                 | flippy                 | 设置 `make.env` 中 `WHOAMI` 参数的值            |
+| OPENWRT_VER            | R21.4.18               | 设置 `make.env` 中 `OPENWRT_VER` 参数的值       |
+| SFE_FLAG               | 0                      | 设置 `make.env` 中 `SFE_FLAG` 参数的值          |
+| FLOWOFFLOAD_FLAG       | 1                      | 设置 `make.env` 中 `FLOWOFFLOAD_FLAG` 参数的值  |
 
 💡 一般情况下使用默认参数即可，你也可以根据需要进行配置。例如在 Flippy 把打包脚本重命名后导致无法找到原默认脚本文件、make.env 中的固件版本号未更新等情况下，你可以使用可选参数进行实时指定及个性化配置。
 
