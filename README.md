@@ -17,7 +17,7 @@ Introduce this Actions in the `.github/workflows/*.yml` cloud compilation script
   env:
     OPENWRT_ARMVIRT: openwrt/bin/targets/*/*/*.tar.gz
     PACKAGE_SOC: s905d_s905x3_beikeyun
-    KERNEL_VERSION_NAME: 5.10.41.TF_5.12.8.TF_5.4.123
+    KERNEL_VERSION_NAME: 5.12.8.TF_5.4.123
     OPENWRT_VER: R21.6.1
 
 ```
