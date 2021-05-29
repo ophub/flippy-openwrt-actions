@@ -34,16 +34,16 @@ According to the latest kernel packaging script released by `Flippy`, optional p
 | KERNEL_REPO_URL        | [ophub/*/kernel](https://github.com/ophub/flippy-openwrt-actions/blob/main/openwrt_flippy.sh#L23) | Set the kernel download address, Used by default from [kernel](https://github.com/ophub/amlogic-s9xxx-openwrt/tree/main/amlogic-s9xxx/amlogic-kernel/kernel) , You can set it as other network download address. `svn checkout` The address format is like `https://github.com/ophub/amlogic-s9xxx-openwrt/trunk/amlogic-s9xxx/amlogic-kernel/kernel` |
 | KERNEL_VERSION_NAME    | 5.4.108_5.10.26.TF     | Set the kernel version，Ophub's [kernel](https://github.com/ophub/amlogic-s9xxx-openwrt/tree/main/amlogic-s9xxx/amlogic-kernel/kernel) library contains many original kernels of `Flippy`, you can view and choose to specify. you can specify a single kernel such as `5.4.108`, you can choose multiple kernel to use `_` connection such as `5.4.108_5.10.26.TF` . The name of the kernel is subject to the folder name in the kernel directory. |
 | PACKAGE_SOC            | s905d_s905x3_beikeyun  | Set the `SoC` of the packaging box, the default `all` packs all boxes, you can specify a single box such as `s905x3`, you can choose multiple boxes to use `_` connection such as `s905x3_s905d` . SOC code of each box is: `vplus` `beikeyun` `l1pro` `s905` `s905d` `s905x2` `s905x3` `s912` `s922x` |
-| GZIP_IMGS_VALUE        | true                   | Set whether to automatically compress to .img.gz file after packaging (compression package upload and download faster) |
-| SCRIPT_VPLUS_FILE      | mk_h6_vplus.sh         | Set the script file name for packaging `h6 vplus` |
-| SCRIPT_BEIKEYUN_FILE   | mk_rk3328_beikeyun.sh  | Set the script file name for packaging `rk3328 beikeyun` |
-| SCRIPT_L1PRO_FILE      | mk_rk3328_l1pro.sh     | Set the script file name for packaging `rk3328 l1pro` |
-| SCRIPT_S905_FILE       | mk_s905_mxqpro+.sh     | Set the script file name for packaging `s905 mxqpro+` |
-| SCRIPT_S905D_FILE      | mk_s905d_n1.sh         | Set the script file name for packaging `s905d n1` |
-| SCRIPT_S905X2_FILE     | mk_s905x2_x96max.sh    | Set the script file name for packaging `s905x2 x96max` |
-| SCRIPT_S905X3_FILE     | mk_s905x3_multi.sh     | Set the script file name for packaging `s905x3 multi` |
-| SCRIPT_S912_FILE       | mk_s912_zyxq.sh        | Set the script file name for packaging `s912 zyxq` |
-| SCRIPT_S022X_FILE      | mk_s922x_gtking.sh     | Set the script file name for packaging `s922x gtking` |
+| GZIP_IMGS              | true                   | Set whether to automatically compress to .img.gz file after packaging (compression package upload and download faster) |
+| SCRIPT_VPLUS           | mk_h6_vplus.sh         | Set the script file name for packaging `h6 vplus` |
+| SCRIPT_BEIKEYUN        | mk_rk3328_beikeyun.sh  | Set the script file name for packaging `rk3328 beikeyun` |
+| SCRIPT_L1PRO           | mk_rk3328_l1pro.sh     | Set the script file name for packaging `rk3328 l1pro` |
+| SCRIPT_S905            | mk_s905_mxqpro+.sh     | Set the script file name for packaging `s905 mxqpro+` |
+| SCRIPT_S905D           | mk_s905d_n1.sh         | Set the script file name for packaging `s905d n1` |
+| SCRIPT_S905X2          | mk_s905x2_x96max.sh    | Set the script file name for packaging `s905x2 x96max` |
+| SCRIPT_S905X3          | mk_s905x3_multi.sh     | Set the script file name for packaging `s905x3 multi` |
+| SCRIPT_S912            | mk_s912_zyxq.sh        | Set the script file name for packaging `s912 zyxq` |
+| SCRIPT_S022X           | mk_s922x_gtking.sh     | Set the script file name for packaging `s922x gtking` |
 | WHOAMI                 | flippy                 | Set the value of the `WHOAMI` parameter in `make.env` |
 | OPENWRT_VER            | R21.4.18               | Set the value of the `OPENWRT_VER_VALUE` parameter in `make.env` |
 | SFE_FLAG               | 0                      | Set the value of the `SFE_FLAG_VALUE` parameter in `make.env` |
