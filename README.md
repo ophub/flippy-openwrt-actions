@@ -17,7 +17,7 @@ Introduce this Actions in the `.github/workflows/*.yml` cloud compilation script
   env:
     OPENWRT_ARMVIRT: openwrt/bin/targets/*/*/*.tar.gz
     PACKAGE_SOC: s905d_s905x3_beikeyun
-    KERNEL_VERSION_NAME: 5.12.8.TF_5.4.123
+    KERNEL_VERSION_NAME: 5.12.9_5.4.124
     OPENWRT_VER: R21.6.1
 
 ```
@@ -32,7 +32,7 @@ According to the latest kernel packaging script released by `Flippy`, optional p
 | SCRIPT_REPO_URL        | [unifreq/openwrt_packit](https://github.com/ophub/flippy-openwrt-actions/blob/main/openwrt_flippy.sh#L21) | Set up the packaging script source code repository. You can fill in the full URL of `github` such as `https://github.com/unifreq/openwrt_packit` or repository/project abbreviation such as `unifreq/openwrt_packit` |
 | SCRIPT_REPO_BRANCH     | master                 | Set the branch of the packaged script source code repository. |
 | KERNEL_REPO_URL        | [ophub/*/amlogic-kernel](https://github.com/ophub/flippy-openwrt-actions/blob/main/openwrt_flippy.sh#L23) | Set the kernel download address, Used by default from [amlogic-kernel](https://github.com/ophub/amlogic-s9xxx-openwrt/tree/main/amlogic-s9xxx/amlogic-kernel) , You can set it as other network download address. `svn checkout` The address format is like `https://github.com/ophub/amlogic-s9xxx-openwrt/trunk/amlogic-s9xxx/amlogic-kernel/kernel` |
-| KERNEL_VERSION_NAME    | 5.4.108_5.10.26.TF     | Set the kernel version，Ophub's [amlogic-kernel](https://github.com/ophub/amlogic-s9xxx-openwrt/tree/main/amlogic-s9xxx/amlogic-kernel) library contains many original kernels of `Flippy`, you can view and choose to specify. you can specify a single kernel such as `5.4.108`, you can choose multiple kernel to use `_` connection such as `5.4.108_5.10.26.TF` . The name of the kernel is subject to the folder name in the kernel directory. |
+| KERNEL_VERSION_NAME    | 5.12.9_5.4.124         | Set the kernel version，Ophub's [amlogic-kernel](https://github.com/ophub/amlogic-s9xxx-openwrt/tree/main/amlogic-s9xxx/amlogic-kernel) library contains many original kernels of `Flippy`, you can view and choose to specify. you can specify a single kernel such as `5.4.124`, you can choose multiple kernel to use `_` connection such as `5.12.9_5.4.124` . The name of the kernel is subject to the folder name in the kernel directory. |
 | PACKAGE_SOC            | s905d_s905x3_beikeyun  | Set the `SoC` of the packaging box, the default `all` packs all boxes, you can specify a single box such as `s905x3`, you can choose multiple boxes to use `_` connection such as `s905x3_s905d` . SOC code of each box is: `vplus` `beikeyun` `l1pro` `s905` `s905d` `s905x2` `s905x3` `s912` `s922x` |
 | GZIP_IMGS              | true                   | Set whether to automatically compress to .img.gz file after packaging (compression package upload and download faster) |
 | SCRIPT_VPLUS           | mk_h6_vplus.sh         | Set the script file name for packaging `h6 vplus` |
