@@ -40,9 +40,11 @@ SCRIPT_S022X_FILE="mk_s922x_gtking.sh"
 
 # Set make.env related parameters
 WHOAMI_VALUE="flippy"
-OPENWRT_VER_VALUE="R21.6.1"
+OPENWRT_VER_VALUE="R21.6.22"
 SFE_FLAG_VALUE="0"
 FLOWOFFLOAD_FLAG_VALUE="1"
+ENABLE_WIFI_K504_VALUE="1"
+ENABLE_WIFI_K510_VALUE="1"
 
 # Set font color
 blue_font_prefix="\033[34m"
@@ -85,6 +87,8 @@ ERROR="[${red_font_prefix}ERROR${font_color_suffix}]"
 [[ -n "${OPENWRT_VER}" ]] || OPENWRT_VER="${OPENWRT_VER_VALUE}"
 [[ -n "${SFE_FLAG}" ]] || SFE_FLAG="${SFE_FLAG_VALUE}"
 [[ -n "${FLOWOFFLOAD_FLAG}" ]] || FLOWOFFLOAD_FLAG="${FLOWOFFLOAD_FLAG_VALUE}"
+[[ -n "${ENABLE_WIFI_K504}" ]] || ENABLE_WIFI_K504="${ENABLE_WIFI_K504_VALUE}"
+[[ -n "${ENABLE_WIFI_K510}" ]] || ENABLE_WIFI_K510="${ENABLE_WIFI_K510_VALUE}"
 
 echo -e "${INFO} Welcome to use the OpenWrt packaging tool! \n"
 
@@ -169,6 +173,8 @@ KERNEL_VERSION="${boot_kernel_file}"
 KERNEL_PKG_HOME="/opt/kernel"
 SFE_FLAG="${SFE_FLAG}"
 FLOWOFFLOAD_FLAG="${FLOWOFFLOAD_FLAG}"
+ENABLE_WIFI_K504="${ENABLE_WIFI_K504}"
+ENABLE_WIFI_K510="${ENABLE_WIFI_K510}"
 EOF
 sync
 

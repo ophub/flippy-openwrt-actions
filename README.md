@@ -45,9 +45,11 @@ According to the latest kernel packaging script released by `Flippy`, optional p
 | SCRIPT_S912            | mk_s912_zyxq.sh        | Set the script file name for packaging `s912 zyxq` |
 | SCRIPT_S022X           | mk_s922x_gtking.sh     | Set the script file name for packaging `s922x gtking` |
 | WHOAMI                 | flippy                 | Set the value of the `WHOAMI` parameter in `make.env` |
-| OPENWRT_VER            | R21.4.18               | Set the value of the `OPENWRT_VER` parameter in `make.env` |
+| OPENWRT_VER            | R21.6.22               | Set the value of the `OPENWRT_VER` parameter in `make.env` |
 | SFE_FLAG               | 0                      | Set the value of the `SFE_FLAG` parameter in `make.env` |
 | FLOWOFFLOAD_FLAG       | 1                      | Set the value of the `FLOWOFFLOAD_FLAG` parameter in `make.env` |
+| ENABLE_WIFI_K504       | 1                      | Set the value of the `ENABLE_WIFI_K504` parameter in `make.env` |
+| ENABLE_WIFI_K510       | 1                      | Set the value of the `ENABLE_WIFI_K510` parameter in `make.env` |
 
 💡 Normally, you can use the default parameters, but you can also configure them according to your needs. For example, after Flippy renamed the packaging script, the original default script file cannot be found, and the firmware version number in make.env has not been updated. You can use optional parameters for real-time designation and personalized configuration.
 
@@ -71,8 +73,6 @@ This `Actions` only provides OpenWrt packaging services, you need to compile the
 - [coolsnowwolf/lede](https://github.com/coolsnowwolf/lede)
 - [Lienol/openwrt](https://github.com/Lienol/openwrt)
 - [unifreq/openwrt_packit](https://github.com/unifreq/openwrt_packit)
-- [tuanqing/mknop](https://github.com/tuanqing/mknop)
-- [P3TERX/Actions-OpenWrt](https://github.com/P3TERX/Actions-OpenWrt)
 
 ## License
 
