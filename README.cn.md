@@ -45,9 +45,11 @@
 | SCRIPT_S912            | mk_s912_zyxq.sh        | 设置打包 `s912 zyxq` 的脚本文件名                |
 | SCRIPT_S022X           | mk_s922x_gtking.sh     | 设置打包 `s922x gtking` 的脚本文件名             |
 | WHOAMI                 | flippy                 | 设置 `make.env` 中 `WHOAMI` 参数的值            |
-| OPENWRT_VER            | R21.4.18               | 设置 `make.env` 中 `OPENWRT_VER` 参数的值       |
+| OPENWRT_VER            | R21.6.22               | 设置 `make.env` 中 `OPENWRT_VER` 参数的值       |
 | SFE_FLAG               | 0                      | 设置 `make.env` 中 `SFE_FLAG` 参数的值          |
 | FLOWOFFLOAD_FLAG       | 1                      | 设置 `make.env` 中 `FLOWOFFLOAD_FLAG` 参数的值  |
+| ENABLE_WIFI_K504       | 1                      | 设置 `make.env` 中 `ENABLE_WIFI_K504` 参数的值  |
+| ENABLE_WIFI_K510       | 1                      | 设置 `make.env` 中 `ENABLE_WIFI_K510` 参数的值  |
 
 💡 一般情况下使用默认参数即可，你也可以根据需要进行配置。例如在 Flippy 把打包脚本重命名后导致无法找到原默认脚本文件、make.env 中的固件版本号未更新等情况下，你可以使用可选参数进行实时指定及个性化配置。
 
@@ -71,8 +73,6 @@
 - [coolsnowwolf/lede](https://github.com/coolsnowwolf/lede)
 - [Lienol/openwrt](https://github.com/Lienol/openwrt)
 - [unifreq/openwrt_packit](https://github.com/unifreq/openwrt_packit)
-- [tuanqing/mknop](https://github.com/tuanqing/mknop)
-- [P3TERX/Actions-OpenWrt](https://github.com/P3TERX/Actions-OpenWrt)
 
 ## License
 
