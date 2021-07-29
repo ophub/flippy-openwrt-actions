@@ -156,7 +156,6 @@ echo -e "${STEPS} Start packaging openwrt..."
 k=1
 for KERNEL_VAR in ${SELECT_ARMBIANKERNEL[*]}; do
 
-    KERNEL_VAR=${KERNEL_VAR//.TF/}
     boot_kernel_file=$( ls kernel/boot-${KERNEL_VAR}* 2>/dev/null | head -n 1 )
     boot_kernel_file=${boot_kernel_file##*/}
     boot_kernel_file=${boot_kernel_file//boot-/}
