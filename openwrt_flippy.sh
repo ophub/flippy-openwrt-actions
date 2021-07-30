@@ -41,7 +41,7 @@ SCRIPT_S022X_FILE="mk_s922x_gtking.sh"
 
 # Set make.env related parameters
 WHOAMI_VALUE="flippy"
-OPENWRT_VER_VALUE="R21.7.30"
+OPENWRT_VER_VALUE="auto"
 SFE_FLAG_VALUE="0"
 FLOWOFFLOAD_FLAG_VALUE="1"
 ENABLE_WIFI_K504_VALUE="1"
@@ -197,7 +197,13 @@ for KERNEL_VAR in ${SELECT_ARMBIANKERNEL[*]}; do
     echo -e "${INFO} (${k}) KERNEL_VERSION: ${boot_kernel_file}"
     
     cd openwrt_packit
-    
+
+    if [[ -n "${OPENWRT_VER}" && "${OPENWRT_VER}" == "auto" ]]; then
+      source "make.env" 2>/dev/null
+      OPENWRT_VER="${OPENWRT_VER}"
+      echo -e "${INFO} (${k}) OPENWRT_VER: ${OPENWRT_VER}"
+    fi
+
     rm -f make.env 2>/dev/null
     cat > make.env <<EOF
 WHOAMI="${WHOAMI}"
