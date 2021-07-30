@@ -18,7 +18,6 @@
     OPENWRT_ARMVIRT: openwrt/bin/targets/*/*/*.tar.gz
     PACKAGE_SOC: s905d_s905x3_beikeyun
     KERNEL_VERSION_NAME: 5.13.2_5.4.132
-    OPENWRT_VER: R21.7.30
 
 ```
 
@@ -46,7 +45,7 @@
 | SCRIPT_S912            | mk_s912_zyxq.sh        | 设置打包 `s912 zyxq` 的脚本文件名                |
 | SCRIPT_S022X           | mk_s922x_gtking.sh     | 设置打包 `s922x gtking` 的脚本文件名             |
 | WHOAMI                 | flippy                 | 设置 `make.env` 中 `WHOAMI` 参数的值            |
-| OPENWRT_VER            | R21.7.30               | 设置 `make.env` 中 `OPENWRT_VER` 参数的值       |
+| OPENWRT_VER            | auto                   | 设置 `make.env` 中 `OPENWRT_VER` 参数的值。默认 `auto` 将自动继承文件中的赋值，设置为其他参数时将替换为自定义参数。 |
 | SFE_FLAG               | 0                      | 设置 `make.env` 中 `SFE_FLAG` 参数的值          |
 | FLOWOFFLOAD_FLAG       | 1                      | 设置 `make.env` 中 `FLOWOFFLOAD_FLAG` 参数的值  |
 | ENABLE_WIFI_K504       | 1                      | 设置 `make.env` 中 `ENABLE_WIFI_K504` 参数的值  |

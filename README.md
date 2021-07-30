@@ -18,7 +18,6 @@ Introduce this Actions in the `.github/workflows/*.yml` cloud compilation script
     OPENWRT_ARMVIRT: openwrt/bin/targets/*/*/*.tar.gz
     PACKAGE_SOC: s905d_s905x3_beikeyun
     KERNEL_VERSION_NAME: 5.13.2_5.4.132
-    OPENWRT_VER: R21.7.30
 
 ```
 
@@ -46,7 +45,7 @@ According to the latest kernel packaging script released by `Flippy`, optional p
 | SCRIPT_S912            | mk_s912_zyxq.sh        | Set the script file name for packaging `s912 zyxq` |
 | SCRIPT_S022X           | mk_s922x_gtking.sh     | Set the script file name for packaging `s922x gtking` |
 | WHOAMI                 | flippy                 | Set the value of the `WHOAMI` parameter in `make.env` |
-| OPENWRT_VER            | R21.7.30               | Set the value of the `OPENWRT_VER` parameter in `make.env` |
+| OPENWRT_VER            | auto                   | Set the value of the `OPENWRT_VER` parameter in `make.env`. The default `auto` will automatically inherit the assignment in the file, and when set to other parameters, it will be replaced with custom parameters. |
 | SFE_FLAG               | 0                      | Set the value of the `SFE_FLAG` parameter in `make.env` |
 | FLOWOFFLOAD_FLAG       | 1                      | Set the value of the `FLOWOFFLOAD_FLAG` parameter in `make.env` |
 | ENABLE_WIFI_K504       | 1                      | Set the value of the `ENABLE_WIFI_K504` parameter in `make.env` |
