@@ -20,7 +20,7 @@ PACKAGE_OPENWRT=("vplus" "beikeyun" "l1pro" "s905" "s905d" "s905x2" "s905x3" "s9
 SELECT_ARMBIANKERNEL=("5.13.2" "5.4.132")
 SCRIPT_REPO_URL_VALUE="https://github.com/unifreq/openwrt_packit"
 SCRIPT_REPO_BRANCH_VALUE="master"
-KERNEL_REPO_URL_VALUE="https://github.com/ophub/amlogic-s9xxx-openwrt/trunk/amlogic-s9xxx/amlogic-kernel"
+KERNEL_REPO_URL_VALUE="https://github.com/ophub/flippy-kernel/trunk/library"
 KERNEL_VERSION_NAME_VALUE="5.13.2_5.4.132"
 PACKAGE_SOC_VALUE="s905d_s905x3_beikeyun"
 GZIP_IMGS_VALUE="true"
@@ -40,7 +40,7 @@ SCRIPT_S022X_FILE="mk_s922x_gtking.sh"
 
 # Set make.env related parameters
 WHOAMI_VALUE="flippy"
-OPENWRT_VER_VALUE="R21.7.15"
+OPENWRT_VER_VALUE="R21.7.30"
 SFE_FLAG_VALUE="0"
 FLOWOFFLOAD_FLAG_VALUE="1"
 ENABLE_WIFI_K504_VALUE="1"
