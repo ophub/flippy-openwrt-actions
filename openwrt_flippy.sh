@@ -22,6 +22,7 @@ SCRIPT_REPO_URL_VALUE="https://github.com/unifreq/openwrt_packit"
 SCRIPT_REPO_BRANCH_VALUE="master"
 KERNEL_REPO_URL_VALUE="https://github.com/ophub/flippy-kernel/trunk/library"
 KERNEL_VERSION_NAME_VALUE="5.13.2_5.4.132"
+KERNEL_AUTO_LATEST_VALUE="false"
 PACKAGE_SOC_VALUE="s905d_s905x3_beikeyun"
 GZIP_IMGS_VALUE="true"
 SELECT_OUTPUTPATH_VALUE="/opt/openwrt_packit/tmp"
@@ -67,6 +68,7 @@ ERROR="[${red_font_prefix}ERROR${font_color_suffix}]"
 [[ ${KERNEL_REPO_URL} == http* ]] || KERNEL_REPO_URL="https://github.com/${KERNEL_REPO_URL}"
 [[ -n "${PACKAGE_SOC}" ]] || PACKAGE_SOC="${PACKAGE_SOC_VALUE}"
 [[ -n "${KERNEL_VERSION_NAME}" ]] || KERNEL_VERSION_NAME="${KERNEL_VERSION_NAME_VALUE}"
+[[ -n "${KERNEL_AUTO_LATEST}" ]] || KERNEL_AUTO_LATEST="${KERNEL_AUTO_LATEST_VALUE}"
 [[ -n "${GZIP_IMGS}" ]] || GZIP_IMGS=${GZIP_IMGS_VALUE}
 [[ -n "${SELECT_OUTPUTPATH}" ]] || SELECT_OUTPUTPATH="${SELECT_OUTPUTPATH_VALUE}"
 [[ -n "${SAVE_OPENWRT_ARMVIRT}" ]] || SAVE_OPENWRT_ARMVIRT="${SAVE_OPENWRT_ARMVIRT_VALUE}"
@@ -130,6 +132,38 @@ if  [[ -n "${KERNEL_VERSION_NAME}" ]]; then
     SELECT_ARMBIANKERNEL=(${KERNEL_VERSION_NAME})
     IFS=$oldIFS
 fi
+
+# Check the version on the flippy-kernel library
+if [[ -n "${KERNEL_AUTO_LATEST}" && "${KERNEL_AUTO_LATEST}" == "true" ]]; then
+
+    TMP_ARR_KERNELS=()
+    SERVER_KERNEL_URL=${KERNEL_REPO_URL#*com}
+    SERVER_KERNEL_URL=${SERVER_KERNEL_URL//trunk/contents}
+    SERVER_KERNEL_URL="https://api.github.com/repos${SERVER_KERNEL_URL}"
+
+    i=1
+    for KERNEL_VAR in ${SELECT_ARMBIANKERNEL[*]}; do
+        echo -e "${INFO} (${i}) Auto query the latest kernel version of the same series for [ ${KERNEL_VAR} ]"
+        MAIN_LINE_M=$(echo "${KERNEL_VAR}" | cut -d '.' -f1)
+        MAIN_LINE_V=$(echo "${KERNEL_VAR}" | cut -d '.' -f2)
+        MAIN_LINE_S=$(echo "${KERNEL_VAR}" | cut -d '.' -f3)
+        MAIN_LINE="${MAIN_LINE_M}.${MAIN_LINE_V}"
+        # Check the version on the server (e.g LATEST_VERSION="124")
+        LATEST_VERSION=$(curl -s "${SERVER_KERNEL_URL}" | grep "name" | grep -oE "${MAIN_LINE}.[0-9]+"  | sed -e "s/${MAIN_LINE}.//g" | sort -n | sed -n '$p')
+        if [[ ! -z "${LATEST_VERSION}" ]]; then
+            TMP_ARR_KERNELS[${i}]="${MAIN_LINE}.${LATEST_VERSION}"
+        else
+            TMP_ARR_KERNELS[${i}]="${KERNEL_VAR}"
+        fi
+        echo -e "${INFO} (${i}) [ ${TMP_ARR_KERNELS[$i]} ] is latest kernel."
+
+        let i++
+    done
+    unset SELECT_ARMBIANKERNEL
+    SELECT_ARMBIANKERNEL=${TMP_ARR_KERNELS[*]}
+
+fi
+
 echo -e "${INFO} Package OpenWrt Kernel List: [ ${SELECT_ARMBIANKERNEL[*]} ]"
 
 i=1
