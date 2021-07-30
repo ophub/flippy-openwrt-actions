@@ -150,7 +150,7 @@ if [[ -n "${KERNEL_AUTO_LATEST}" && "${KERNEL_AUTO_LATEST}" == "true" ]]; then
         MAIN_LINE="${MAIN_LINE_M}.${MAIN_LINE_V}"
         # Check the version on the server (e.g LATEST_VERSION="124")
         LATEST_VERSION=$(curl -s "${SERVER_KERNEL_URL}" | grep "name" | grep -oE "${MAIN_LINE}.[0-9]+"  | sed -e "s/${MAIN_LINE}.//g" | sort -n | sed -n '$p')
-        if [[ ! -z "${LATEST_VERSION}" ]]; then
+        if [[ "$?" -eq "0" && ! -z "${LATEST_VERSION}" ]]; then
             TMP_ARR_KERNELS[${i}]="${MAIN_LINE}.${LATEST_VERSION}"
         else
             TMP_ARR_KERNELS[${i}]="${KERNEL_VAR}"
