@@ -20,9 +20,10 @@ PACKAGE_OPENWRT=("vplus" "beikeyun" "l1pro" "s905" "s905d" "s905x2" "s905x3" "s9
 SELECT_ARMBIANKERNEL=("5.13.2" "5.4.132")
 SCRIPT_REPO_URL_VALUE="https://github.com/unifreq/openwrt_packit"
 SCRIPT_REPO_BRANCH_VALUE="master"
-KERNEL_REPO_URL_VALUE="https://github.com/ophub/flippy-kernel/trunk/library"
+KERNEL_REPO_URL_VALUE="https://github.com/breakings/OpenWrt/trunk/opt/kernel"
+#KERNEL_REPO_URL_VALUE="https://github.com/ophub/flippy-kernel/trunk/library"
 KERNEL_VERSION_NAME_VALUE="5.13.2_5.4.132"
-KERNEL_AUTO_LATEST_VALUE="false"
+KERNEL_AUTO_LATEST_VALUE="true"
 PACKAGE_SOC_VALUE="s905d_s905x3_beikeyun"
 GZIP_IMGS_VALUE="true"
 SELECT_OUTPUTPATH_VALUE="/opt/openwrt_packit/tmp"
@@ -137,9 +138,9 @@ fi
 if [[ -n "${KERNEL_AUTO_LATEST}" && "${KERNEL_AUTO_LATEST}" == "true" ]]; then
 
     TMP_ARR_KERNELS=()
-    SERVER_KERNEL_URL=${KERNEL_REPO_URL#*com}
+    SERVER_KERNEL_URL=${KERNEL_REPO_URL#*com\/}
     SERVER_KERNEL_URL=${SERVER_KERNEL_URL//trunk/contents}
-    SERVER_KERNEL_URL="https://api.github.com/repos${SERVER_KERNEL_URL}"
+    SERVER_KERNEL_URL="https://api.github.com/repos/${SERVER_KERNEL_URL}"
 
     i=1
     for KERNEL_VAR in ${SELECT_ARMBIANKERNEL[*]}; do
