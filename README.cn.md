@@ -73,7 +73,7 @@
 - [coolsnowwolf/lede](https://github.com/coolsnowwolf/lede)
 - [Lienol/openwrt](https://github.com/Lienol/openwrt)
 - [unifreq/openwrt_packit](https://github.com/unifreq/openwrt_packit)
-- [breakings/OpenWrt](https://github.com/breakings/OpenWrt/tree/main/opt/kernel)
+- [breakings/kernel](https://github.com/breakings/OpenWrt/tree/main/opt/kernel)
 
 ## License
 
