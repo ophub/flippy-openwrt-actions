@@ -20,8 +20,10 @@ PACKAGE_OPENWRT=("vplus" "beikeyun" "l1pro" "s905" "s905d" "s905x2" "s905x3" "s9
 SELECT_ARMBIANKERNEL=("5.13.2" "5.4.132")
 SCRIPT_REPO_URL_VALUE="https://github.com/unifreq/openwrt_packit"
 SCRIPT_REPO_BRANCH_VALUE="master"
-KERNEL_REPO_URL_VALUE="https://github.com/breakings/OpenWrt/trunk/opt/kernel"
-#KERNEL_REPO_URL_VALUE="https://github.com/ophub/flippy-kernel/trunk/library"
+KERNEL_REPO_URL_VALUE="https://github.com/breakings/OpenWrt/tree/main/opt/kernel"
+# KERNEL_REPO_URL_VALUE URL supported format:
+# KERNEL_REPO_URL_VALUE="https://github.com/breakings/OpenWrt/trunk/opt/kernel"
+# KERNEL_REPO_URL_VALUE="https://github.com/breakings/OpenWrt/tree/main/opt/kernel"
 KERNEL_VERSION_NAME_VALUE="5.13.2_5.4.132"
 KERNEL_AUTO_LATEST_VALUE="true"
 PACKAGE_SOC_VALUE="s905d_s905x3_beikeyun"
@@ -134,7 +136,17 @@ if  [[ -n "${KERNEL_VERSION_NAME}" ]]; then
     IFS=$oldIFS
 fi
 
-# Check the version on the flippy-kernel library
+# KERNEL_REPO_URL URL format conversion to support svn co
+if [[ ${KERNEL_REPO_URL} == http* && $(echo ${KERNEL_REPO_URL} | grep "tree") != "" ]]; then
+    # Left part
+    KERNEL_REPO_URL_LEFT=${KERNEL_REPO_URL%\/tree*}
+    # Right part
+    KERNEL_REPO_URL_RIGHT=${KERNEL_REPO_URL#*tree\/}
+    KERNEL_REPO_URL_RIGHT=${KERNEL_REPO_URL_RIGHT#*\/}
+    KERNEL_REPO_URL="${KERNEL_REPO_URL_LEFT}/trunk/${KERNEL_REPO_URL_RIGHT}"
+fi
+
+# Check the version on the kernel library
 if [[ -n "${KERNEL_AUTO_LATEST}" && "${KERNEL_AUTO_LATEST}" == "true" ]]; then
 
     TMP_ARR_KERNELS=()
