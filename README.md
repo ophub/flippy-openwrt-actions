@@ -73,6 +73,7 @@ This `Actions` only provides OpenWrt packaging services, you need to compile the
 - [coolsnowwolf/lede](https://github.com/coolsnowwolf/lede)
 - [Lienol/openwrt](https://github.com/Lienol/openwrt)
 - [unifreq/openwrt_packit](https://github.com/unifreq/openwrt_packit)
+- [breakings/OpenWrt](https://github.com/breakings/OpenWrt/tree/main/opt/kernel)
 
 ## License
 
