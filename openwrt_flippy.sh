@@ -212,8 +212,8 @@ for KERNEL_VAR in ${SELECT_ARMBIANKERNEL[*]}; do
     cd openwrt_packit
 
     if [[ -n "${OPENWRT_VER}" && "${OPENWRT_VER}" == "auto" ]]; then
-      OPENWRT_VER=$(cat make.env | grep "OPENWRT_VER" | cut -d '"' -f2)
-      echo -e "${INFO} (${k}) OPENWRT_VER: ${OPENWRT_VER}"
+        OPENWRT_VER=$(cat make.env | grep "OPENWRT_VER" | cut -d '"' -f2)
+        echo -e "${INFO} (${k}) OPENWRT_VER: ${OPENWRT_VER}"
     fi
 
     rm -f make.env 2>/dev/null && sync
@@ -246,17 +246,17 @@ sync
             fi
 
             case "${PACKAGE_VAR}" in
-                  vplus | s1) sudo ./${SCRIPT_VPLUS} ;;
-                  beikeyun | s2) sudo ./${SCRIPT_BEIKEYUN} ;;
-                  l1pro | s3) sudo ./${SCRIPT_L1PRO} ;;
-                  s905 | s4) sudo ./${SCRIPT_S905} ;;
-                  s905d | s5) sudo ./${SCRIPT_S905D} ;;
-                  s905x2 | s6) sudo ./${SCRIPT_S905X2} ;;
-                  s905x3 | s7) sudo ./${SCRIPT_S905X3} ;;
-                  s912 | s8) sudo ./${SCRIPT_S912} ;;
-                  s922x | s9) sudo ./${SCRIPT_S022X} ;;
-                  *) ${WARNING} "Have no this SoC. Skipped."
-                     continue ;;
+                vplus)       sudo ./${SCRIPT_VPLUS} ;;
+                beikeyun)    sudo ./${SCRIPT_BEIKEYUN} ;;
+                l1pro)       sudo ./${SCRIPT_L1PRO} ;;
+                s905)        sudo ./${SCRIPT_S905} ;;
+                s905d)       sudo ./${SCRIPT_S905D} ;;
+                s905x2)      sudo ./${SCRIPT_S905X2} ;;
+                s905x3)      sudo ./${SCRIPT_S905X3} ;;
+                s912)        sudo ./${SCRIPT_S912} ;;
+                s922x)       sudo ./${SCRIPT_S022X} ;;
+                *)           ${WARNING} "Have no this SoC. Skipped."
+                             continue ;;
             esac
             echo -e "${SUCCESS} (${k}.${i}) Package openwrt completed."
             sync
