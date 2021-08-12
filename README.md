@@ -8,7 +8,7 @@ Support vplus, beikeyun, l1pro, and Amlogic S9xxx STB are S905x3, S905x2, S922x,
 
 ## Instructions
 
-Introduce this Actions in the `.github/workflows/*.yml` cloud compilation script to use, for example [build-openwrt-armvirt.yml](https://github.com/ophub/op/blob/main/.github/workflows/build-openwrt-armvirt.yml) . code show as below:
+Introduce this Actions in the `.github/workflows/*.yml` cloud compilation script to use, for example [build-openwrt-armvirt.yml](https://github.com/ophub/op/blob/main/.github/workflows/build-openwrt-armvirt.yml#L144) . code show as below:
 
 ```yaml
 
@@ -46,8 +46,8 @@ According to the latest kernel packaging script released by `Flippy`, optional p
 | SCRIPT_S022X           | mk_s922x_gtking.sh     | Set the script file name for packaging `s922x gtking` |
 | WHOAMI                 | flippy                 | Set the value of the `WHOAMI` parameter in `make.env` |
 | OPENWRT_VER            | auto                   | Set the value of the `OPENWRT_VER` parameter in `make.env`. The default `auto` will automatically inherit the assignment in the file, and when set to other parameters, it will be replaced with custom parameters. |
-| SFE_FLAG               | 0                      | Set the value of the `SFE_FLAG` parameter in `make.env` |
-| FLOWOFFLOAD_FLAG       | 1                      | Set the value of the `FLOWOFFLOAD_FLAG` parameter in `make.env` |
+| SW_FLOWOFFLOAD         | 1                      | Set the value of the `SW_FLOWOFFLOAD` parameter in `make.env` |
+| HW_FLOWOFFLOAD         | 0                      | Set the value of the `HW_FLOWOFFLOAD` parameter in `make.env` |
 | ENABLE_WIFI_K504       | 1                      | Set the value of the `ENABLE_WIFI_K504` parameter in `make.env` |
 | ENABLE_WIFI_K510       | 0                      | Set the value of the `ENABLE_WIFI_K510` parameter in `make.env` |
 
