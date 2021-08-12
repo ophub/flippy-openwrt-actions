@@ -8,7 +8,7 @@
 
 ## 使用方法
 
-在 `.github/workflows/*.yml` 云编译脚本中引入此 Actions 即可使用，例如 [build-openwrt-armvirt.yml](https://github.com/ophub/op/blob/main/.github/workflows/build-openwrt-armvirt.yml) ，代码如下：
+在 `.github/workflows/*.yml` 云编译脚本中引入此 Actions 即可使用，例如 [build-openwrt-armvirt.yml](https://github.com/ophub/op/blob/main/.github/workflows/build-openwrt-armvirt.yml#L144) ，代码如下：
 
 ```yaml
 
@@ -46,8 +46,8 @@
 | SCRIPT_S022X           | mk_s922x_gtking.sh     | 设置打包 `s922x gtking` 的脚本文件名             |
 | WHOAMI                 | flippy                 | 设置 `make.env` 中 `WHOAMI` 参数的值            |
 | OPENWRT_VER            | auto                   | 设置 `make.env` 中 `OPENWRT_VER` 参数的值。默认 `auto` 将自动继承文件中的赋值，设置为其他参数时将替换为自定义参数。 |
-| SFE_FLAG               | 0                      | 设置 `make.env` 中 `SFE_FLAG` 参数的值          |
-| FLOWOFFLOAD_FLAG       | 1                      | 设置 `make.env` 中 `FLOWOFFLOAD_FLAG` 参数的值  |
+| SW_FLOWOFFLOAD         | 1                      | 设置 `make.env` 中 `SW_FLOWOFFLOAD` 参数的值    |
+| HW_FLOWOFFLOAD         | 0                      | 设置 `make.env` 中 `HW_FLOWOFFLOAD` 参数的值    |
 | ENABLE_WIFI_K504       | 1                      | 设置 `make.env` 中 `ENABLE_WIFI_K504` 参数的值  |
 | ENABLE_WIFI_K510       | 0                      | 设置 `make.env` 中 `ENABLE_WIFI_K510` 参数的值  |
 
