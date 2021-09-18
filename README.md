@@ -17,7 +17,7 @@ Introduce this Actions in the `.github/workflows/*.yml` cloud compilation script
   env:
     OPENWRT_ARMVIRT: openwrt/bin/targets/*/*/*.tar.gz
     PACKAGE_SOC: s905d_s905x3_beikeyun
-    KERNEL_VERSION_NAME: 5.13.2_5.4.132
+    KERNEL_VERSION_NAME: 5.10.66_5.4.147
 
 ```
 
@@ -31,8 +31,8 @@ According to the latest kernel packaging script released by `Flippy`, optional p
 | SCRIPT_REPO_URL        | [unifreq/openwrt_packit](https://github.com/ophub/flippy-openwrt-actions/blob/main/openwrt_flippy.sh#L21) | Set up the packaging script source code repository. You can fill in the full URL of `github` such as `https://github.com/unifreq/openwrt_packit` or repository/project abbreviation such as `unifreq/openwrt_packit` |
 | SCRIPT_REPO_BRANCH     | master                 | Set the branch of the packaged script source code repository. |
 | KERNEL_REPO_URL        | [breakings/.../kernel](https://github.com/ophub/flippy-openwrt-actions/blob/main/openwrt_flippy.sh#L23) | Set the kernel download address, Used by default from [kernel](https://github.com/breakings/OpenWrt/tree/main/opt/kernel) maintained by breakings. |
-| KERNEL_VERSION_NAME    | 5.13.2_5.4.132         | Set the kernel version，[kernel](https://github.com/breakings/OpenWrt/tree/main/opt/kernel) library contains many original kernels of `Flippy`, you can view and choose to specify. you can specify a single kernel such as `5.4.132`, you can choose multiple kernel to use `_` connection such as `5.13.2_5.4.132` . The name of the kernel is subject to the folder name in the kernel directory. |
-| KERNEL_AUTO_LATEST     | true                   | Set whether to automatically adopt the latest version of the kernel of the same series. When it is `true`, it will automatically find in the kernel library whether there is an updated version of the kernel specified in `KERNEL_VERSION_NAME` such as 5.13.2. If there is the latest version of 5.13 same series, such as 5.13.3 and later, it will automatically Replace with the latest version. When set to `false`, the specified version of the kernel will be compiled. |
+| KERNEL_VERSION_NAME    | 5.10.66_5.4.147        | Set the kernel version，[kernel](https://github.com/breakings/OpenWrt/tree/main/opt/kernel) library contains many original kernels of `Flippy`, you can view and choose to specify. you can specify a single kernel such as `5.4.147`, you can choose multiple kernel to use `_` connection such as `5.10.66_5.4.147` . The name of the kernel is subject to the folder name in the kernel directory. |
+| KERNEL_AUTO_LATEST     | true                   | Set whether to automatically adopt the latest version of the kernel of the same series. When it is `true`, it will automatically find in the kernel library whether there is an updated version of the kernel specified in `KERNEL_VERSION_NAME` such as 5.4.147. If there is the latest version of 5.4 same series, it will automatically Replace with the latest version. When set to `false`, the specified version of the kernel will be compiled. |
 | PACKAGE_SOC            | s905d_s905x3_beikeyun  | Set the `SoC` of the packaging box, the default `all` packs all boxes, you can specify a single box such as `s905x3`, you can choose multiple boxes to use `_` connection such as `s905x3_s905d` . SOC code of each box is: `vplus` `beikeyun` `l1pro` `s905` `s905d` `s905x2` `s905x3` `s912` `s922x` |
 | GZIP_IMGS              | true                   | Set whether to automatically compress to .img.gz file after packaging (compression package upload and download faster) |
 | SCRIPT_VPLUS           | mk_h6_vplus.sh         | Set the script file name for packaging `h6 vplus` |
@@ -48,6 +48,7 @@ According to the latest kernel packaging script released by `Flippy`, optional p
 | OPENWRT_VER            | auto                   | Set the value of the `OPENWRT_VER` parameter in `make.env`. The default `auto` will automatically inherit the assignment in the file, and when set to other parameters, it will be replaced with custom parameters. |
 | SW_FLOWOFFLOAD         | 1                      | Set the value of the `SW_FLOWOFFLOAD` parameter in `make.env` |
 | HW_FLOWOFFLOAD         | 0                      | Set the value of the `HW_FLOWOFFLOAD` parameter in `make.env` |
+| SFE_FLOW               | 1                      | Set the value of the `SFE_FLOW` parameter in `make.env` |
 | ENABLE_WIFI_K504       | 1                      | Set the value of the `ENABLE_WIFI_K504` parameter in `make.env` |
 | ENABLE_WIFI_K510       | 0                      | Set the value of the `ENABLE_WIFI_K510` parameter in `make.env` |
 
