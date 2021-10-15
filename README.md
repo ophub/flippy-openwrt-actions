@@ -35,7 +35,8 @@ According to the latest kernel packaging script released by `Flippy`, optional p
 | KERNEL_AUTO_LATEST     | true                   | Set whether to automatically adopt the latest version of the kernel of the same series. When it is `true`, it will automatically find in the kernel library whether there is an updated version of the kernel specified in `KERNEL_VERSION_NAME` such as 5.4.153. If there is the latest version of 5.4 same series, it will automatically Replace with the latest version. When set to `false`, the specified version of the kernel will be compiled. |
 | PACKAGE_SOC            | s905d_s905x3_beikeyun  | Set the `SoC` of the packaging box, the default `all` packs all boxes, you can specify a single box such as `s905x3`, you can choose multiple boxes to use `_` connection such as `s905x3_s905d` . SOC code of each box is: `vplus` `beikeyun` `l1pro` `s905` `s905d` `s905x2` `s905x3` `s912` `s922x` |
 | GZIP_IMGS              | true                   | Set whether to automatically compress to .img.gz file after packaging (compression package upload and download faster) |
-| SELECT_OUTPUTPATH      | openwrt_packit         | Set the working directory under `/opt` |
+| SELECT_PACKITPATH      | openwrt_packit         | Set the packit directory under `/opt` |
+| SELECT_OUTPUTPATH      | output                 | Set the directory name of the firmware output in the `${SELECT_PACKITPATH}` directory. |
 | SCRIPT_VPLUS           | mk_h6_vplus.sh         | Set the script file name for packaging `h6 vplus` |
 | SCRIPT_BEIKEYUN        | mk_rk3328_beikeyun.sh  | Set the script file name for packaging `rk3328 beikeyun` |
 | SCRIPT_L1PRO           | mk_rk3328_l1pro.sh     | Set the script file name for packaging `rk3328 l1pro` |
