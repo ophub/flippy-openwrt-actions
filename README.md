@@ -62,11 +62,11 @@ According to the latest kernel packaging script released by `Flippy`, optional p
 
 According to the standard of github.com, 3 environment variables are output to facilitate the subsequent use of the compilation step.
 
-| parameter                                | For example             | Description                   |
-|------------------------------------------|-------------------------|-------------------------------|
-| ${{ env.PACKAGED_OUTPUTPATH }}           | /opt/openwrt_packit/tmp | OpenWrt firmware storage path |
-| ${{ env.PACKAGED_OUTPUTDATE }}           | 2021.07.15.1058         | Packing date                  |
-| ${{ env.PACKAGED_STATUS }}               | success / failure       | Package status                |
+| parameter                                | For example                | Description                   |
+|------------------------------------------|----------------------------|-------------------------------|
+| ${{ env.PACKAGED_OUTPUTPATH }}           | /opt/openwrt_packit/output | OpenWrt firmware storage path |
+| ${{ env.PACKAGED_OUTPUTDATE }}           | 2021.07.15.1058            | Packing date                  |
+| ${{ env.PACKAGED_STATUS }}               | success / failure          | Package status                |
 
 ## OpenWRT firmware personalized custom description
 
