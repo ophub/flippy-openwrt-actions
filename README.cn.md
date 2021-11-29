@@ -62,11 +62,11 @@
 
 根据 github.com 的标准输出了 3 个环境变量，方便编译步骤后续使用。
 
-| 参数                            | 默认值                  | 说明                       |
-|--------------------------------|-------------------------|---------------------------|
-| ${{ env.PACKAGED_OUTPUTPATH }} | /opt/openwrt_packit/tmp | 打包后的固件所在文件夹的路径  |
-| ${{ env.PACKAGED_OUTPUTDATE }} | 2021.07.15.1058         | 打包日期                    |
-| ${{ env.PACKAGED_STATUS }}     | success / failure       | 打包状态。成功 / 失败        |
+| 参数                            | 默认值                      | 说明                       |
+|--------------------------------|----------------------------|----------------------------|
+| ${{ env.PACKAGED_OUTPUTPATH }} | /opt/openwrt_packit/output | 打包后的固件所在文件夹的路径    |
+| ${{ env.PACKAGED_OUTPUTDATE }} | 2021.07.15.1058            | 打包日期                     |
+| ${{ env.PACKAGED_STATUS }}     | success / failure          | 打包状态。成功 / 失败          |
 
 ## OpenWrt 固件个性化定制说明
 
