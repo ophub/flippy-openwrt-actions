@@ -140,7 +140,6 @@ else
 fi
 
 # Load all selected kernels
-[ -d kernel ] || sudo mkdir kernel
 if [[ -n "${KERNEL_VERSION_NAME}" ]]; then
     unset SELECT_ARMBIANKERNEL
     oldIFS=$IFS
@@ -192,11 +191,18 @@ fi
 
 echo -e "${INFO} Package OpenWrt Kernel List: [ ${SELECT_ARMBIANKERNEL[*]} ]"
 
+kernel_path="kernel"
+[ -d "${kernel_path}" ] || sudo mkdir -p ${kernel_path}
+
 i=1
 for KERNEL_VAR in ${SELECT_ARMBIANKERNEL[*]}; do
-    echo -e "${INFO} (${i}) ${KERNEL_VAR} Kernel loading from [ ${KERNEL_REPO_URL}/${KERNEL_VAR} ]"
-    svn checkout ${KERNEL_REPO_URL}/${KERNEL_VAR} kernel
-    pushd kernel && sudo rm -rf .svn && popd >/dev/null
+    if [ ! -d "${kernel_path}/${KERNEL_VAR}" ]; then
+        echo -e "${INFO} (${i}) [ ${KERNEL_VAR} ] Kernel loading from [ ${KERNEL_REPO_URL}/${KERNEL_VAR} ]"
+        svn export ${KERNEL_REPO_URL}/${KERNEL_VAR} ${kernel_path} --force
+    else
+        echo -e "${INFO} (${i}) [ ${KERNEL_VAR} ] Kernel is in the local directory."
+    fi
+
     let i++
 done
 sync
@@ -284,17 +290,17 @@ EOF
             fi
 
             case "${PACKAGE_VAR}" in
-                vplus)       sudo ./${SCRIPT_VPLUS} ;;
-                beikeyun)    sudo ./${SCRIPT_BEIKEYUN} ;;
-                l1pro)       sudo ./${SCRIPT_L1PRO} ;;
-                s905)        sudo ./${SCRIPT_S905} ;;
-                s905d)       sudo ./${SCRIPT_S905D} ;;
-                s905x2)      sudo ./${SCRIPT_S905X2} ;;
-                s905x3)      sudo ./${SCRIPT_S905X3} ;;
-                s912)        sudo ./${SCRIPT_S912} ;;
-                s922x)       sudo ./${SCRIPT_S922X} ;;
-                s922x-n2)    sudo ./${SCRIPT_S922X_N2} ;;
-                diy)         sudo ./${SCRIPT_DIY} ;;
+                vplus)       [ -f "${SCRIPT_VPLUS}" ] && sudo ./${SCRIPT_VPLUS} ;;
+                beikeyun)    [ -f "${SCRIPT_BEIKEYUN}" ] && sudo ./${SCRIPT_BEIKEYUN} ;;
+                l1pro)       [ -f "${SCRIPT_L1PRO}" ] && sudo ./${SCRIPT_L1PRO} ;;
+                s905)        [ -f "${SCRIPT_S905}" ] && sudo ./${SCRIPT_S905} ;;
+                s905d)       [ -f "${SCRIPT_S905D}" ] && sudo ./${SCRIPT_S905D} ;;
+                s905x2)      [ -f "${SCRIPT_S905X2}" ] && sudo ./${SCRIPT_S905X2} ;;
+                s905x3)      [ -f "${SCRIPT_S905X3}" ] && sudo ./${SCRIPT_S905X3} ;;
+                s912)        [ -f "${SCRIPT_S912}" ] && sudo ./${SCRIPT_S912} ;;
+                s922x)       [ -f "${SCRIPT_S922X}" ] && sudo ./${SCRIPT_S922X} ;;
+                s922x-n2)    [ -f "${SCRIPT_S922X_N2}" ] && sudo ./${SCRIPT_S922X_N2} ;;
+                diy)         [ -f "${SCRIPT_DIY}" ] && sudo ./${SCRIPT_DIY} ;;
                 *)           ${WARNING} "Have no this SoC. Skipped."
                              continue ;;
             esac
