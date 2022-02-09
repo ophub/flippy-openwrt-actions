@@ -82,5 +82,5 @@ This `Actions` only provides OpenWrt packaging services, you need to compile the
 
 ## License
 
-[LICENSE](https://github.com/ophub/flippy-openwrt-actions/blob/main/LICENSE) © OPHUB
+The flippy-openwrt-actions © OPHUB is licensed under [GPL-2.0](https://github.com/ophub/flippy-openwrt-actions/blob/main/LICENSE)
 
