@@ -20,14 +20,14 @@ sudo apt-get update && sudo apt-get install -y p7zip p7zip-full zip unzip gzip x
 # Set the default value
 MAKE_PATH=${PWD}
 PACKAGE_OPENWRT=("vplus" "beikeyun" "l1pro" "s905" "s905d" "s905x2" "s905x3" "s912" "s922x" "s922x-n2" "diy")
-SELECT_ARMBIANKERNEL=("5.10.80" "5.4.160")
+SELECT_ARMBIANKERNEL=("5.15.25" "5.4.180")
 SCRIPT_REPO_URL_VALUE="https://github.com/unifreq/openwrt_packit"
 SCRIPT_REPO_BRANCH_VALUE="master"
 KERNEL_REPO_URL_VALUE="https://github.com/breakings/OpenWrt/tree/main/opt/kernel"
 # KERNEL_REPO_URL_VALUE URL supported format:
 # KERNEL_REPO_URL_VALUE="https://github.com/breakings/OpenWrt/trunk/opt/kernel"
 # KERNEL_REPO_URL_VALUE="https://github.com/breakings/OpenWrt/tree/main/opt/kernel"
-KERNEL_VERSION_NAME_VALUE="5.10.80_5.4.160"
+KERNEL_VERSION_NAME_VALUE="5.15.25_5.4.180"
 KERNEL_AUTO_LATEST_VALUE="true"
 PACKAGE_SOC_VALUE="s905d_s905x3_beikeyun"
 GZIP_IMGS_VALUE="auto"
