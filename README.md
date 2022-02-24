@@ -54,7 +54,7 @@ According to the latest kernel packaging script released by `Flippy`, optional p
 | HW_FLOWOFFLOAD         | 0                      | Set the value of the `HW_FLOWOFFLOAD` parameter in `make.env` |
 | SFE_FLOW               | 1                      | Set the value of the `SFE_FLOW` parameter in `make.env` |
 | ENABLE_WIFI_K504       | 1                      | Set the value of the `ENABLE_WIFI_K504` parameter in `make.env` |
-| ENABLE_WIFI_K510       | 0                      | Set the value of the `ENABLE_WIFI_K510` parameter in `make.env` |
+| ENABLE_WIFI_K510       | 1                      | Set the value of the `ENABLE_WIFI_K510` parameter in `make.env` |
 
 💡 Normally, you can use the default parameters, but you can also configure them according to your needs. For example, after Flippy renamed the packaging script, the original default script file cannot be found, and the firmware version number in make.env has not been updated. You can use optional parameters for real-time designation and personalized configuration.
 
