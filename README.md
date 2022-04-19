@@ -8,7 +8,7 @@ Support vplus, beikeyun, l1pro, and Amlogic S9xxx STB are S905x3, S905x2, S922x,
 
 ## Instructions
 
-Introduce this Actions in the `.github/workflows/*.yml` cloud compilation script to use, for example [build-openwrt-armvirt.yml](https://github.com/ophub/op/blob/main/.github/workflows/build-openwrt-armvirt.yml#L144) . code show as below:
+Introduce this Actions in the `.github/workflows/*.yml` cloud compilation script to use, for example [*-packaging.yml](.github/workflows/use-releases-file-to-packaging.yml) . code show as below:
 
 ```yaml
 
@@ -67,10 +67,6 @@ According to the standard of github.com, 3 environment variables are output to f
 | ${{ env.PACKAGED_OUTPUTPATH }}           | /opt/openwrt_packit/output | OpenWrt firmware storage path |
 | ${{ env.PACKAGED_OUTPUTDATE }}           | 2021.07.15.1058            | Packing date                  |
 | ${{ env.PACKAGED_STATUS }}               | success / failure          | Package status                |
-
-## OpenWRT firmware personalized custom description
-
-This `Actions` only provides OpenWrt packaging services, you need to compile the `openwrt-armvirt-64-default-rootfs.tar.gz` . The compilation method can be viewed [armvirt_64](https://github.com/ophub/op/tree/main/router/armvirt_64)
 
 ## Acknowledgments
 
