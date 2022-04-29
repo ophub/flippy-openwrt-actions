@@ -8,7 +8,7 @@
 
 ## 使用方法
 
-在 `.github/workflows/*.yml` 云编译脚本中引入此 Actions 即可使用，例如 [*-packaging.yml](.github/workflows/use-releases-file-to-packaging.yml) ，代码如下：
+在 `.github/workflows/*.yml` 云编译脚本中引入此 Actions 即可使用，例如 [*-packaging.yml](.github/workflows/use-releases-file-to-packaging.yml)。打包完成的固件上传到 `Releases` 时需要的 `token: ${{ secrets.GITHUB_TOKEN }}` 的添加方法详见：[GITHUB_TOKEN](https://github.com/ophub/amlogic-s9xxx-openwrt/blob/main/router-config/README.cn.md#2-设置隐私变量-github_token)。代码如下：
 
 ```yaml
 

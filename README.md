@@ -8,7 +8,7 @@ Support vplus, beikeyun, l1pro, and Amlogic S9xxx STB are S905x3, S905x2, S922x,
 
 ## Instructions
 
-Introduce this Actions in the `.github/workflows/*.yml` cloud compilation script to use, for example [*-packaging.yml](.github/workflows/use-releases-file-to-packaging.yml) . code show as below:
+Introduce this Actions in the `.github/workflows/*.yml` cloud compilation script to use, for example [*-packaging.yml](.github/workflows/use-releases-file-to-packaging.yml). The method of adding `token: ${{ secrets.GITHUB_TOKEN }}` required when uploading the packaged firmware to `Releases` can be found in: [GITHUB_TOKEN](https://github.com/ophub/amlogic-s9xxx-openwrt/blob/main/router-config/README.md#2-set-the-privacy-variable-github_token). code show as below:
 
 ```yaml
 
