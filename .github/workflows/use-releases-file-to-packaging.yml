@@ -57,13 +57,12 @@ jobs:
           KERNEL_VERSION_NAME: 5.15.25_5.17.1
 
       - name: Upload OpenWrt Firmware to Release
-        uses: ncipollo/release-action@v1
+        uses: ncipollo/release-action@main
         if: env.PACKAGED_STATUS == 'success' && !cancelled()
         with:
           tag: openwrt_s9xxx_${{ env.PACKAGED_OUTPUTDATE }}
           artifacts: ${{ env.PACKAGED_OUTPUTPATH }}/*
           allowUpdates: true
-          token: ${{ secrets.GITHUB_TOKEN }}
           body: |
             This is OpenWrt firmware for Armvirt 64
             * Firmware information
@@ -87,7 +86,7 @@ jobs:
         uses: Mattraks/delete-workflow-runs@main
         if: env.DELETE_ARTIFACTS == 'true'
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ github.token }}
           repository: ${{ github.repository }}
           retain_days: ${{ env.KEEP_DAY }}
           keep_minimum_runs: ${{ env.KEEP_MININUM_RUNS }}
