@@ -63,6 +63,7 @@ jobs:
           tag: openwrt_s9xxx_${{ env.PACKAGED_OUTPUTDATE }}
           artifacts: ${{ env.PACKAGED_OUTPUTPATH }}/*
           allowUpdates: true
+          token: ${{ secrets.GH_TOKEN }}
           body: |
             This is OpenWrt firmware for Armvirt 64
             * Firmware information
@@ -80,13 +81,13 @@ jobs:
           keep_latest: ${{ env.KEEP_MININUM_RELEASE }}
           delete_tags: true
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
 
       - name: Delete older workflow runs and artifacts
         uses: Mattraks/delete-workflow-runs@main
         if: env.DELETE_ARTIFACTS == 'true'
         with:
-          token: ${{ github.token }}
+          token: ${{ secrets.GH_TOKEN }}
           repository: ${{ github.repository }}
           retain_days: ${{ env.KEEP_DAY }}
           keep_minimum_runs: ${{ env.KEEP_MININUM_RUNS }}
