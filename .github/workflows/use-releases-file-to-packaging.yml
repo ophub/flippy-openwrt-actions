@@ -80,6 +80,7 @@ jobs:
         with:
           keep_latest: ${{ env.KEEP_MININUM_RELEASE }}
           delete_tags: true
+          delete_tag_pattern: _
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
 
