@@ -8,7 +8,7 @@ Support vplus, beikeyun, l1pro, and Amlogic S9xxx STB are S905x3, S905x2, S922x,
 
 ## Instructions
 
-Introduce this Actions in the `.github/workflows/*.yml` cloud compilation script to use, for example [*-packaging.yml](.github/workflows/use-releases-file-to-packaging.yml). The method of adding `token: ${{ secrets.GITHUB_TOKEN }}` required when uploading the packaged firmware to `Releases` can be found in: [GITHUB_TOKEN](https://github.com/ophub/amlogic-s9xxx-openwrt/blob/main/router-config/README.md#2-set-the-privacy-variable-github_token). code show as below:
+Introduce this Actions in the `.github/workflows/*.yml` cloud compilation script to use, for example [*-packaging.yml](.github/workflows/use-releases-file-to-packaging.yml). code show as below:
 
 ```yaml
 
@@ -60,7 +60,7 @@ According to the latest kernel packaging script released by `Flippy`, optional p
 
 ## Output parameter description
 
-According to the standard of github.com, 3 environment variables are output to facilitate the subsequent use of the compilation step.
+According to the standard of github.com, 3 environment variables are output to facilitate the subsequent use of the compilation step. Since github.com has recently modified the settings of the fork repository, the read and write permissions of Workflow are disabled by default, so uploading to `Releases` requires adding `GITHUB_TOKEN` and `GH_TOKEN` to the repository and setting `Workflow read and write permissions`, see the [instructions for details](https://github.com/ophub/amlogic-s9xxx-openwrt/blob/main/router-config#2-set-the-privacy-variable-github_token).
 
 | parameter                                | For example                | Description                   |
 |------------------------------------------|----------------------------|-------------------------------|

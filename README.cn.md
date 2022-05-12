@@ -8,7 +8,7 @@
 
 ## 使用方法
 
-在 `.github/workflows/*.yml` 云编译脚本中引入此 Actions 即可使用，例如 [*-packaging.yml](.github/workflows/use-releases-file-to-packaging.yml)。打包完成的固件上传到 `Releases` 时需要的 `token: ${{ secrets.GITHUB_TOKEN }}` 的添加方法详见：[GITHUB_TOKEN](https://github.com/ophub/amlogic-s9xxx-openwrt/blob/main/router-config/README.cn.md#2-设置隐私变量-github_token)。代码如下：
+在 `.github/workflows/*.yml` 云编译脚本中引入此 Actions 即可使用，例如 [*-packaging.yml](.github/workflows/use-releases-file-to-packaging.yml)。代码如下：
 
 ```yaml
 
@@ -60,7 +60,7 @@
 
 ## 输出参数说明
 
-根据 github.com 的标准输出了 3 个环境变量，方便编译步骤后续使用。
+根据 github.com 的标准输出了 3 个环境变量，方便编译步骤后续使用。由于 github.com 最近修改了 fork 仓库的设置，默认关闭了 Workflow 的读写权限，所以上传到 `Releases` 需要给仓库添加 `GITHUB_TOKEN` 和 `GH_TOKEN` 并设置 `Workflow 读写权限`，详见[使用说明](https://github.com/ophub/amlogic-s9xxx-openwrt/blob/main/router-config/README.cn.md#2-设置隐私变量-github_token)。
 
 | 参数                            | 默认值                      | 说明                       |
 |--------------------------------|----------------------------|----------------------------|
