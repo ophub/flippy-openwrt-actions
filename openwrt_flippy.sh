@@ -322,6 +322,9 @@ if [[ -d /opt/${SELECT_PACKITPATH}/${SELECT_OUTPUTPATH} ]]; then
         cp -f ../${PACKAGE_FILE} . && sync
     fi
 
+    # Generate sha256sum check file
+    sha256sum * >sha256sums && sync
+
     echo "PACKAGED_OUTPUTPATH=${PWD}" >>$GITHUB_ENV
     echo "PACKAGED_OUTPUTDATE=$(date +"%Y.%m.%d.%H%M")" >>$GITHUB_ENV
     echo "PACKAGED_STATUS=success" >>$GITHUB_ENV
