@@ -22,14 +22,14 @@ MAKE_PATH="${PWD}"
 # The file specified in the ${OPENWRT_ARMVIRT} parameter will be saved as ${PACKAGE_FILE}
 PACKAGE_FILE="openwrt-armvirt-64-default-rootfs.tar.gz"
 PACKAGE_OPENWRT=("vplus" "beikeyun" "l1pro" "s905" "s905d" "s905x2" "s905x3" "s912" "s922x" "s922x-n2" "diy")
-SELECT_ARMBIANKERNEL=("5.15.25" "5.10.100")
+SELECT_ARMBIANKERNEL=("5.10.125" "5.15.50")
 SCRIPT_REPO_URL_VALUE="https://github.com/unifreq/openwrt_packit"
 SCRIPT_REPO_BRANCH_VALUE="master"
 KERNEL_REPO_URL_VALUE="https://github.com/breakings/OpenWrt/tree/main/opt/kernel"
 # KERNEL_REPO_URL_VALUE URL supported format:
 # KERNEL_REPO_URL_VALUE="https://github.com/breakings/OpenWrt/trunk/opt/kernel"
 # KERNEL_REPO_URL_VALUE="https://github.com/breakings/OpenWrt/tree/main/opt/kernel"
-KERNEL_VERSION_NAME_VALUE="5.15.25_5.10.100"
+KERNEL_VERSION_NAME_VALUE="5.10.125_5.15.50"
 KERNEL_AUTO_LATEST_VALUE="true"
 PACKAGE_SOC_VALUE="all"
 GZIP_IMGS_VALUE="auto"
@@ -176,7 +176,7 @@ if [[ -n "${KERNEL_AUTO_LATEST}" && "${KERNEL_AUTO_LATEST}" == "true" ]]; then
     for KERNEL_VAR in ${SELECT_ARMBIANKERNEL[*]}; do
         echo -e "${INFO} (${i}) Auto query the latest kernel version of the same series for [ ${KERNEL_VAR} ]"
         MAIN_LINE="$(echo ${KERNEL_VAR} | awk -F '.' '{print $1"."$2}')"
-        # Check the version on the server (e.g LATEST_VERSION="124")
+        # Check the version on the server (e.g LATEST_VERSION="125")
         LATEST_VERSION="$(curl -s "${SERVER_KERNEL_URL}" | grep "name" | grep -oE "${MAIN_LINE}.[0-9]+" | sed -e "s/${MAIN_LINE}.//g" | sort -n | sed -n '$p')"
         if [[ "$?" -eq "0" && -n "${LATEST_VERSION}" ]]; then
             TMP_ARR_KERNELS[${i}]="${MAIN_LINE}.${LATEST_VERSION}"
