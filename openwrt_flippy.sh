@@ -49,6 +49,7 @@ SCRIPT_S905X3_FILE="mk_s905x3_multi.sh"
 SCRIPT_S912_FILE="mk_s912_zyxq.sh"
 SCRIPT_S922X_FILE="mk_s922x_gtking.sh"
 SCRIPT_S922X_N2_FILE="mk_s922x_odroid-n2.sh"
+SCRIPT_QEMU="mk_qemu-aarch64_img.sh"
 SCRIPT_DIY_FILE="mk_diy.sh"
 
 # Set make.env related parameters
@@ -289,6 +290,7 @@ EOF
                 s912)        [[ -f "${SCRIPT_S912}" ]] && sudo ./${SCRIPT_S912} ;;
                 s922x)       [[ -f "${SCRIPT_S922X}" ]] && sudo ./${SCRIPT_S922X} ;;
                 s922x-n2)    [[ -f "${SCRIPT_S922X_N2}" ]] && sudo ./${SCRIPT_S922X_N2} ;;
+                qemu)        [[ -f "${SCRIPT_QEMU}" ]] && sudo ./${SCRIPT_QEMU} ;;
                 diy)         [[ -f "${SCRIPT_DIY}" ]] && sudo ./${SCRIPT_DIY} ;;
                 *)           echo -e "${WARNING} Have no this SoC. Skipped."
                              continue ;;

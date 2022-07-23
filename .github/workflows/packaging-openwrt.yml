@@ -14,11 +14,11 @@ on:
       openwrt_soc:
         description: "Select Amlogic SoC."
         required: false
-        default: "vplus_beikeyun_l1pro_s905x3"
+        default: "vplus_beikeyun_l1pro_s905x3_s90d_qemu"
         type: choice
         options:
           - all
-          - vplus_beikeyun_l1pro_s905x3
+          - vplus_beikeyun_l1pro_s905x3_s90d_qemu
           - vplus
           - beikeyun
           - l1pro
@@ -29,6 +29,7 @@ on:
           - s912
           - s905d
           - s905
+          - qemu
           - diy
       openwrt_kernel:
         description: "Select kernel version"
