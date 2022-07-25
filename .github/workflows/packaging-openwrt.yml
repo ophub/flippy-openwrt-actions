@@ -14,11 +14,11 @@ on:
       openwrt_soc:
         description: "Select Amlogic SoC."
         required: false
-        default: "vplus_beikeyun_l1pro_s905x3_s90d_qemu"
+        default: "vplus_beikeyun_l1pro_s922x_s905x3_s905d_qemu"
         type: choice
         options:
           - all
-          - vplus_beikeyun_l1pro_s905x3_s90d_qemu
+          - vplus_beikeyun_l1pro_s922x_s905x3_s905d_qemu
           - vplus
           - beikeyun
           - l1pro
@@ -80,7 +80,7 @@ jobs:
         run: |
           # Custom repository and Releases keywords for *rootfs.tar.gz files
           armvirt_rootfsfile_repo="ophub/amlogic-s9xxx-openwrt"
-          releases_tag_keywords="openwrt_s9xxx_"
+          releases_tag_keywords="openwrt_s9xxx_lede_"
 
           # The following download paths, etc. can remain unchanged
           save_rootfsfile_path="openwrt/bin/targets/armvirt/64"
