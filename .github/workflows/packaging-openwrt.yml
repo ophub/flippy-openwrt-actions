@@ -73,21 +73,26 @@ jobs:
           sudo -E apt-get -qq install $(curl -fsSL https://is.gd/depend_ubuntu2204_openwrt)
           sudo -E apt-get -qq autoremove --purge
           sudo -E apt-get -qq clean
-          sudo timedatectl set-timezone "$TZ"
+          sudo timedatectl set-timezone "${TZ}"
 
       - name: Download armvirt file
         id: download
         run: |
-          # Custom repository and Releases keywords for *rootfs.tar.gz files
+          # Custom repository and Releases keywords for *rootfs.tar.gz file
           armvirt_rootfsfile_repo="ophub/amlogic-s9xxx-openwrt"
-          releases_tag_keywords="openwrt_s9xxx_lede_"
-
+          releases_tag_keywords="openwrt_.*lede.*/.*rootfs.tar.gz"
+          #
           # The following download paths, etc. can remain unchanged
           save_rootfsfile_path="openwrt/bin/targets/armvirt/64"
-          [ -d "${save_rootfsfile_path}" ] || mkdir -p ${save_rootfsfile_path}
-          curl -s "https://api.github.com/repos/${armvirt_rootfsfile_repo}/releases" | grep -o "${releases_tag_keywords}.*/.*rootfs.tar.gz" | head -n 1 > DOWNLOAD_URL
-          [ -s DOWNLOAD_URL ] && wget -q -P ${save_rootfsfile_path} https://github.com/${armvirt_rootfsfile_repo}/releases/download/$(cat DOWNLOAD_URL)
-          [ "$?" -ne "0" ] && echo "armvirt file download failed!" && exit 1
+          [[ -d "${save_rootfsfile_path}" ]] || mkdir -p ${save_rootfsfile_path}
+          #
+          # Get the *rootfs.tar.gz file download address
+          openwrt_url="$(curl -s "https://api.github.com/repos/${armvirt_rootfsfile_repo}/releases" | grep -o "${releases_tag_keywords}" | head -n 1)"
+          [[ -z "${openwrt_url}" ]] && echo -e "OpenWrt file not found!" && exit 1
+          #
+          # Download the *rootfs.tar.gz file to the specified directory
+          wget -q -P "${save_rootfsfile_path}" "https://github.com/${armvirt_rootfsfile_repo}/releases/download/${openwrt_url}"
+          [[ "${?}" -ne "0" ]] && echo "The armvirt file download failed!" && exit 1
           echo "::set-output name=status::success"
 
       - name: Package Armvirt as OpenWrt use Flippy script
