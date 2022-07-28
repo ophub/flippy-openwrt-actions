@@ -56,7 +56,7 @@ According to the latest kernel packaging script released by `Flippy`, optional p
 | SFE_FLOW               | 1                      | Set the value of the `SFE_FLOW` parameter in `make.env` |
 | ENABLE_WIFI_K504       | 1                      | Set the value of the `ENABLE_WIFI_K504` parameter in `make.env` |
 | ENABLE_WIFI_K510       | 1                      | Set the value of the `ENABLE_WIFI_K510` parameter in `make.env` |
-| DISTRIB_REVISION       | R$(date +%Y.%m.%d)     | Set the value of the `DISTRIB_REVISION` parameter in `make.env` |
+| DISTRIB_REVISION       | R$(date +%m.%d)        | Set the value of the `DISTRIB_REVISION` parameter in `make.env` |
 | DISTRIB_DESCRIPTION    | OpenWrt                | Set the value of the `DISTRIB_DESCRIPTION` parameter in `make.env` |
 
 💡 Normally, you can use the default parameters, but you can also configure them according to your needs. For example, after Flippy renamed the packaging script, the original default script file cannot be found, and the firmware version number in make.env has not been updated. You can use optional parameters for real-time designation and personalized configuration.
@@ -68,7 +68,7 @@ According to the standard of github.com, 3 environment variables are output to f
 | parameter                                | For example                | Description                   |
 |------------------------------------------|----------------------------|-------------------------------|
 | ${{ env.PACKAGED_OUTPUTPATH }}           | /opt/openwrt_packit/output | OpenWrt firmware storage path |
-| ${{ env.PACKAGED_OUTPUTDATE }}           | 2021.07.15.1058            | Packing date                  |
+| ${{ env.PACKAGED_OUTPUTDATE }}           | 07.15.1058                 | Packing date                  |
 | ${{ env.PACKAGED_STATUS }}               | success / failure          | Package status                |
 
 ## Acknowledgments

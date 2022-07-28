@@ -332,10 +332,10 @@ if [[ -d "/opt/${SELECT_PACKITPATH}/${SELECT_OUTPUTPATH}" ]]; then
     sha256sum * >sha256sums && sync
 
     echo "PACKAGED_OUTPUTPATH=${PWD}" >>$GITHUB_ENV
-    echo "PACKAGED_OUTPUTDATE=$(date +"%Y.%m.%d.%H%M")" >>$GITHUB_ENV
+    echo "PACKAGED_OUTPUTDATE=$(date +"%m.%d.%H%M")" >>$GITHUB_ENV
     echo "PACKAGED_STATUS=success" >>$GITHUB_ENV
     echo -e "PACKAGED_OUTPUTPATH: ${PWD}"
-    echo -e "PACKAGED_OUTPUTDATE: $(date +"%Y.%m.%d.%H%M")"
+    echo -e "PACKAGED_OUTPUTDATE: $(date +"%m.%d.%H%M")"
     echo -e "PACKAGED_STATUS: success"
     echo -e "${INFO} PACKAGED_OUTPUTPATH files list:"
     echo -e "$(ls /opt/${SELECT_PACKITPATH}/${SELECT_OUTPUTPATH} 2>/dev/null) \n"
