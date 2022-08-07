@@ -12,7 +12,7 @@
 
 ```yaml
 
-- name: Package Armvirt as OpenWrt
+- name: Package OpenWrt Firmware
   uses: ophub/flippy-openwrt-actions@main
   env:
     OPENWRT_ARMVIRT: openwrt/bin/targets/*/*/*.tar.gz
@@ -71,7 +71,7 @@
 | ${{ env.PACKAGED_OUTPUTDATE }} | 07.15.1058                 | 打包日期                     |
 | ${{ env.PACKAGED_STATUS }}     | success / failure          | 打包状态。成功 / 失败          |
 
-## 鸣谢
+## 链接
 
 - [OpenWrt](https://github.com/openwrt/openwrt)
 - [coolsnowwolf/lede](https://github.com/coolsnowwolf/lede)

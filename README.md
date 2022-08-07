@@ -12,7 +12,7 @@ Introduce this Actions in the `.github/workflows/*.yml` cloud compilation script
 
 ```yaml
 
-- name: Package Armvirt as OpenWrt
+- name: Package OpenWrt Firmware
   uses: ophub/flippy-openwrt-actions@main
   env:
     OPENWRT_ARMVIRT: openwrt/bin/targets/*/*/*.tar.gz
@@ -71,7 +71,7 @@ According to the standard of github.com, 3 environment variables are output to f
 | ${{ env.PACKAGED_OUTPUTDATE }}           | 07.15.1058                 | Packing date                  |
 | ${{ env.PACKAGED_STATUS }}               | success / failure          | Package status                |
 
-## Acknowledgments
+## Links
 
 - [OpenWrt](https://github.com/openwrt/openwrt)
 - [coolsnowwolf/lede](https://github.com/coolsnowwolf/lede)
