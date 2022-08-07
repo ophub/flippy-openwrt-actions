@@ -39,11 +39,12 @@ on:
         options:
           - 5.4.200_5.10.125
           - 5.10.125_5.15.50
-          - 5.15.45_5.18.5
+          - 5.15.50_5.18.15
           - 5.4.200
           - 5.10.125
           - 5.15.50
-          - 5.18.5
+          - 5.18.15
+          - 5.19.1
       auto_kernel:
         description: "Auto use the latest kernel"
         required: false
@@ -80,7 +81,7 @@ jobs:
         run: |
           # Custom repository and Releases keywords for *rootfs.tar.gz file
           armvirt_rootfsfile_repo="ophub/amlogic-s9xxx-openwrt"
-          releases_tag_keywords="openwrt_.*lede.*/.*rootfs.tar.gz"
+          releases_tag_keywords="OpenWrt_.*lede.*/.*rootfs.tar.gz"
           #
           # The following download paths, etc. can remain unchanged
           save_rootfsfile_path="openwrt/bin/targets/armvirt/64"
@@ -95,7 +96,7 @@ jobs:
           [[ "${?}" -ne "0" ]] && echo "The armvirt file download failed!" && exit 1
           echo "::set-output name=status::success"
 
-      - name: Package Armvirt as OpenWrt use Flippy script
+      - name: Package OpenWrt Firmware
         uses: ophub/flippy-openwrt-actions@main
         if: steps.download.outputs.status == 'success' && !cancelled()
         env:
@@ -108,7 +109,7 @@ jobs:
         uses: ncipollo/release-action@main
         if: env.PACKAGED_STATUS == 'success' && !cancelled()
         with:
-          tag: openwrt_s9xxx_${{ env.PACKAGED_OUTPUTDATE }}
+          tag: OpenWrt_aarch64_${{ env.PACKAGED_OUTPUTDATE }}
           artifacts: ${{ env.PACKAGED_OUTPUTPATH }}/*
           allowUpdates: true
           token: ${{ secrets.GH_TOKEN }}
