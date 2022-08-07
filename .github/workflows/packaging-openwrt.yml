@@ -107,12 +107,13 @@ jobs:
 
       - name: Upload OpenWrt Firmware to Release
         uses: ncipollo/release-action@main
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
         if: env.PACKAGED_STATUS == 'success' && !cancelled()
         with:
           tag: OpenWrt_aarch64_${{ env.PACKAGED_OUTPUTDATE }}
           artifacts: ${{ env.PACKAGED_OUTPUTPATH }}/*
           allowUpdates: true
-          token: ${{ secrets.GH_TOKEN }}
           body: |
             This is OpenWrt firmware for Armvirt 64
             * Firmware information
