@@ -130,7 +130,7 @@ sync
 # Load *-armvirt-64-default-rootfs.tar.gz
 if [[ "${OPENWRT_ARMVIRT}" == http* ]]; then
     echo -e "${STEPS} wget [ ${OPENWRT_ARMVIRT} ] file into ${SELECT_PACKITPATH}"
-    wget -c ${OPENWRT_ARMVIRT} -O "${SELECT_PACKITPATH}/${PACKAGE_FILE}"
+    wget ${OPENWRT_ARMVIRT} -q -O "${SELECT_PACKITPATH}/${PACKAGE_FILE}"
 else
     echo -e "${STEPS} copy [ ${GITHUB_WORKSPACE}/${OPENWRT_ARMVIRT} ] file into ${SELECT_PACKITPATH}"
     cp -f ${GITHUB_WORKSPACE}/${OPENWRT_ARMVIRT} ${SELECT_PACKITPATH}/${PACKAGE_FILE}
