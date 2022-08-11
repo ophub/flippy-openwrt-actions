@@ -14,14 +14,15 @@ on:
       openwrt_soc:
         description: "Select Amlogic SoC."
         required: false
-        default: "vplus_beikeyun_l1pro_s922x_s905x3_s905d_qemu"
+        default: "all"
         type: choice
         options:
           - all
-          - vplus_beikeyun_l1pro_s922x_s905x3_s905d_qemu
+          - vplus_beikeyun_l1pro_r68s_s922x_s905x3_s905d_qemu
           - vplus
           - beikeyun
           - l1pro
+          - r68s
           - s922x
           - s922x-n2
           - s905x3
