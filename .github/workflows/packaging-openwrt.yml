@@ -17,10 +17,12 @@ on:
         type: choice
         options:
           - all
-          - vplus_beikeyun_l1pro_r68s_s922x_s905x3_s905d_qemu
+          - beikeyun_l1pro_r66s_r68s
+          - s922x_s922x-n2_s905x3_s905x2_s912_s905d_s905
           - vplus
           - beikeyun
           - l1pro
+          - r66s
           - r68s
           - s922x
           - s922x-n2
