@@ -207,7 +207,7 @@ fi
 echo -e "${INFO} Package OpenWrt Kernel List: [ ${SELECT_ARMBIANKERNEL[*]} ]"
 
 kernel_path="kernel"
-[[ -d "${kernel_path}" ]] || sudo mkdir -p ${kernel_path}
+[[ -d "${kernel_path}" ]] || mkdir -p ${kernel_path}
 
 i="1"
 for KERNEL_VAR in ${SELECT_ARMBIANKERNEL[*]}; do
@@ -283,8 +283,8 @@ EOF
             echo -e "${STEPS} (${k}.${i}) Start packaging OpenWrt, Kernel is [ ${KERNEL_VAR} ], SoC is [ ${PACKAGE_VAR} ]"
 
             now_remaining_space="$(df -Tk ${PWD} | grep '/dev/' | awk '{print $5}' | echo $(($(xargs) / 1024 / 1024)))"
-            if [[ "${now_remaining_space}" -le "2" ]]; then
-                echo -e "${WARNING} If the remaining space is less than 2G, exit this packaging. \n"
+            if [[ "${now_remaining_space}" -le "3" ]]; then
+                echo -e "${WARNING} If the remaining space is less than 3G, exit this packaging. \n"
                 break 2
             else
                 echo -e "${INFO} Remaining space is ${now_remaining_space}G. \n"
