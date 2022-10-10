@@ -4,7 +4,7 @@ View Chinese description  |  [查看中文说明](README.cn.md)
 
 The packaging scripts of the [Flippy repository](https://github.com/unifreq/openwrt_packit) are completely used, without any script modification, and only intelligent Action application development is carried out, making the packaging operation easier and more personalized.
 
-Support vplus, beikeyun, l1pro, and Amlogic S9xxx STB are S905x3, S905x2, S922x, S905x, S905d, S905, S912.
+Support Allwinner (V-Plus Cloud), and Rockchip (BeikeYun, Chainedbox L1 Pro, FastRhino R66S, FastRhino R68S), and Amlogic S9xxx boxes are S905x3, S905x2, S922x, S905x, S905d, S905, S912, etc.
 
 ## Instructions
 
