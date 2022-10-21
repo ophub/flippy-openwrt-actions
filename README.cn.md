@@ -8,7 +8,7 @@
 
 ## 使用方法
 
-在 `.github/workflows/*.yml` 云编译脚本中引入此 Actions 即可使用，例如 [*-packaging.yml](.github/workflows/use-releases-file-to-packaging.yml)。代码如下：
+在 `.github/workflows/*.yml` 云编译脚本中引入此 Actions 即可使用，例如 [packaging-openwrt.yml](.github/workflows/packaging-openwrt.yml)。代码如下：
 
 ```yaml
 
@@ -28,9 +28,9 @@
 | 参数                   | 默认值                  | 说明                                            |
 |------------------------|------------------------|------------------------------------------------|
 | OPENWRT_ARMVIRT_PATH   | no                     | 必选项. 设置 `openwrt-armvirt-64-default-rootfs.tar.gz` 的文件路径，可以使用相对路径如 `openwrt/bin/targets/*/*/*.tar.gz` 或 网络文件下载地址如 `https://github.com/*/releases/*/*.tar.gz` |
-| SCRIPT_REPO_URL        | [unifreq/openwrt_packit](https://github.com/ophub/flippy-openwrt-actions/blob/main/openwrt_flippy.sh#L24) | 设置打包脚本源码仓库。可以填写 `github` 的完整网址如 `https://github.com/unifreq/openwrt_packit` 或 仓库/项目 简写如 `unifreq/openwrt_packit` |
+| SCRIPT_REPO_URL        | [unifreq/openwrt_packit](https://github.com/ophub/flippy-openwrt-actions/blob/main/openwrt_flippy.sh#L32) | 设置打包脚本源码仓库。可以填写 `github` 的完整网址如 `https://github.com/unifreq/openwrt_packit` 或 仓库/项目 简写如 `unifreq/openwrt_packit` |
 | SCRIPT_REPO_BRANCH     | master                 | 设置打包脚本源码仓库的分支                        |
-| KERNEL_REPO_URL        | [breakings/.../kernel](https://github.com/ophub/flippy-openwrt-actions/blob/main/openwrt_flippy.sh#L26) | 设置内核下载地址，默认从 breakings 维护的 [kernel](https://github.com/breakings/OpenWrt/tree/main/opt/kernel) 库里下载 Flippy 的内核。 |
+| KERNEL_REPO_URL        | [breakings/.../kernel](https://github.com/ophub/flippy-openwrt-actions/blob/main/openwrt_flippy.sh#L34) | 设置内核下载地址，默认从 breakings 维护的 [kernel](https://github.com/breakings/OpenWrt/tree/main/opt/kernel) 库里下载 Flippy 的内核。 |
 | KERNEL_VERSION_NAME    | 5.10.125_5.15.50       | 设置内核版本，[kernel](https://github.com/breakings/OpenWrt/tree/main/opt/kernel) 库里收藏了众多 Flippy 的原版内核，可以查看并选择指定。可指定单个内核如 `5.10.125` ，可选择多个内核用`_`连接如 `5.10.125_5.15.50` ，内核名称以 kernel 目录中的文件夹名称为准。 |
 | KERNEL_AUTO_LATEST     | true                   | 设置是否自动采用同系列最新版本内核。当为 `true` 时，将自动在内核库中查找在 `KERNEL_VERSION_NAME` 中指定的内核如 5.10.125 的同系列是否有更新的版本，如有更新版本时，将自动更换为最新版。设置为 `false` 时将编译指定版本内核。 |
 | PACKAGE_SOC            | s905d_s905x3_beikeyun  | 设置打包盒子的 `SOC` ，默认 `all` 打包全部盒子，可指定单个盒子如 `s905x3` ，可选择多个盒子用`_`连接如 `s905x3_s905d` 。各盒子的SoC代码为：`vplus` `beikeyun` `l1pro` `r66s` `r68s` `s905` `s905d` `s905x2` `s905x3` `s912` `s922x` `s922x-n2` `qemu` `diy`。说明：`s922x-n2` 是 `s922x-odroid-n2`, `diy` 是自定义盒子。 |

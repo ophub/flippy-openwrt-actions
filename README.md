@@ -8,7 +8,7 @@ Support Allwinner (V-Plus Cloud), and Rockchip (BeikeYun, Chainedbox L1 Pro, Fas
 
 ## Instructions
 
-Introduce this Actions in the `.github/workflows/*.yml` cloud compilation script to use, for example [*-packaging.yml](.github/workflows/use-releases-file-to-packaging.yml). code show as below:
+Introduce this Actions in the `.github/workflows/*.yml` cloud compilation script to use, for example [packaging-openwrt.yml](.github/workflows/packaging-openwrt.yml). code show as below:
 
 ```yaml
 
@@ -28,9 +28,9 @@ According to the latest kernel packaging script released by `Flippy`, optional p
 | parameter              | Defaults               | Description                                                   |
 |------------------------|------------------------|---------------------------------------------------------------|
 | OPENWRT_ARMVIRT_PATH   | no                     | required. Set the file path of `openwrt-armvirt-64-default-rootfs.tar.gz` , you can use a relative path such as `openwrt/bin/targets/*/*/*.tar.gz` or the network file download address. E.g `https://github.com/*/releases/*/*.tar.gz` . |
-| SCRIPT_REPO_URL        | [unifreq/openwrt_packit](https://github.com/ophub/flippy-openwrt-actions/blob/main/openwrt_flippy.sh#L24) | Set up the packaging script source code repository. You can fill in the full URL of `github` such as `https://github.com/unifreq/openwrt_packit` or repository/project abbreviation such as `unifreq/openwrt_packit` |
+| SCRIPT_REPO_URL        | [unifreq/openwrt_packit](https://github.com/ophub/flippy-openwrt-actions/blob/main/openwrt_flippy.sh#L32) | Set up the packaging script source code repository. You can fill in the full URL of `github` such as `https://github.com/unifreq/openwrt_packit` or repository/project abbreviation such as `unifreq/openwrt_packit` |
 | SCRIPT_REPO_BRANCH     | master                 | Set the branch of the packaged script source code repository. |
-| KERNEL_REPO_URL        | [breakings/.../kernel](https://github.com/ophub/flippy-openwrt-actions/blob/main/openwrt_flippy.sh#L26) | Set the kernel download address, Used by default from [kernel](https://github.com/breakings/OpenWrt/tree/main/opt/kernel) maintained by breakings. |
+| KERNEL_REPO_URL        | [breakings/.../kernel](https://github.com/ophub/flippy-openwrt-actions/blob/main/openwrt_flippy.sh#L34) | Set the kernel download address, Used by default from [kernel](https://github.com/breakings/OpenWrt/tree/main/opt/kernel) maintained by breakings. |
 | KERNEL_VERSION_NAME    | 5.10.125_5.15.50       | Set the kernel version，[kernel](https://github.com/breakings/OpenWrt/tree/main/opt/kernel) library contains many original kernels of `Flippy`, you can view and choose to specify. you can specify a single kernel such as `5.10.125`, you can choose multiple kernel to use `_` connection such as `5.10.125_5.15.50` . The name of the kernel is subject to the folder name in the kernel directory. |
 | KERNEL_AUTO_LATEST     | true                   | Set whether to automatically adopt the latest version of the kernel of the same series. When it is `true`, it will automatically find in the kernel library whether there is an updated version of the kernel specified in `KERNEL_VERSION_NAME` such as 5.10.125. If there is the latest version of same series, it will automatically Replace with the latest version. When set to `false`, the specified version of the kernel will be compiled. |
 | PACKAGE_SOC            | s905d_s905x3_beikeyun  | Set the `SoC` of the packaging box, the default `all` packs all boxes, you can specify a single box such as `s905x3`, you can choose multiple boxes to use `_` connection such as `s905x3_s905d` . SOC code of each box is: `vplus` `beikeyun` `l1pro` `r66s` `r68s` `s905` `s905d` `s905x2` `s905x3` `s912` `s922x` `s922x-n2` `qemu` `diy`, Note: `s922x-n2` is `s922x-odroid-n2`, `diy` is a custom box.  |
