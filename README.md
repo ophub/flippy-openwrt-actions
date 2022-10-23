@@ -4,7 +4,7 @@ View Chinese description  |  [查看中文说明](README.cn.md)
 
 The packaging scripts of the [Flippy repository](https://github.com/unifreq/openwrt_packit) are completely used, without any script modification, and only intelligent Action application development is carried out, making the packaging operation easier and more personalized.
 
-Support Allwinner (V-Plus Cloud), and Rockchip (BeikeYun, Chainedbox L1 Pro, FastRhino R66S, FastRhino R68S), and Amlogic S9xxx boxes are S905x3, S905x2, S922x, S905x, S905d, S905, S912, etc.
+Support Allwinner (V-Plus Cloud), and Rockchip (BeikeYun, Chainedbox L1 Pro, FastRhino R66S, FastRhino R68S, HinLink H68K), and Amlogic S9xxx boxes are S905x3, S905x2, S922x, S905x, S905d, S905, S912, etc.
 
 ## Instructions
 
@@ -17,7 +17,7 @@ Introduce this Actions in the `.github/workflows/*.yml` cloud compilation script
   env:
     OPENWRT_ARMVIRT: openwrt/bin/targets/*/*/*.tar.gz
     PACKAGE_SOC: s905d_s905x3_beikeyun
-    KERNEL_VERSION_NAME: 5.10.125_5.15.50
+    KERNEL_VERSION_NAME: 6.0.1_5.15.50
 
 ```
 
@@ -31,9 +31,9 @@ According to the latest kernel packaging script released by `Flippy`, optional p
 | SCRIPT_REPO_URL        | [unifreq/openwrt_packit](https://github.com/ophub/flippy-openwrt-actions/blob/main/openwrt_flippy.sh#L32) | Set up the packaging script source code repository. You can fill in the full URL of `github` such as `https://github.com/unifreq/openwrt_packit` or repository/project abbreviation such as `unifreq/openwrt_packit` |
 | SCRIPT_REPO_BRANCH     | master                 | Set the branch of the packaged script source code repository. |
 | KERNEL_REPO_URL        | [breakings/.../kernel](https://github.com/ophub/flippy-openwrt-actions/blob/main/openwrt_flippy.sh#L34) | Set the kernel download address, Used by default from [kernel](https://github.com/breakings/OpenWrt/tree/main/opt/kernel) maintained by breakings. |
-| KERNEL_VERSION_NAME    | 5.10.125_5.15.50       | Set the kernel version，[kernel](https://github.com/breakings/OpenWrt/tree/main/opt/kernel) library contains many original kernels of `Flippy`, you can view and choose to specify. you can specify a single kernel such as `5.10.125`, you can choose multiple kernel to use `_` connection such as `5.10.125_5.15.50` . The name of the kernel is subject to the folder name in the kernel directory. |
-| KERNEL_AUTO_LATEST     | true                   | Set whether to automatically adopt the latest version of the kernel of the same series. When it is `true`, it will automatically find in the kernel library whether there is an updated version of the kernel specified in `KERNEL_VERSION_NAME` such as 5.10.125. If there is the latest version of same series, it will automatically Replace with the latest version. When set to `false`, the specified version of the kernel will be compiled. |
-| PACKAGE_SOC            | s905d_s905x3_beikeyun  | Set the `SoC` of the packaging box, the default `all` packs all boxes, you can specify a single box such as `s905x3`, you can choose multiple boxes to use `_` connection such as `s905x3_s905d` . SOC code of each box is: `vplus` `beikeyun` `l1pro` `r66s` `r68s` `s905` `s905d` `s905x2` `s905x3` `s912` `s922x` `s922x-n2` `qemu` `diy`, Note: `s922x-n2` is `s922x-odroid-n2`, `diy` is a custom box.  |
+| KERNEL_VERSION_NAME    | 6.0.1_5.15.50       | Set the kernel version，[kernel](https://github.com/breakings/OpenWrt/tree/main/opt/kernel) library contains many original kernels of `Flippy`, you can view and choose to specify. you can specify a single kernel such as `6.0.1`, you can choose multiple kernel to use `_` connection such as `6.0.1_5.15.50` . The name of the kernel is subject to the folder name in the kernel directory. |
+| KERNEL_AUTO_LATEST     | true                   | Set whether to automatically adopt the latest version of the kernel of the same series. When it is `true`, it will automatically find in the kernel library whether there is an updated version of the kernel specified in `KERNEL_VERSION_NAME` such as 6.0.1. If there is the latest version of same series, it will automatically Replace with the latest version. When set to `false`, the specified version of the kernel will be compiled. |
+| PACKAGE_SOC            | s905d_s905x3_beikeyun  | Set the `SoC` of the packaging box, the default `all` packs all boxes, you can specify a single box such as `s905x3`, you can choose multiple boxes to use `_` connection such as `s905x3_s905d` . SOC code of each box is: `vplus` `beikeyun` `l1pro` `r66s` `r68s` `h68k` `s905` `s905d` `s905x2` `s905x3` `s912` `s922x` `s922x-n2` `qemu` `diy`, Note: `s922x-n2` is `s922x-odroid-n2`, `diy` is a custom box.  |
 | GZIP_IMGS              | auto                   | Set the file compression format after packaging, optional values are `.gz` (default) / `.xz` / `.zip` / `.zst` / `.7z` |
 | SELECT_PACKITPATH      | openwrt_packit         | Set the packit directory under `/opt` |
 | SELECT_OUTPUTPATH      | output                 | Set the directory name of the firmware output in the `${SELECT_PACKITPATH}` directory. |
@@ -42,6 +42,7 @@ According to the latest kernel packaging script released by `Flippy`, optional p
 | SCRIPT_L1PRO           | mk_rk3328_l1pro.sh     | Set the script file name for packaging `rk3328 l1pro` |
 | SCRIPT_R66S            | mk_rk3568_r66s.sh      | Set the script file name for packaging `rk3568 r66s` |
 | SCRIPT_R68S            | mk_rk3568_r68s.sh      | Set the script file name for packaging `rk3568 r68s` |
+| SCRIPT_H68K            | mk_rk3568_h68k.sh      | Set the script file name for packaging `rk3568 h68k` |
 | SCRIPT_S905            | mk_s905_mxqpro+.sh     | Set the script file name for packaging `s905 mxqpro+` |
 | SCRIPT_S905D           | mk_s905d_n1.sh         | Set the script file name for packaging `s905d n1` |
 | SCRIPT_S905X2          | mk_s905x2_x96max.sh    | Set the script file name for packaging `s905x2 x96max` |
