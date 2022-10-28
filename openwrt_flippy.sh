@@ -320,7 +320,7 @@ EOF
                 zip | .zip)    ls *.img | head -n 1 | xargs -I % sh -c 'zip %.zip %; rm -f %' ;;
                 zst | .zst)    zstd --rm *.img ;;
                 xz | .xz)      xz -z *.img ;;
-                gz | .gz | *)  pigz -9 *.img ;;
+                gz | .gz | *)  pigz -9f *.img ;;
             esac
             sync
 
