@@ -4,21 +4,19 @@
 
 完全使用 [Flippy 原站](https://github.com/unifreq/openwrt_packit) 的打包脚本，不做任何脚本修改，仅进行了智能化 Action 应用开发，让打包操作变得更加简单化和个性化。
 
-支持全志（微加云）、瑞芯微（贝壳云，我家云，电犀牛R66S，电犀牛R68S，恒领H68K，瑞莎E25），以及晶晨 S9xxx 系列型号如 S905x3、S905x2、S922x、S905x、S905d，S905，S912 等。
+支持全志（微加云）、瑞芯微（贝壳云，我家云，电犀牛R66S，电犀牛R68S，恒领H88K/H68k，瑞莎5B/E25），以及晶晨 S9xxx 系列型号如 S905x3、S905x2、S922x、S905x、S905d，S905，S912 等。
 
 ## 使用方法
 
 在 `.github/workflows/*.yml` 云编译脚本中引入此 Actions 即可使用，例如 [packaging-openwrt.yml](.github/workflows/packaging-openwrt.yml)。代码如下：
 
 ```yaml
-
 - name: Package OpenWrt Firmware
   uses: ophub/flippy-openwrt-actions@main
   env:
     OPENWRT_ARMVIRT: openwrt/bin/targets/*/*/*.tar.gz
-    PACKAGE_SOC: s905d_s905x3_beikeyun
+    PACKAGE_SOC: all
     KERNEL_VERSION_NAME: 6.0.1_5.15.50
-
 ```
 
 ## 可选参数说明
@@ -30,16 +28,19 @@
 | OPENWRT_ARMVIRT_PATH   | no                     | 必选项. 设置 `openwrt-armvirt-64-default-rootfs.tar.gz` 的文件路径，可以使用相对路径如 `openwrt/bin/targets/*/*/*.tar.gz` 或 网络文件下载地址如 `https://github.com/*/releases/*/*.tar.gz` |
 | SCRIPT_REPO_URL        | [unifreq/openwrt_packit](https://github.com/ophub/flippy-openwrt-actions/blob/main/openwrt_flippy.sh#L32) | 设置打包脚本源码仓库。可以填写 `github` 的完整网址如 `https://github.com/unifreq/openwrt_packit` 或 仓库/项目 简写如 `unifreq/openwrt_packit` |
 | SCRIPT_REPO_BRANCH     | master                 | 设置打包脚本源码仓库的分支                        |
-| KERNEL_REPO_URL        | [breakings/.../kernel](https://github.com/ophub/flippy-openwrt-actions/blob/main/openwrt_flippy.sh#L34) | 设置内核下载地址，默认从 breakings 维护的 [kernel](https://github.com/breakings/OpenWrt/tree/main/opt/kernel) 库里下载 Flippy 的内核。 |
-| KERNEL_VERSION_NAME    | 6.0.1_5.15.50       | 设置内核版本，[kernel](https://github.com/breakings/OpenWrt/tree/main/opt/kernel) 库里收藏了众多 Flippy 的原版内核，可以查看并选择指定。可指定单个内核如 `6.0.1` ，可选择多个内核用`_`连接如 `6.0.1_5.15.50` ，内核名称以 kernel 目录中的文件夹名称为准。 |
+| KERNEL_REPO_URL        | [breakings/.../opt](https://github.com/ophub/flippy-openwrt-actions/blob/main/openwrt_flippy.sh#L34) | 设置内核下载地址，默认从 breakings 维护的 [kernel](https://github.com/breakings/OpenWrt/tree/main/opt) 库里下载 Flippy 的内核。 |
+| KERNEL_VERSION_DIR     | kernel_rk3588          | 设置内核下载目录。通用内核目录_rk3588内核目录 |
+| KERNEL_VERSION_NAME    | 6.0.1_5.15.50          | 设置内核版本，[kernel](https://github.com/breakings/OpenWrt/tree/main/opt/kernel) 库里收藏了众多 Flippy 的原版内核，可以查看并选择指定。可指定单个内核如 `6.0.1` ，可选择多个内核用`_`连接如 `6.0.1_5.15.50` ，内核名称以 kernel 目录中的文件夹名称为准。 |
 | KERNEL_AUTO_LATEST     | true                   | 设置是否自动采用同系列最新版本内核。当为 `true` 时，将自动在内核库中查找在 `KERNEL_VERSION_NAME` 中指定的内核如 6.0.1 的同系列是否有更新的版本，如有更新版本时，将自动更换为最新版。设置为 `false` 时将编译指定版本内核。 |
-| PACKAGE_SOC            | s905d_s905x3_beikeyun  | 设置打包盒子的 `SOC` ，默认 `all` 打包全部盒子，可指定单个盒子如 `s905x3` ，可选择多个盒子用`_`连接如 `s905x3_s905d` 。各盒子的SoC代码为：`vplus` `beikeyun` `l1pro` `r66s` `r68s` `h68k` `e25` `s905` `s905d` `s905x2` `s905x3` `s912` `s922x` `s922x-n2` `qemu` `diy`。说明：`s922x-n2` 是 `s922x-odroid-n2`, `diy` 是自定义盒子。 |
+| PACKAGE_SOC            | s905d_s905x3_beikeyun  | 设置打包盒子的 `SOC` ，默认 `all` 打包全部盒子，可指定单个盒子如 `s905x3` ，可选择多个盒子用`_`连接如 `s905x3_s905d` 。各盒子的SoC代码为：`vplus`, `beikeyun`, `l1pro`, `rock5b`, `h88k`, `r66s`, `r68s`, `h68k`, `e25`, `s905`, `s905d`, `s905x2`, `s905x3`, `s912`, `s922x`, `s922x-n2`, `qemu`, `diy`。说明：`s922x-n2` 是 `s922x-odroid-n2`, `diy` 是自定义盒子。 |
 | GZIP_IMGS              | auto                   | 设置打包完毕后文件压缩的格式，可选值 `.gz`（默认） / `.xz` / `.zip` / `.zst` / `.7z` |
 | SELECT_PACKITPATH      | openwrt_packit         | 设置 `/opt` 下的打包目录名称                     |
 | SELECT_OUTPUTPATH      | output                 | 设置 `${SELECT_PACKITPATH}` 目录中固件输出的目录名称 |
 | SCRIPT_VPLUS           | mk_h6_vplus.sh         | 设置打包 `h6 vplus` 的脚本文件名                 |
 | SCRIPT_BEIKEYUN        | mk_rk3328_beikeyun.sh  | 设置打包 `rk3328 beikeyun` 的脚本文件名          |
 | SCRIPT_L1PRO           | mk_rk3328_l1pro.sh     | 设置打包 `rk3328 l1pro` 的脚本文件名             |
+| SCRIPT_ROCK5B          | mk_rk3588_rock5b.sh    | 设置打包 `rk3588 rock5b` 的脚本文件名            |
+| SCRIPT_H88K            | mk_rk3588_h88k.sh      | 设置打包 `rk3588 h88k` 的脚本文件名              |
 | SCRIPT_R66S            | mk_rk3568_r66s.sh      | 设置打包 `rk3568 r66s` 的脚本文件名              |
 | SCRIPT_R68S            | mk_rk3568_r68s.sh      | 设置打包 `rk3568 r68s` 的脚本文件名              |
 | SCRIPT_H68K            | mk_rk3568_h68k.sh      | 设置打包 `rk3568 h68k` 的脚本文件名              |
