@@ -154,18 +154,15 @@ init_var() {
     [[ -n "${DISTRIB_REVISION}" ]] || DISTRIB_REVISION="${DISTRIB_REVISION_VALUE}"
     [[ -n "${DISTRIB_DESCRIPTION}" ]] || DISTRIB_DESCRIPTION="${DISTRIB_DESCRIPTION_VALUE}"
 
-    # KERNEL_REPO_URL URL format conversion to support svn co
-    [[ -n "$(echo ${KERNEL_REPO_URL} | grep "tree")" ]] && {
-        # Left part
-        KERNEL_REPO_URL_LEFT="${KERNEL_REPO_URL%\/tree*}"
-        # Right part
-        KERNEL_REPO_URL_RIGHT="${KERNEL_REPO_URL#*tree\/}"
-        KERNEL_REPO_URL_RIGHT="${KERNEL_REPO_URL_RIGHT#*\/}"
-        KERNEL_REPO_URL="${KERNEL_REPO_URL_LEFT}/trunk/${KERNEL_REPO_URL_RIGHT}"
+    # Confirm package object
+    [[ "${PACKAGE_SOC}" != "all" ]] && {
+        unset PACKAGE_OPENWRT
+        oldIFS=$IFS
+        IFS=_
+        PACKAGE_OPENWRT=(${PACKAGE_SOC})
+        IFS=$oldIFS
     }
-    # Process the previous address, remove the [ /kernel ] directory
-    KERNEL_REPO_URL="${KERNEL_REPO_URL//opt\/kernel/opt}"
-    echo -e "${INFO} Kernel download address: [ ${KERNEL_REPO_URL} ]"
+    echo -e "${INFO} Package OpenWrt List: [ ${PACKAGE_OPENWRT[*]} ]"
 
     # Reset KERNEL_DIR options
     [[ -n "${KERNEL_VERSION_DIR}" ]] && {
@@ -175,6 +172,28 @@ init_var() {
         KERNEL_DIR=(${KERNEL_VERSION_DIR})
         IFS=$oldIFS
     }
+
+    # KERNEL_REPO_URL URL format conversion to support svn co
+    [[ -n "$(echo ${KERNEL_REPO_URL} | grep "tree")" ]] && {
+        # Left part
+        KERNEL_REPO_URL_LEFT="${KERNEL_REPO_URL%\/tree*}"
+        # Right part
+        KERNEL_REPO_URL_RIGHT="${KERNEL_REPO_URL#*tree\/}"
+        KERNEL_REPO_URL_RIGHT="${KERNEL_REPO_URL_RIGHT#*\/}"
+        KERNEL_REPO_URL="${KERNEL_REPO_URL_LEFT}/trunk/${KERNEL_REPO_URL_RIGHT}"
+    }
+
+    # Remove [ /kernel ] for breakings kernel repository
+    [[ "${KERNEL_REPO_URL,,}" == *"github.com/breakings/openwrt/"* ]] && {
+        KERNEL_REPO_URL="${KERNEL_REPO_URL//opt\/kernel/opt}"
+        KERNEL_DIR=("kernel" "rk3588")
+    }
+    # Remove [ /stable ] for ophub kernel repository
+    [[ "${KERNEL_REPO_URL,,}" == *"github.com/ophub/kernel/"* ]] && {
+        KERNEL_REPO_URL="${KERNEL_REPO_URL//pub\/stable/pub}"
+        KERNEL_DIR=("stable" "rk3588")
+    }
+    echo -e "${INFO} Kernel download repository: [ ${KERNEL_REPO_URL} ]"
     echo -e "${INFO} Kernel storage directory: [ ${KERNEL_DIR[*]} ]"
 
     # Reset COMMON_KERNEL options
@@ -187,16 +206,6 @@ init_var() {
     }
     echo -e "${INFO} Common Kernel List: [ ${COMMON_KERNEL[*]} ]"
     echo -e "${INFO} RK3588 Kernel List: [ ${RK3588_KERNEL[*]} ]"
-
-    # Confirm package object
-    [[ "${PACKAGE_SOC}" != "all" ]] && {
-        unset PACKAGE_OPENWRT
-        oldIFS=$IFS
-        IFS=_
-        PACKAGE_OPENWRT=(${PACKAGE_SOC})
-        IFS=$oldIFS
-    }
-    echo -e "${INFO} Package OpenWrt List: [ ${PACKAGE_OPENWRT[*]} ]"
 }
 
 init_packit_repo() {
