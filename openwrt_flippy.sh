@@ -11,6 +11,7 @@
 # error_msg         : Output error message
 # init_var          : Initialize all variables
 # init_packit_repo  : Initialize packit openwrt repo
+# auto_kernel       : Automatically use the latest kernel
 # download_kernel   : Download the kernel
 # make_openwrt      : Loop to make OpenWrt files
 # out_github_env    : Output github.com variables
@@ -23,7 +24,6 @@ SCRIPT_REPO_BRANCH_VALUE="master"
 
 # Set the *rootfs.tar.gz package save name
 PACKAGE_FILE="openwrt-armvirt-64-default-rootfs.tar.gz"
-PACKAGE_SOC_VALUE="all"
 
 # Set the list of supported device
 PACKAGE_OPENWRT=(
@@ -34,10 +34,10 @@ PACKAGE_OPENWRT=(
     "qemu"
     "diy"
 )
-# Set the list of devices using the rk3588 kernel
-PACKAGE_OPENWRT_RK3588=(
-    "rock5b" "h88k"
-)
+# Set the list of devices using the [ rk3588 ] kernel
+PACKAGE_OPENWRT_RK3588=("rock5b" "h88k")
+# All are packaged by default, and independent settings are supported, such as: [ s905x3_s905d_rock5b ]
+PACKAGE_SOC_VALUE="all"
 
 # Set the default packaged kernel download repository
 KERNEL_REPO_URL_VALUE="https://github.com/breakings/OpenWrt/tree/main/opt"
@@ -105,6 +105,8 @@ error_msg() {
 }
 
 init_var() {
+    echo -e "${STEPS} Start Initializing Variables..."
+
     # Install the compressed package
     sudo apt-get -qq update && sudo apt-get -qq install -y p7zip p7zip-full zip unzip gzip xz-utils pigz zstd subversion git
 
@@ -152,40 +154,56 @@ init_var() {
     [[ -n "${DISTRIB_REVISION}" ]] || DISTRIB_REVISION="${DISTRIB_REVISION_VALUE}"
     [[ -n "${DISTRIB_DESCRIPTION}" ]] || DISTRIB_DESCRIPTION="${DISTRIB_DESCRIPTION_VALUE}"
 
+    # KERNEL_REPO_URL URL format conversion to support svn co
+    [[ -n "$(echo ${KERNEL_REPO_URL} | grep "tree")" ]] && {
+        # Left part
+        KERNEL_REPO_URL_LEFT="${KERNEL_REPO_URL%\/tree*}"
+        # Right part
+        KERNEL_REPO_URL_RIGHT="${KERNEL_REPO_URL#*tree\/}"
+        KERNEL_REPO_URL_RIGHT="${KERNEL_REPO_URL_RIGHT#*\/}"
+        KERNEL_REPO_URL="${KERNEL_REPO_URL_LEFT}/trunk/${KERNEL_REPO_URL_RIGHT}"
+    }
+    # Process the previous address, remove the [ /kernel ] directory
+    KERNEL_REPO_URL="${KERNEL_REPO_URL//opt\/kernel/opt}"
+    echo -e "${INFO} Kernel download address: [ ${KERNEL_REPO_URL} ]"
+
     # Reset KERNEL_DIR options
-    if [[ -n "${KERNEL_VERSION_DIR}" ]]; then
+    [[ -n "${KERNEL_VERSION_DIR}" ]] && {
         unset KERNEL_DIR
         oldIFS=$IFS
         IFS=_
         KERNEL_DIR=(${KERNEL_VERSION_DIR})
         IFS=$oldIFS
-    fi
+    }
+    echo -e "${INFO} Kernel storage directory: [ ${KERNEL_DIR[*]} ]"
 
     # Reset COMMON_KERNEL options
-    if [[ -n "${KERNEL_VERSION_NAME}" ]]; then
+    [[ -n "${KERNEL_VERSION_NAME}" ]] && {
         unset COMMON_KERNEL
         oldIFS=$IFS
         IFS=_
         COMMON_KERNEL=(${KERNEL_VERSION_NAME})
         IFS=$oldIFS
-    fi
+    }
+    echo -e "${INFO} Common Kernel List: [ ${COMMON_KERNEL[*]} ]"
+    echo -e "${INFO} RK3588 Kernel List: [ ${RK3588_KERNEL[*]} ]"
 
     # Confirm package object
-    if [[ -n "${PACKAGE_SOC}" && "${PACKAGE_SOC}" != "all" ]]; then
+    [[ "${PACKAGE_SOC}" != "all" ]] && {
         unset PACKAGE_OPENWRT
         oldIFS=$IFS
         IFS=_
         PACKAGE_OPENWRT=(${PACKAGE_SOC})
         IFS=$oldIFS
-    fi
-    echo -e "${INFO} Package OpenWrt SoC List: [ ${PACKAGE_OPENWRT[*]} ]"
+    }
+    echo -e "${INFO} Package OpenWrt List: [ ${PACKAGE_OPENWRT[*]} ]"
 }
 
 init_packit_repo() {
     cd /opt
 
     # clone ${SELECT_PACKITPATH} repo
-    echo -e "${STEPS} Cloning package script repository [ ${SCRIPT_REPO_URL} ], branch [ ${SCRIPT_REPO_BRANCH} ] into ${SELECT_PACKITPATH}."
+    echo -e "${STEPS} Start cloning repository [ ${SCRIPT_REPO_URL} ], branch [ ${SCRIPT_REPO_BRANCH} ] into [ ${SELECT_PACKITPATH} ]"
     git clone --depth 1 ${SCRIPT_REPO_URL} -b ${SCRIPT_REPO_BRANCH} ${SELECT_PACKITPATH}
 
     # Check the *rootfs.tar.gz package
@@ -193,10 +211,10 @@ init_packit_repo() {
 
     # Load *-armvirt-64-default-rootfs.tar.gz
     if [[ "${OPENWRT_ARMVIRT}" == http* ]]; then
-        echo -e "${STEPS} wget [ ${OPENWRT_ARMVIRT} ] file into ${SELECT_PACKITPATH}"
+        echo -e "${STEPS} wget [ ${OPENWRT_ARMVIRT} ] file into [ ${SELECT_PACKITPATH} ]"
         wget ${OPENWRT_ARMVIRT} -q -O "${SELECT_PACKITPATH}/${PACKAGE_FILE}"
     else
-        echo -e "${STEPS} copy [ ${GITHUB_WORKSPACE}/${OPENWRT_ARMVIRT} ] file into ${SELECT_PACKITPATH}"
+        echo -e "${STEPS} copy [ ${GITHUB_WORKSPACE}/${OPENWRT_ARMVIRT} ] file into [ ${SELECT_PACKITPATH} ]"
         cp -f ${GITHUB_WORKSPACE}/${OPENWRT_ARMVIRT} ${SELECT_PACKITPATH}/${PACKAGE_FILE}
     fi
 
@@ -204,26 +222,14 @@ init_packit_repo() {
     armvirt_rootfs_size="$(ls -l ${SELECT_PACKITPATH}/${PACKAGE_FILE} 2>/dev/null | awk '{print $5}')"
     echo -e "${INFO} armvirt_rootfs_size: [ ${armvirt_rootfs_size} ]"
     if [[ "${armvirt_rootfs_size}" -ge "10000000" ]]; then
-        echo -e "${INFO} ${SELECT_PACKITPATH}/${PACKAGE_FILE} loaded successfully."
+        echo -e "${INFO} [ ${SELECT_PACKITPATH}/${PACKAGE_FILE} ] loaded successfully."
     else
         error_msg "The [ ${SELECT_PACKITPATH}/${PACKAGE_FILE} ] failed to load."
     fi
 }
 
-download_kernel() {
-    cd /opt
-
-    # KERNEL_REPO_URL URL format conversion to support svn co
-    if [[ "${KERNEL_REPO_URL}" == http* && -n "$(echo ${KERNEL_REPO_URL} | grep "tree")" ]]; then
-        # Left part
-        KERNEL_REPO_URL_LEFT="${KERNEL_REPO_URL%\/tree*}"
-        # Right part
-        KERNEL_REPO_URL_RIGHT="${KERNEL_REPO_URL#*tree\/}"
-        KERNEL_REPO_URL_RIGHT="${KERNEL_REPO_URL_RIGHT#*\/}"
-        KERNEL_REPO_URL="${KERNEL_REPO_URL_LEFT}/trunk/${KERNEL_REPO_URL_RIGHT}"
-    fi
-    # Process the previous address, remove the [ /kernel ] directory
-    KERNEL_REPO_URL="${KERNEL_REPO_URL//opt\/kernel/opt}"
+auto_kernel() {
+    echo -e "${STEPS} Start querying the latest kernel..."
 
     # Convert to api method
     SERVER_KERNEL_URL="${KERNEL_REPO_URL#*com\/}"
@@ -231,12 +237,9 @@ download_kernel() {
     SERVER_KERNEL_URL="https://api.github.com/repos/${SERVER_KERNEL_URL}"
 
     # Check the version on the kernel library
-    if [[ -n "${KERNEL_AUTO_LATEST}" && "${KERNEL_AUTO_LATEST}" == "true" ]]; then
-        x="1"
-        for vb in ${KERNEL_DIR[*]}; do
-
-            TMP_ARR_KERNELS=()
-
+    x="1"
+    for vb in ${KERNEL_DIR[*]}; do
+        {
             # Select the corresponding kernel directory and list
             if [[ "${vb}" == "rk3588" ]]; then
                 down_kernel_list="${RK3588_KERNEL[*]}"
@@ -244,9 +247,11 @@ download_kernel() {
                 down_kernel_list="${COMMON_KERNEL[*]}"
             fi
 
+            # Query the name of the latest kernel version
+            TMP_ARR_KERNELS=()
             i=1
             for KERNEL_VAR in ${down_kernel_list[*]}; do
-                echo -e "${INFO} (${i}) Auto query the latest kernel version of the same series for [ ${KERNEL_VAR} ]"
+                echo -e "${INFO} (${i}) Auto query the latest kernel version of the same series for [ ${vb} - ${KERNEL_VAR} ]"
                 MAIN_LINE="$(echo ${KERNEL_VAR} | awk -F '.' '{print $1"."$2}')"
                 # Check the version on the server (e.g LATEST_VERSION="125")
                 LATEST_VERSION="$(curl -s "${SERVER_KERNEL_URL}/${vb}" | grep "name" | grep -oE "${MAIN_LINE}.[0-9]+" | sed -e "s/${MAIN_LINE}.//g" | sort -n | sed -n '$p')"
@@ -268,7 +273,29 @@ download_kernel() {
                 unset COMMON_KERNEL
                 COMMON_KERNEL="${TMP_ARR_KERNELS[*]}"
             fi
-            down_kernel_list="${TMP_ARR_KERNELS[*]}"
+
+            let x++
+        }
+    done
+
+    echo -e "${INFO} The latest version of the common kernel: [ ${COMMON_KERNEL[*]} ]"
+    echo -e "${INFO} The latest version of the rk3588 kernel: [ ${RK3588_KERNEL[*]} ]"
+}
+
+download_kernel() {
+    echo -e "${STEPS} Start downloading the kernel..."
+
+    cd /opt
+
+    x="1"
+    for vb in ${KERNEL_DIR[*]}; do
+        {
+            # Set the kernel download list
+            if [[ "${vb}" == "rk3588" ]]; then
+                down_kernel_list="${RK3588_KERNEL[*]}"
+            else
+                down_kernel_list="${COMMON_KERNEL[*]}"
+            fi
 
             # Kernel storage directory
             kernel_path="kernel/${vb}"
@@ -289,20 +316,17 @@ download_kernel() {
             sync
 
             let x++
-        done
-    fi
-
-    echo -e "${INFO} Package OpenWrt Common Kernel List: [ ${COMMON_KERNEL[*]} ]"
-    echo -e "${INFO} Package OpenWrt RK3588 Kernel List: [ ${RK3588_KERNEL[*]} ]"
+        }
+    done
 }
 
 make_openwrt() {
-    # Packaged OpenWrt
-    echo -e "${STEPS} Start packaging openwrt..."
+    echo -e "${STEPS} Start packaging OpenWrt..."
 
     i="1"
     for PACKAGE_VAR in ${PACKAGE_OPENWRT[*]}; do
         {
+            # Distinguish between different OpenWrt and use different kernel
             if [[ -n "$(echo "${PACKAGE_OPENWRT_RK3588[@]}" | grep -w "${PACKAGE_VAR}")" ]]; then
                 build_kernel="${RK3588_KERNEL[*]}"
                 vb="rk3588"
@@ -310,13 +334,10 @@ make_openwrt() {
                 build_kernel="${COMMON_KERNEL[*]}"
                 vb="$(echo "${KERNEL_DIR[@]}" | sed -e "s|rk3588||" | xargs)"
             fi
-            echo -e "${INFO} (${i}) OpenWrt name: [ ${PACKAGE_VAR} ]"
-            echo -e "${INFO} (${i}) Kernel directory: [ ${vb} ], Kernel list: ${build_kernel[*]}"
 
             k="1"
             for KERNEL_VAR in ${build_kernel[*]}; do
                 {
-
                     cd /opt/kernel
 
                     # Copy the kernel to the packaging directory
@@ -327,7 +348,7 @@ make_openwrt() {
                     boot_kernel_file="${boot_kernel_file//boot-/}"
                     boot_kernel_file="${boot_kernel_file//.tar.gz/}"
                     [[ "${vb}" == "rk3588" ]] && rk3588_file="${boot_kernel_file}" || rk3588_file=""
-                    echo -e "${INFO} (${i}.${k}) KERNEL_VERSION: ${boot_kernel_file}"
+                    echo -e "${STEPS} (${i}.${k}) Start packaging OpenWrt: [ ${PACKAGE_VAR} ], Kernel directory: [ ${vb} ], Kernel name: [ ${boot_kernel_file} ]"
 
                     cd /opt/${SELECT_PACKITPATH}
 
@@ -336,9 +357,10 @@ make_openwrt() {
 
                     if [[ -n "${OPENWRT_VER}" && "${OPENWRT_VER}" == "auto" ]]; then
                         OPENWRT_VER="$(cat make.env | grep "OPENWRT_VER=\"" | cut -d '"' -f2)"
-                        echo -e "${INFO} (${i}.${k}) OPENWRT_VER: ${OPENWRT_VER}"
+                        echo -e "${INFO} (${i}.${k}) OPENWRT_VER: [ ${OPENWRT_VER} ]"
                     fi
 
+                    # Generate a custom make.env file
                     rm -f make.env 2>/dev/null
                     cat >make.env <<EOF
 WHOAMI="${WHOAMI}"
@@ -358,8 +380,7 @@ EOF
                     echo -e "${INFO} make.env file info:"
                     cat make.env
 
-                    echo -e "${STEPS} (${i}.${k}) Start packaging OpenWrt: [ ${PACKAGE_VAR} ], Kernel directory: [ ${vb} ], Kernel name: [ ${KERNEL_VAR} ]"
-
+                    # Check the available size of server space
                     now_remaining_space="$(df -Tk ${PWD} | grep '/dev/' | awk '{print $5}' | echo $(($(xargs) / 1024 / 1024)))"
                     if [[ "${now_remaining_space}" -le "3" ]]; then
                         echo -e "${WARNING} If the remaining space is less than 3G, exit this packaging. \n"
@@ -368,6 +389,7 @@ EOF
                         echo -e "${INFO} Remaining space is ${now_remaining_space}G. \n"
                     fi
 
+                    # Select the corresponding packaging script
                     case "${PACKAGE_VAR}" in
                         vplus)    [[ -f "${SCRIPT_VPLUS}" ]] && sudo ./${SCRIPT_VPLUS} ;;
                         beikeyun) [[ -f "${SCRIPT_BEIKEYUN}" ]] && sudo ./${SCRIPT_BEIKEYUN} ;;
@@ -390,9 +412,9 @@ EOF
                         *)        echo -e "${WARNING} Have no this SoC. Skipped."
                                   continue ;;
                     esac
-                    echo -e "${SUCCESS} (${i}.${k}) Package openwrt completed."
 
-                    echo -e "${STEPS} Compress the .img file in the [ ${SELECT_OUTPUTPATH} ] directory. \n"
+                    # Generate compressed file
+                    echo -e "${STEPS} (${i}.${k}) Start making compressed files in the [ ${SELECT_OUTPUTPATH} ] directory."
                     cd /opt/${SELECT_PACKITPATH}/${SELECT_OUTPUTPATH}
                     case "${GZIP_IMGS}" in
                         7z | .7z)      ls *.img | head -n 1 | xargs -I % sh -c '7z a -t7z -r %.7z %; rm -f %' ;;
@@ -401,6 +423,8 @@ EOF
                         xz | .xz)      xz -z *.img ;;
                         gz | .gz | *)  pigz -9f *.img ;;
                     esac
+
+                    echo -e "${SUCCESS} (${i}.${k}) OpenWrt packaging succeeded: [ ${PACKAGE_VAR} - ${vb} - ${KERNEL_VAR} ] \n"
                     sync
 
                     let k++
@@ -415,13 +439,13 @@ EOF
 }
 
 out_github_env() {
-    echo -e "${STEPS} Output environment variables."
+    echo -e "${STEPS} Output github.com environment variables..."
     if [[ -d "/opt/${SELECT_PACKITPATH}/${SELECT_OUTPUTPATH}" ]]; then
 
         cd /opt/${SELECT_PACKITPATH}/${SELECT_OUTPUTPATH}
 
         if [[ "${SAVE_OPENWRT_ARMVIRT}" == "true" ]]; then
-            echo -e "${STEPS} copy ${PACKAGE_FILE} files into ${SELECT_OUTPUTPATH} folder."
+            echo -e "${INFO} copy [ ${PACKAGE_FILE} ] into [ ${SELECT_OUTPUTPATH} ]"
             cp -f ../${PACKAGE_FILE} .
         fi
 
@@ -451,10 +475,11 @@ echo -e "${INFO} Server space usage before starting to compile:\n$(df -hT ${PWD}
 # Perform related operations in sequence
 init_var
 init_packit_repo
+[[ "${KERNEL_AUTO_LATEST}" == "true" ]] && auto_kernel
 download_kernel
 make_openwrt
 out_github_env
 
 # Display the remaining space on the server
 echo -e "${INFO} Server space usage after compilation:\n$(df -hT ${PWD}) \n"
-echo -e "${STEPS} The packaging process has been completed. \n"
+echo -e "${SUCCESS} The packaging process has been completed. \n"
