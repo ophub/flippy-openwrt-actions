@@ -43,6 +43,7 @@ According to the latest kernel packaging script released by `Flippy`, optional p
 | SCRIPT_H88K            | mk_rk3588_h88k.sh      | Set the script file name for packaging `rk3588 h88k` |
 | SCRIPT_R66S            | mk_rk3568_r66s.sh      | Set the script file name for packaging `rk3568 r66s` |
 | SCRIPT_R68S            | mk_rk3568_r68s.sh      | Set the script file name for packaging `rk3568 r68s` |
+| SCRIPT_H66K            | mk_rk3568_h66k.sh      | Set the script file name for packaging `rk3568 h66k` |
 | SCRIPT_H68K            | mk_rk3568_h68k.sh      | Set the script file name for packaging `rk3568 h68k` |
 | SCRIPT_E25             | mk_rk3568_e25.sh       | Set the script file name for packaging `rk3568 e25`  |
 | SCRIPT_S905            | mk_s905_mxqpro+.sh     | Set the script file name for packaging `s905 mxqpro+` |
