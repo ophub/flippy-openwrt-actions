@@ -88,6 +88,9 @@ ENABLE_WIFI_K510_VALUE="1"
 DISTRIB_REVISION_VALUE="R$(date +%Y.%m.%d)"
 DISTRIB_DESCRIPTION_VALUE="OpenWrt"
 
+# Get ${{ secrets.GH_TOKEN }} for api.github.com
+GH_TOKEN="${GH_TOKEN}"
+
 # Set font color
 STEPS="[\033[95m STEPS \033[0m]"
 INFO="[\033[94m INFO \033[0m]"
@@ -253,15 +256,26 @@ auto_kernel() {
             i=1
             for KERNEL_VAR in ${down_kernel_list[*]}; do
                 echo -e "${INFO} (${i}) Auto query the latest kernel version of the same series for [ ${vb} - ${KERNEL_VAR} ]"
+
+                # Identify the kernel mainline
                 MAIN_LINE="$(echo ${KERNEL_VAR} | awk -F '.' '{print $1"."$2}')"
+
                 # Check the version on the server (e.g LATEST_VERSION="125")
-                LATEST_VERSION="$(curl -s "${SERVER_KERNEL_URL}/${vb}" | grep "name" | grep -oE "${MAIN_LINE}.[0-9]+" | sed -e "s/${MAIN_LINE}.//g" | sort -n | sed -n '$p')"
+                if [[ -n "${GH_TOKEN}" ]]; then
+                    LATEST_VERSION="$(curl --header "authorization: Bearer ${GH_TOKEN}" -s "${SERVER_KERNEL_URL}/${vb}" | grep "name" | grep -oE "${MAIN_LINE}.[0-9]+" | sed -e "s/${MAIN_LINE}.//g" | sort -n | sed -n '$p')"
+                    query_api="authenticated"
+                else
+                    LATEST_VERSION="$(curl -s "${SERVER_KERNEL_URL}/${vb}" | grep "name" | grep -oE "${MAIN_LINE}.[0-9]+" | sed -e "s/${MAIN_LINE}.//g" | sort -n | sed -n '$p')"
+                    query_api="unauthenticated"
+                fi
+
                 if [[ "$?" -eq "0" && -n "${LATEST_VERSION}" ]]; then
                     TMP_ARR_KERNELS[${i}]="${MAIN_LINE}.${LATEST_VERSION}"
                 else
                     TMP_ARR_KERNELS[${i}]="${KERNEL_VAR}"
                 fi
-                echo -e "${INFO} (${i}) [ ${vb} - ${TMP_ARR_KERNELS[$i]} ] is latest kernel."
+
+                echo -e "${INFO} (${i}) [ ${vb} - ${TMP_ARR_KERNELS[$i]} ] is latest kernel(${query_api})."
 
                 let i++
             done

@@ -17,6 +17,7 @@ Introduce this Actions in the `.github/workflows/*.yml` cloud compilation script
     OPENWRT_ARMVIRT: openwrt/bin/targets/*/*/*.tar.gz
     PACKAGE_SOC: all
     KERNEL_VERSION_NAME: 6.0.1_5.15.50
+    GH_TOKEN: ${{ secrets.GH_TOKEN }}
 ```
 
 ## Optional parameter description
@@ -25,7 +26,7 @@ According to the latest kernel packaging script released by `Flippy`, optional p
 
 | parameter              | Defaults               | Description                                                   |
 |------------------------|------------------------|---------------------------------------------------------------|
-| OPENWRT_ARMVIRT_PATH   | no                     | required. Set the file path of `openwrt-armvirt-64-default-rootfs.tar.gz` , you can use a relative path such as `openwrt/bin/targets/*/*/*.tar.gz` or the network file download address. E.g `https://github.com/*/releases/*/*.tar.gz` . |
+| OPENWRT_ARMVIRT_PATH   | None                   | required. Set the file path of `openwrt-armvirt-64-default-rootfs.tar.gz` , you can use a relative path such as `openwrt/bin/targets/*/*/*.tar.gz` or the network file download address. E.g `https://github.com/*/releases/*/*.tar.gz` . |
 | SCRIPT_REPO_URL        | [unifreq/openwrt_packit](https://github.com/ophub/flippy-openwrt-actions/blob/main/openwrt_flippy.sh#L22) | Set up the packaging script source code repository. You can fill in the full URL of `github` such as `https://github.com/unifreq/openwrt_packit` or repository/project abbreviation such as `unifreq/openwrt_packit` |
 | SCRIPT_REPO_BRANCH     | master                 | Set the branch of the packaged script source code repository. |
 | KERNEL_REPO_URL        | [breakings/.../opt](https://github.com/ophub/flippy-openwrt-actions/blob/main/openwrt_flippy.sh#L46) | Set the kernel download address, Used by default from [kernel repository](https://github.com/breakings/OpenWrt/tree/main/opt) maintained by breakings. |
@@ -64,12 +65,13 @@ According to the latest kernel packaging script released by `Flippy`, optional p
 | ENABLE_WIFI_K510       | 1                      | Set the value of the `ENABLE_WIFI_K510` parameter in `make.env` |
 | DISTRIB_REVISION       | R$(date +%m.%d)        | Set the value of the `DISTRIB_REVISION` parameter in `make.env` |
 | DISTRIB_DESCRIPTION    | OpenWrt                | Set the value of the `DISTRIB_DESCRIPTION` parameter in `make.env` |
+| GH_TOKEN               | None                   | Optional. Set ${{ secrets.GH_TOKEN }} for [api.github.com](https://docs.github.com/en/rest/overview/resources-in-the-rest-api?apiVersion=2022-11-28#requests-from-personal-accounts) query. |
 
 💡 Normally, you can use the default parameters, but you can also configure them according to your needs. For example, after Flippy renamed the packaging script, the original default script file cannot be found, and the firmware version number in make.env has not been updated. You can use optional parameters for real-time designation and personalized configuration.
 
 ## Output parameter description
 
-According to the standard of github.com, 3 environment variables are output to facilitate the subsequent use of the compilation step. Since github.com has recently modified the settings of the fork repository, the read and write permissions of Workflow are disabled by default, so uploading to `Releases` requires adding `GITHUB_TOKEN` and `GH_TOKEN` to the repository and setting `Workflow read and write permissions`, see the [instructions for details](https://github.com/ophub/amlogic-s9xxx-openwrt/blob/main/router-config/README.md#2-set-the-privacy-variable-github_token).
+According to the standard of github.com, 3 environment variables are output to facilitate the subsequent use of the compilation step. Since github.com has recently modified the settings of the fork repository, the read and write permissions of Workflow are disabled by default, so uploading to `Releases` requires adding `${{ secrets.GITHUB_TOKEN }}` and `${{ secrets.GH_TOKEN }}` to the repository and setting `Workflow read and write permissions`, see the [instructions for details](https://github.com/ophub/amlogic-s9xxx-openwrt/blob/main/router-config/README.md#2-set-the-privacy-variable-github_token).
 
 | parameter                                | For example                | Description                   |
 |------------------------------------------|----------------------------|-------------------------------|

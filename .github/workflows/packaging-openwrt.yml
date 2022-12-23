@@ -99,7 +99,7 @@ jobs:
           [[ -d "${save_rootfsfile_path}" ]] || mkdir -p ${save_rootfsfile_path}
           #
           # Get the *rootfs.tar.gz file download address
-          openwrt_url="$(curl -s "https://api.github.com/repos/${armvirt_rootfsfile_repo}/releases" | grep -o "${releases_tag_keywords}" | head -n 1)"
+          openwrt_url="$(curl --header "authorization: Bearer ${{ secrets.GH_TOKEN }}" -s "https://api.github.com/repos/${armvirt_rootfsfile_repo}/releases" | grep -o "${releases_tag_keywords}" | head -n 1)"
           [[ -z "${openwrt_url}" ]] && echo -e "OpenWrt file not found!" && exit 1
           #
           # Download the *rootfs.tar.gz file to the specified directory
@@ -115,6 +115,7 @@ jobs:
           PACKAGE_SOC: ${{ inputs.openwrt_soc }}
           KERNEL_VERSION_NAME: ${{ inputs.openwrt_kernel }}
           KERNEL_AUTO_LATEST: ${{ inputs.auto_kernel }}
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
 
       - name: Upload OpenWrt Firmware to Release
         uses: ncipollo/release-action@main
