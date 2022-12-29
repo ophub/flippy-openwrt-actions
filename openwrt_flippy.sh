@@ -273,7 +273,7 @@ auto_kernel() {
                     TMP_ARR_KERNELS[${i}]="${KERNEL_VAR}"
                 fi
 
-                echo -e "${INFO} (${i}) [ ${vb} - ${TMP_ARR_KERNELS[$i]} ] is latest kernel(${query_api})."
+                echo -e "${INFO} (${i}) [ ${vb} - ${TMP_ARR_KERNELS[$i]} ] is latest kernel (${query_api})."
 
                 let i++
             done
