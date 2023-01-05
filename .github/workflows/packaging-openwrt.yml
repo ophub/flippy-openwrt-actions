@@ -112,9 +112,9 @@ jobs:
         if: ${{ steps.download.outputs.status }} == 'success' && !cancelled()
         env:
           OPENWRT_ARMVIRT: https://github.com/justbin95/Actions-OpenWrt-N1/releases/latest/download/openwrt-armvirt-64-default-rootfs.tar.gz
-          PACKAGE_SOC: s905d
-        #   KERNEL_VERSION_NAME: 6.0.1_5.15.50
-          KERNEL_AUTO_LATEST: true
+          PACKAGE_SOC: ${{ inputs.openwrt_soc }}
+          KERNEL_VERSION_NAME: ${{ inputs.openwrt_kernel }}
+          KERNEL_AUTO_LATEST: ${{ inputs.auto_kernel }}
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
 
       - name: Upload OpenWrt Firmware to Release
