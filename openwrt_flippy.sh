@@ -107,7 +107,7 @@ init_var() {
     echo -e "${STEPS} Start Initializing Variables..."
 
     # Install the compressed package
-    sudo apt-get -qq update && sudo apt-get -qq install -y p7zip p7zip-full zip unzip gzip xz-utils pigz zstd subversion git
+    sudo apt-get -qq update && sudo apt-get -qq install -y curl wget subversion git p7zip p7zip-full zip unzip gzip xz-utils pigz zstd
 
     # Specify the default value
     [[ -n "${SCRIPT_REPO_URL}" ]] || SCRIPT_REPO_URL="${SCRIPT_REPO_URL_VALUE}"
@@ -381,7 +381,7 @@ make_openwrt() {
                     cd /opt/${SELECT_PACKITPATH}
 
                     # If flowoffload is turned on, then sfe is forced to be closed by default
-                    [[ "${SW_FLOWOFFLOAD}" -eq "1" ]] && SFE_FLOW=0
+                    [[ "${SW_FLOWOFFLOAD}" -eq "1" ]] && SFE_FLOW="0"
 
                     if [[ -n "${OPENWRT_VER}" && "${OPENWRT_VER}" == "auto" ]]; then
                         OPENWRT_VER="$(cat make.env | grep "OPENWRT_VER=\"" | cut -d '"' -f2)"
@@ -471,9 +471,9 @@ out_github_env() {
         # Generate sha256sum check file
         sha256sum * >sha256sums && sync
 
-        echo "PACKAGED_OUTPUTPATH=${PWD}" >>$GITHUB_ENV
-        echo "PACKAGED_OUTPUTDATE=$(date +"%m.%d.%H%M")" >>$GITHUB_ENV
-        echo "PACKAGED_STATUS=success" >>$GITHUB_ENV
+        echo "PACKAGED_OUTPUTPATH=${PWD}" >>${GITHUB_ENV}
+        echo "PACKAGED_OUTPUTDATE=$(date +"%m.%d.%H%M")" >>${GITHUB_ENV}
+        echo "PACKAGED_STATUS=success" >>${GITHUB_ENV}
         echo -e "PACKAGED_OUTPUTPATH: ${PWD}"
         echo -e "PACKAGED_OUTPUTDATE: $(date +"%m.%d.%H%M")"
         echo -e "PACKAGED_STATUS: success"
@@ -481,7 +481,7 @@ out_github_env() {
         echo -e "$(ls /opt/${SELECT_PACKITPATH}/${SELECT_OUTPUTPATH} 2>/dev/null) \n"
     else
         echo -e "${ERROR} Packaging failed. \n"
-        echo "PACKAGED_STATUS=failure" >>$GITHUB_ENV
+        echo "PACKAGED_STATUS=failure" >>${GITHUB_ENV}
     fi
 }
 
