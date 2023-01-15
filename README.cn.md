@@ -27,7 +27,7 @@
 | 参数                   | 默认值                  | 说明                                            |
 |------------------------|------------------------|------------------------------------------------|
 | OPENWRT_ARMVIRT_PATH   | 无                     | 必选项. 设置 `openwrt-armvirt-64-default-rootfs.tar.gz` 的文件路径，可以使用相对路径如 `openwrt/bin/targets/*/*/*.tar.gz` 或 网络文件下载地址如 `https://github.com/*/releases/*/*.tar.gz` |
-| SCRIPT_REPO_URL        | [unifreq/openwrt_packit](https://github.com/ophub/flippy-openwrt-actions/blob/main/openwrt_flippy.sh#L22) | 设置打包脚本源码仓库。可以填写 `github` 的完整网址如 `https://github.com/unifreq/openwrt_packit` 或 仓库/项目 简写如 `unifreq/openwrt_packit` |
+| SCRIPT_REPO_URL        | [unifreq/openwrt_packit](https://github.com/ophub/flippy-openwrt-actions/blob/main/openwrt_flippy.sh#L22) | 设置打包脚本源码仓库。可以填写 `github` 的完整网址如 `https://github.com/unifreq/openwrt_packit` 或 `<owner>/<repo>` 简写如 `unifreq/openwrt_packit` |
 | SCRIPT_REPO_BRANCH     | master                 | 设置打包脚本源码仓库的分支                        |
 | KERNEL_REPO_URL        | [breakings/.../opt](https://github.com/ophub/flippy-openwrt-actions/blob/main/openwrt_flippy.sh#L46) | 设置内核下载地址，默认从 breakings 维护的[内核库](https://github.com/breakings/OpenWrt/tree/main/opt)里下载。 |
 | KERNEL_VERSION_DIR     | kernel_rk3588          | 设置内核下载目录。通用内核目录_rk3588内核目录 |
