@@ -440,7 +440,7 @@ EOF
                         zip | .zip)    ls *.img | head -n 1 | xargs -I % sh -c 'zip %.zip %; rm -f %' ;;
                         zst | .zst)    zstd --rm *.img ;;
                         xz | .xz)      xz -z *.img ;;
-                        gz | .gz | *)  pigz -9f *.img ;;
+                        gz | .gz | *)  pigz -f *.img ;;
                     esac
 
                     echo -e "${SUCCESS} (${i}.${k}) OpenWrt packaging succeeded: [ ${PACKAGE_VAR} - ${vb} - ${KERNEL_VAR} ] \n"
