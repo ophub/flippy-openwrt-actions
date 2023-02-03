@@ -37,7 +37,7 @@ PACKAGE_OPENWRT=(
 )
 # Set the list of devices using the [ rk3588 ] kernel
 PACKAGE_OPENWRT_RK3588=("rock5b" "h88k")
-# Set the list of devices using the [ 6.0.y and above ] kernel
+# Set the list of devices using the [ 6.x.y ] kernel
 PACKAGE_OPENWRT_KERNEL6=("r66s" "r68s" "h66k" "h68k" "e25")
 # All are packaged by default, and independent settings are supported, such as: [ s905x3_s905d_rock5b ]
 PACKAGE_SOC_VALUE="all"
@@ -46,8 +46,8 @@ PACKAGE_SOC_VALUE="all"
 KERNEL_REPO_URL_VALUE="https://github.com/breakings/OpenWrt/tree/main/opt"
 # Common kernel directory, RK3588 kernel directory, [ rk3588 ] is the fixed name
 KERNEL_DIR=("kernel" "rk3588")
-COMMON_KERNEL=("6.0.1" "5.15.50")
-RK3588_KERNEL=("5.10.150")
+COMMON_KERNEL=("6.1.10" "5.15.50")
+RK3588_KERNEL=("5.10.110")
 KERNEL_AUTO_LATEST_VALUE="true"
 
 # Set the working directory under /opt

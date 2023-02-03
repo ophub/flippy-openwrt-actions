@@ -16,7 +16,7 @@ Introduce this Actions in the `.github/workflows/*.yml` cloud compilation script
   env:
     OPENWRT_ARMVIRT: openwrt/bin/targets/*/*/*.tar.gz
     PACKAGE_SOC: all
-    KERNEL_VERSION_NAME: 6.0.1_5.15.50
+    KERNEL_VERSION_NAME: 6.1.10_5.15.50
     GH_TOKEN: ${{ secrets.GH_TOKEN }}
 ```
 
@@ -30,9 +30,9 @@ According to the latest kernel packaging script released by `Flippy`, optional p
 | SCRIPT_REPO_URL        | [unifreq/openwrt_packit](https://github.com/ophub/flippy-openwrt-actions/blob/main/openwrt_flippy.sh#L22) | Set up the packaging script source code repository. You can fill in the full URL of `github` such as `https://github.com/unifreq/openwrt_packit` or `<owner>/<repo>` abbreviation such as `unifreq/openwrt_packit` |
 | SCRIPT_REPO_BRANCH     | master                 | Set the branch of the packaged script source code repository. |
 | KERNEL_REPO_URL        | [breakings/.../opt](https://github.com/ophub/flippy-openwrt-actions/blob/main/openwrt_flippy.sh#L46) | Set the kernel download address, Used by default from [kernel repository](https://github.com/breakings/OpenWrt/tree/main/opt) maintained by breakings. |
-| KERNEL_VERSION_DIR     | kernel_rk3588          | Set the kernel download directory. Common-kernel-directory_RK3588-kernel-directory |
-| KERNEL_VERSION_NAME    | 6.0.1_5.15.50       | Set the [kernel version](https://github.com/breakings/OpenWrt/tree/main/opt/kernel)，you can view and choose to specify. you can specify a single kernel such as `6.0.1`, you can choose multiple kernel to use `_` connection such as `6.0.1_5.15.50` . The name of the kernel is subject to the folder name in the kernel directory. |
-| KERNEL_AUTO_LATEST     | true                   | Set whether to automatically adopt the latest version of the kernel of the same series. When it is `true`, it will automatically find in the kernel library whether there is an updated version of the kernel specified in `KERNEL_VERSION_NAME` such as 6.0.1. If there is the latest version of same series, it will automatically Replace with the latest version. When set to `false`, the specified version of the kernel will be compiled. |
+| KERNEL_VERSION_DIR     | kernel_rk3588          | Set the kernel download directory. <br />{COMMON_KERNEL}_{RK3588_KERNEL} |
+| KERNEL_VERSION_NAME    | 6.1.10_5.15.50       | Set the [kernel version](https://github.com/breakings/OpenWrt/tree/main/opt/kernel)，you can view and choose to specify. you can specify a single kernel such as `6.1.10`, you can choose multiple kernel to use `_` connection such as `6.1.10_5.15.50` . The name of the kernel is subject to the folder name in the kernel directory. |
+| KERNEL_AUTO_LATEST     | true                   | Set whether to automatically adopt the latest version of the kernel of the same series. When it is `true`, it will automatically find in the kernel library whether there is an updated version of the kernel specified in `KERNEL_VERSION_NAME` such as 6.1.10. If there is the latest version of same series, it will automatically Replace with the latest version. When set to `false`, the specified version of the kernel will be compiled. |
 | PACKAGE_SOC            | all                    | Set the `SoC` of the packaging box, the default `all` packs all boxes, you can specify a single box such as `s905x3`, you can choose multiple boxes to use `_` connection such as `s905x3_s905d` . SOC code of each box is: `vplus`, `beikeyun`, `l1pro`, `rock5b`, `h88k`, `r66s`, `r68s`, `h68k`, `e25`, `s905`, `s905d`, `s905x2`, `s905x3`, `s912`, `s922x`, `s922x-n2`, `qemu`, `diy`, Note: `s922x-n2` is `s922x-odroid-n2`, `diy` is a custom box.  |
 | GZIP_IMGS              | auto                   | Set the file compression format after packaging, optional values are `.gz` (default) / `.xz` / `.zip` / `.zst` / `.7z` |
 | SELECT_PACKITPATH      | openwrt_packit         | Set the packit directory under `/opt` |
