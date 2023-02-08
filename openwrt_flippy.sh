@@ -244,9 +244,9 @@ auto_kernel() {
         {
             # Select the corresponding kernel directory and list
             if [[ "${vb}" == "rk3588" ]]; then
-                down_kernel_list="${RK3588_KERNEL[*]}"
+                down_kernel_list=(${RK3588_KERNEL[*]})
             else
-                down_kernel_list="${COMMON_KERNEL[*]}"
+                down_kernel_list=(${COMMON_KERNEL[*]})
             fi
 
             # Query the name of the latest kernel version
@@ -281,10 +281,10 @@ auto_kernel() {
             # Reset the kernel array to the latest kernel version
             if [[ "${vb}" == "rk3588" ]]; then
                 unset RK3588_KERNEL
-                RK3588_KERNEL="${TMP_ARR_KERNELS[*]}"
+                RK3588_KERNEL=(${TMP_ARR_KERNELS[*]})
             else
                 unset COMMON_KERNEL
-                COMMON_KERNEL="${TMP_ARR_KERNELS[*]}"
+                COMMON_KERNEL=(${TMP_ARR_KERNELS[*]})
             fi
 
             let x++
@@ -305,9 +305,9 @@ download_kernel() {
         {
             # Set the kernel download list
             if [[ "${vb}" == "rk3588" ]]; then
-                down_kernel_list="${RK3588_KERNEL[*]}"
+                down_kernel_list=(${RK3588_KERNEL[*]})
             else
-                down_kernel_list="${COMMON_KERNEL[*]}"
+                down_kernel_list=(${COMMON_KERNEL[*]})
             fi
 
             # Kernel storage directory
@@ -341,10 +341,10 @@ make_openwrt() {
         {
             # Distinguish between different OpenWrt and use different kernel
             if [[ -n "$(echo "${PACKAGE_OPENWRT_RK3588[@]}" | grep -w "${PACKAGE_VAR}")" ]]; then
-                build_kernel="${RK3588_KERNEL[*]}"
+                build_kernel=(${RK3588_KERNEL[*]})
                 vb="rk3588"
             else
-                build_kernel="${COMMON_KERNEL[*]}"
+                build_kernel=(${COMMON_KERNEL[*]})
                 vb="$(echo "${KERNEL_DIR[@]}" | sed -e "s|rk3588||" | xargs)"
             fi
 
@@ -491,14 +491,21 @@ echo -e "${INFO} Server CPU configuration information: \n$(cat /proc/cpuinfo | g
 echo -e "${INFO} Server memory usage: \n$(free -h) \n"
 echo -e "${INFO} Server space usage before starting to compile:\n$(df -hT ${PWD}) \n"
 
-# Perform related operations in sequence
+# Initialize and download resources
 init_var
 init_packit_repo
 [[ "${KERNEL_AUTO_LATEST}" == "true" ]] && auto_kernel
 download_kernel
+#
+echo -e "${INFO} [ ${#PACKAGE_OPENWRT[*]} ] lists of OpenWrt board: [ $(echo ${PACKAGE_OPENWRT[*]} | xargs) ]"
+echo -e "${INFO} [ ${#COMMON_KERNEL[*]} ] lists of common kernel: [ $(echo ${COMMON_KERNEL[*]} | xargs) ]"
+echo -e "${INFO} [ ${#RK3588_KERNEL[*]} ] lists of rk3588 Kernel: [ $(echo ${RK3588_KERNEL[*]} | xargs) ]"
+echo -e "${INFO} Use the latest kernel version: [ ${KERNEL_AUTO_LATEST} ] \n"
+#
+# Loop to make OpenWrt
 make_openwrt
 out_github_env
-
+#
 # Display the remaining space on the server
 echo -e "${INFO} Server space usage after compilation:\n$(df -hT ${PWD}) \n"
 echo -e "${SUCCESS} The packaging process has been completed. \n"
