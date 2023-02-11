@@ -395,10 +395,9 @@ make_openwrt() {
                     cp -f ${vb}/${KERNEL_VAR}/* .
                     #
                     boot_kernel_file="$(ls boot-${KERNEL_VAR}* 2>/dev/null | head -n 1)"
-                    boot_kernel_file="${boot_kernel_file//boot-/}"
-                    boot_kernel_file="${boot_kernel_file//.tar.gz/}"
-                    [[ "${vb}" == "rk3588" ]] && rk3588_file="${boot_kernel_file}" || rk3588_file=""
-                    echo -e "${STEPS} (${i}.${k}) Start packaging OpenWrt: [ ${PACKAGE_VAR} ], Kernel directory: [ ${vb} ], Kernel name: [ ${boot_kernel_file} ]"
+                    KERNEL_VERSION="${boot_kernel_file:5:-7}"
+                    [[ "${vb}" == "rk3588" ]] && RK3588_KERNEL_VERSION="${KERNEL_VERSION}" || RK3588_KERNEL_VERSION=""
+                    echo -e "${STEPS} (${i}.${k}) Start packaging OpenWrt: [ ${PACKAGE_VAR} ], Kernel directory: [ ${vb} ], Kernel version: [ ${KERNEL_VERSION} ]"
                     echo -e "${INFO} Remaining space is ${now_remaining_space}G. \n"
 
                     cd /opt/${SELECT_PACKITPATH}
@@ -416,8 +415,8 @@ make_openwrt() {
                     cat >make.env <<EOF
 WHOAMI="${WHOAMI}"
 OPENWRT_VER="${OPENWRT_VER}"
-RK3588_KERNEL_VERSION="${rk3588_file}"
-KERNEL_VERSION="${boot_kernel_file}"
+RK3588_KERNEL_VERSION="${RK3588_KERNEL_VERSION}"
+KERNEL_VERSION="${KERNEL_VERSION}"
 KERNEL_PKG_HOME="/opt/kernel"
 SW_FLOWOFFLOAD="${SW_FLOWOFFLOAD}"
 HW_FLOWOFFLOAD="${HW_FLOWOFFLOAD}"
