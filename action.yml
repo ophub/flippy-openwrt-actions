@@ -1,9 +1,9 @@
-name: "Use flippy script to package Armvirt as OpenWrt"
-author: "ophub"
-description: "Package Armvirt as OpenWrt. Support Amlogic S9xxx STB, vplus, beikeyun and l1pro, etc."
+name: "Make OpenWrt using flippy's script"
+author: "https://github.com/ophub/flippy-openwrt-actions"
+description: "Support Amlogic, Rockchip and Allwinner boxes."
 inputs:
   mode:
-    description: "Choose script."
+    description: "Select script."
     required: false
     default: "flippy"
 
