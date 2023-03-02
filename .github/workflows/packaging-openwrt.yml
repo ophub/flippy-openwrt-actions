@@ -95,17 +95,22 @@ jobs:
           # Custom repository and Releases keywords for *rootfs.tar.gz file
           armvirt_rootfsfile_repo="ophub/amlogic-s9xxx-openwrt"
           releases_tag_keywords="OpenWrt_.*lede.*/.*rootfs.tar.gz"
-          #
+
           # The following download paths, etc. can remain unchanged
           save_rootfsfile_path="openwrt/bin/targets/armvirt/64"
           [[ -d "${save_rootfsfile_path}" ]] || mkdir -p ${save_rootfsfile_path}
-          #
+
           # Get the *rootfs.tar.gz file download address
-          openwrt_url="$(curl --header "authorization: Bearer ${{ secrets.GH_TOKEN }}" -s "https://api.github.com/repos/${armvirt_rootfsfile_repo}/releases" | grep -o "${releases_tag_keywords}" | head -n 1)"
+          openwrt_url="$(curl \
+                            --header "authorization: Bearer ${{ secrets.GH_TOKEN }}" \
+                            -s "https://api.github.com/repos/${armvirt_rootfsfile_repo}/releases" |
+                            grep -oE "${releases_tag_keywords}" | head -n 1
+                        )"
           [[ -z "${openwrt_url}" ]] && echo -e "OpenWrt file not found!" && exit 1
-          #
+          down_file="https://github.com/${armvirt_rootfsfile_repo}/releases/download/${openwrt_url}"
+
           # Download the *rootfs.tar.gz file to the specified directory
-          wget -q -P "${save_rootfsfile_path}" "https://github.com/${armvirt_rootfsfile_repo}/releases/download/${openwrt_url}"
+          wget -q -P "${save_rootfsfile_path}" "${down_file}"
           [[ "${?}" -ne "0" ]] && echo -e "The armvirt file download failed!" && exit 1
           echo "status=success" >> ${GITHUB_OUTPUT}
 
