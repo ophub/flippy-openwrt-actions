@@ -507,27 +507,29 @@ out_github_env() {
     fi
 }
 
-# Show server free space
+# Show welcome message
 echo -e "${STEPS} Welcome to use the OpenWrt packaging tool! \n"
-echo -e "${INFO} Server CPU configuration information: \n$(cat /proc/cpuinfo | grep name | cut -f2 -d: | uniq -c) \n"
-echo -e "${INFO} Server memory usage: \n$(free -h) \n"
-echo -e "${INFO} Server space usage before starting to compile:\n$(df -hT ${PWD}) \n"
 
 # Initialize and download resources
 init_var
 init_packit_repo
 [[ "${KERNEL_AUTO_LATEST}" == "true" ]] && auto_kernel
 download_kernel
-#
+
+# Show packit settings
 echo -e "${INFO} [ ${#PACKAGE_OPENWRT[*]} ] lists of OpenWrt board: [ $(echo ${PACKAGE_OPENWRT[*]} | xargs) ]"
 echo -e "${INFO} [ ${#COMMON_KERNEL[*]} ] lists of common kernel: [ $(echo ${COMMON_KERNEL[*]} | xargs) ]"
 echo -e "${INFO} [ ${#RK3588_KERNEL[*]} ] lists of rk3588 Kernel: [ $(echo ${RK3588_KERNEL[*]} | xargs) ]"
 echo -e "${INFO} Use the latest kernel version: [ ${KERNEL_AUTO_LATEST} ] \n"
-#
+# Show server start information
+echo -e "${INFO} Server CPU configuration information: \n$(cat /proc/cpuinfo | grep name | cut -f2 -d: | uniq -c) \n"
+echo -e "${INFO} Server memory usage: \n$(free -h) \n"
+echo -e "${INFO} Server space usage before starting to compile:\n$(df -hT ${PWD}) \n"
+
 # Loop to make OpenWrt
 make_openwrt
 out_github_env
-#
-# Display the remaining space on the server
+
+# Show server end information
 echo -e "${INFO} Server space usage after compilation:\n$(df -hT ${PWD}) \n"
 echo -e "${SUCCESS} The packaging process has been completed. \n"
