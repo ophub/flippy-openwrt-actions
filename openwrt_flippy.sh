@@ -217,9 +217,11 @@ init_packit_repo() {
     if [[ "${OPENWRT_ARMVIRT}" == http* ]]; then
         echo -e "${STEPS} wget [ ${OPENWRT_ARMVIRT} ] file into [ ${SELECT_PACKITPATH} ]"
         wget ${OPENWRT_ARMVIRT} -q -O "${SELECT_PACKITPATH}/${PACKAGE_FILE}"
+        [[ "${?}" -eq "0" ]] || error_msg "Openwrt rootfs file download failed."
     else
         echo -e "${STEPS} copy [ ${GITHUB_WORKSPACE}/${OPENWRT_ARMVIRT} ] file into [ ${SELECT_PACKITPATH} ]"
         cp -f ${GITHUB_WORKSPACE}/${OPENWRT_ARMVIRT} ${SELECT_PACKITPATH}/${PACKAGE_FILE}
+        [[ "${?}" -eq "0" ]] || error_msg "Openwrt rootfs file copy failed."
     fi
 
     # Normal ${PACKAGE_FILE} file should not be less than 10MB
@@ -230,6 +232,21 @@ init_packit_repo() {
     else
         error_msg "The [ ${SELECT_PACKITPATH}/${PACKAGE_FILE} ] failed to load."
     fi
+
+    # Add custom script
+    [[ -n "${SCRIPT_DIY_PATH}" ]] && {
+        if [[ "${SCRIPT_DIY_PATH}" == http* ]]; then
+            echo -e "${INFO} Use wget to download custom script file: [ ${SCRIPT_DIY_PATH} ]"
+            wget ${SCRIPT_DIY_PATH} -q -O "${SELECT_PACKITPATH}/${SCRIPT_DIY}"
+            [[ "${?}" -eq "0" ]] || error_msg "Custom script file download failed."
+        else
+            echo -e "${INFO} Copy custom script file: [ ${SCRIPT_DIY_PATH} ]"
+            cp -f ${GITHUB_WORKSPACE}/${SCRIPT_DIY_PATH} ${SELECT_PACKITPATH}/${SCRIPT_DIY}
+            [[ "${?}" -eq "0" ]] || error_msg "Custom script file copy failed."
+        fi
+        chmod +x ${SELECT_PACKITPATH}/${SCRIPT_DIY}
+        echo -e "List of [ ${SELECT_PACKITPATH} ] directory files:\n $(ls -l ${SELECT_PACKITPATH})"
+    }
 }
 
 auto_kernel() {

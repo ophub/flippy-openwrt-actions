@@ -56,6 +56,7 @@ According to the latest kernel packaging script released by `Flippy`, optional p
 | SCRIPT_S922X_N2        | mk_s922x_odroid-n2.sh  | Set the script file name for packaging `s922x odroid-n2` |
 | SCRIPT_QEMU            | mk_qemu-aarch64_img.sh | Set the script file name for packaging `qemu` |
 | SCRIPT_DIY             | mk_diy.sh              | Set the script file name for packaging `diy` |
+| SCRIPT_DIY_PATH        | None                   | Set the load path for `SCRIPT_DIY` files. You can use a URL such as `https://weburl/mydiyfile` or a relative path in your repository such as `script/mk_s905w.sh` |
 | WHOAMI                 | flippy                 | Set the value of the `WHOAMI` parameter in `make.env` |
 | OPENWRT_VER            | auto                   | Set the value of the `OPENWRT_VER` parameter in `make.env`. The default `auto` will automatically inherit the assignment in the file, and when set to other parameters, it will be replaced with custom parameters. |
 | SW_FLOWOFFLOAD         | 1                      | Set the value of the `SW_FLOWOFFLOAD` parameter in `make.env` |
