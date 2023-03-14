@@ -279,10 +279,21 @@ auto_kernel() {
 
                 # Check the version on the server (e.g LATEST_VERSION="125")
                 if [[ -n "${GH_TOKEN}" ]]; then
-                    LATEST_VERSION="$(curl --header "authorization: Bearer ${GH_TOKEN}" -s "${SERVER_KERNEL_URL}/${vb}" | grep "name" | grep -oE "${MAIN_LINE}.[0-9]+" | sed -e "s/${MAIN_LINE}.//g" | sort -n | sed -n '$p')"
+                    LATEST_VERSION="$(
+                        curl -s "${SERVER_KERNEL_URL}/${vb}" \
+                            --header "authorization: Bearer ${GH_TOKEN}" |
+                            grep "name" | grep -oE "${MAIN_LINE}.[0-9]+" |
+                            sed -e "s/${MAIN_LINE}.//g" |
+                            sort -n | sed -n '$p'
+                    )"
                     query_api="Authenticated user request"
                 else
-                    LATEST_VERSION="$(curl -s "${SERVER_KERNEL_URL}/${vb}" | grep "name" | grep -oE "${MAIN_LINE}.[0-9]+" | sed -e "s/${MAIN_LINE}.//g" | sort -n | sed -n '$p')"
+                    LATEST_VERSION="$(
+                        curl -s "${SERVER_KERNEL_URL}/${vb}" |
+                            grep "name" | grep -oE "${MAIN_LINE}.[0-9]+" |
+                            sed -e "s/${MAIN_LINE}.//g" |
+                            sort -n | sed -n '$p'
+                    )"
                     query_api="Unauthenticated user request"
                 fi
 
