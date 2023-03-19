@@ -47,8 +47,8 @@ PACKAGE_SOC_VALUE="all"
 KERNEL_REPO_URL_VALUE="https://github.com/breakings/OpenWrt/tree/main/opt"
 # Common kernel directory, RK3588 kernel directory, [ rk3588 ] is the fixed name
 KERNEL_DIR=("kernel" "rk3588")
-COMMON_KERNEL=("6.1.10" "5.15.50")
-RK3588_KERNEL=("5.10.110")
+COMMON_KERNEL=("6.1.1" "5.15.1")
+RK3588_KERNEL=("5.10.1")
 KERNEL_AUTO_LATEST_VALUE="true"
 
 # Set the working directory under /opt
@@ -274,10 +274,10 @@ auto_kernel() {
             for KERNEL_VAR in ${down_kernel_list[*]}; do
                 echo -e "${INFO} (${i}) Auto query the latest kernel version of the same series for [ ${vb} - ${KERNEL_VAR} ]"
 
-                # Identify the kernel mainline
+                # Identify the kernel mainline (e.g MAIN_LINE="5.15")
                 MAIN_LINE="$(echo ${KERNEL_VAR} | awk -F '.' '{print $1"."$2}')"
 
-                # Check the version on the server (e.g LATEST_VERSION="125")
+                # Check the version on the server (e.g LATEST_VERSION="1")
                 if [[ -n "${GH_TOKEN}" ]]; then
                     LATEST_VERSION="$(
                         curl -s "${SERVER_KERNEL_URL}/${vb}" \
