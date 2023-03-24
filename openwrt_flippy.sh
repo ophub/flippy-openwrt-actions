@@ -109,7 +109,7 @@ init_var() {
 
     # Install the compressed package
     sudo apt-get -qq update
-    sudo apt-get -qq install -y curl wget subversion git coreutils p7zip p7zip-full zip unzip gzip xz-utils pigz zstd
+    sudo apt-get -qq install -y curl wget subversion git coreutils p7zip p7zip-full zip unzip gzip xz-utils pigz zstd jq tar
 
     # Specify the default value
     [[ -n "${SCRIPT_REPO_URL}" ]] || SCRIPT_REPO_URL="${SCRIPT_REPO_URL_VALUE}"
