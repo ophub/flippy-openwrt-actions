@@ -84,7 +84,7 @@
 - [OpenWrt](https://github.com/openwrt/openwrt)
 - [coolsnowwolf/lede](https://github.com/coolsnowwolf/lede)
 - [unifreq/openwrt_packit](https://github.com/unifreq/openwrt_packit)
-- [breakings/kernel](https://github.com/breakings/OpenWrt/tree/main/opt)
+- [breakings/kernel](https://github.com/breakings/OpenWrt)
 
 ## License
 
