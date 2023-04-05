@@ -55,10 +55,9 @@ on:
         description: "Set the kernel custom signature"
         required: false
         default: "-ophub"
-      kernel_config:
-        description: "Set the path of kernel .config"
-        required: false
-        default: ""
+        type: choice
+        options:
+          - -ophub
 
 env:
   TZ: America/New_York
@@ -101,7 +100,6 @@ jobs:
           kernel_package: ${{ inputs.kernel_package }}
           kernel_toolchain: ${{ inputs.kernel_toolchain }}
           kernel_sign: ${{ inputs.kernel_sign }}
-          kernel_config: ${{ inputs.kernel_config }}
 
       - name: Upload Kernel to Release
         uses: ncipollo/release-action@main
