@@ -40,7 +40,7 @@ According to the latest kernel packaging script released by `Flippy`, optional p
 | SCRIPT_BEIKEYUN        | mk_rk3328_beikeyun.sh  | Set the script file name for packaging `rk3328 beikeyun` |
 | SCRIPT_L1PRO           | mk_rk3328_l1pro.sh     | Set the script file name for packaging `rk3328 l1pro` |
 | SCRIPT_ROCK5B          | mk_rk3588_rock5b.sh    | Set the script file name for packaging `rk3588 rock5b` |
-| SCRIPT_H88K            | mk_rk3588_h88k.sh      | Set the script file name for packaging `rk3588 h88k` |
+| SCRIPT_H88K            | mk_rk3588_h88k.sh      | Set the script file name for packaging `rk3588 h88k/ak88` |
 | SCRIPT_R66S            | mk_rk3568_r66s.sh      | Set the script file name for packaging `rk3568 r66s` |
 | SCRIPT_R68S            | mk_rk3568_r68s.sh      | Set the script file name for packaging `rk3568 r68s` |
 | SCRIPT_H66K            | mk_rk3568_h66k.sh      | Set the script file name for packaging `rk3568 h66k` |
