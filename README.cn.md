@@ -2,7 +2,7 @@
 
 查看英文说明 | [View English description](README.md)
 
-[unifreq/openwrt_packit](https://github.com/unifreq/openwrt_packit) 是 `Flippy` 开发的 OpenWrt 打包脚本仓库。支持全志（微加云）、瑞芯微（贝壳云，我家云，电犀牛R66S，电犀牛R68S，恒领H88K/H68k，瑞莎5B/E25），以及晶晨 S9xxx 系列型号如 S905x3、S905x2、S922x、S905x、S905d，S905，S912 等设备。
+[unifreq/openwrt_packit](https://github.com/unifreq/openwrt_packit) 是 `Flippy` 开发的 OpenWrt 打包脚本仓库。支持全志（微加云）、瑞芯微（贝壳云，我家云，电犀牛R66S，电犀牛R68S，恒领H88K/H68K，瑞莎5B/E25），以及晶晨 S9xxx 系列型号如 S905x3、S905x2、S922x、S905x、S905d，S905，S912 等设备。
 
 此 Actions 使用他的打包脚本，未做任何修改，仅进行了智能化 Action 应用开发，让使用 github Actions 打包时变得更加简单化和个性化。
 
