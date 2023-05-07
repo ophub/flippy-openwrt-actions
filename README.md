@@ -72,7 +72,7 @@ According to `Flippy`'s latest kernel packaging script, optional parameter confi
 
 ## Output Parameter Instructions
 
-According to the standard output of github.com, three environment variables are output for easy use in subsequent compilation steps. Recently, github.com has modified the settings for fork repositories and has disabled Workflow's read/write permissions by default. Therefore, uploading to `Releases` requires adding `${{ secrets.GITHUB_TOKEN }}` and `${{ secrets.GH_TOKEN }}` to the repository and setting `Workflow Read and Write Permissions`. For details, please refer to the [instructions](https://github.com/ophub/amlogic-s9xxx-openwrt/blob/main/make-openwrt/documents/README.md#2-set-privacy-variable-github_token).
+According to the standard output of github.com, three environment variables are output for easy use in subsequent compilation steps. Recently, github.com has modified the settings for fork repositories and has disabled Workflow's read/write permissions by default. Therefore, uploading to `Releases` requires adding `${{ secrets.GITHUB_TOKEN }}` and `${{ secrets.GH_TOKEN }}` to the repository and setting `Workflow Read and Write Permissions`. For details, please refer to the [instructions](https://github.com/ophub/amlogic-s9xxx-openwrt/blob/main/make-openwrt/documents/README.md#2-set-the-privacy-variable-github_token).
 
 | parameter                                | For example                | Description                   |
 |------------------------------------------|----------------------------|-------------------------------|
