@@ -26,7 +26,7 @@ According to `Flippy`'s latest kernel packaging script, optional parameter confi
 
 | parameter              | Defaults               | Description                                                   |
 |------------------------|------------------------|---------------------------------------------------------------|
-| OPENWRT_ARMVIRT_PATH   | None                   | This is a required option. Set the file path of `openwrt-armvirt-64-default-rootfs.tar.gz`, which can use relative paths such as `openwrt/bin/targets/*/*/*.tar.gz` or network file download addresses such as `https://github.com/*/releases/*/*.tar.gz`. |
+| OPENWRT_ARMVIRT        | None                   | This is a required option. Set the file path of `openwrt-armvirt-64-default-rootfs.tar.gz`, which can use relative paths such as `openwrt/bin/targets/*/*/*.tar.gz` or network file download addresses such as `https://github.com/*/releases/*/*.tar.gz`. |
 | SCRIPT_REPO_URL        | unifreq/openwrt_packit | Set `<owner>/<repo>` of the packaging script source code repository. |
 | SCRIPT_REPO_BRANCH     | master                 | Set the branch of the packaging script source code repository. |
 | KERNEL_REPO_URL        | breakings/OpenWrt      | Set `<owner>/<repo>` of the kernel download repository. By default, it downloads from [kernel Releases](https://github.com/breakings/OpenWrt/releases/tag/kernel_stable) maintained by breakings. |
