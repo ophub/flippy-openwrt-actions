@@ -37,7 +37,7 @@ According to `Flippy`'s latest kernel packaging script, optional parameter confi
 | SELECT_PACKITPATH      | openwrt_packit         | Set the packaging directory name under `/opt`. |
 | SELECT_OUTPUTPATH      | output                 | Set the directory name for the firmware output in the `${SELECT_PACKITPATH}` directory. |
 | SCRIPT_VPLUS           | mk_h6_vplus.sh         | Set the script file name for packaging `h6 vplus`. |
-| SCRIPT_CM3_FILE        | mk_rk3566_radxa-cm3-rpi-cm4-io.sh | Set the script file name for packaging `rk3566 radxa-cm3-rpi-cm4-io`. |
+| SCRIPT_CM3             | mk_rk3566_radxa-cm3-rpi-cm4-io.sh | Set the script file name for packaging `rk3566 radxa-cm3-rpi-cm4-io`. |
 | SCRIPT_BEIKEYUN        | mk_rk3328_beikeyun.sh  | Set the script file name for packaging `rk3328 beikeyun`. |
 | SCRIPT_L1PRO           | mk_rk3328_l1pro.sh     | Set the script file name for packaging `rk3328 l1pro`. |
 | SCRIPT_ROCK5B          | mk_rk3588_rock5b.sh    | Set the script file name for packaging `rk3588 rock5b`. |
