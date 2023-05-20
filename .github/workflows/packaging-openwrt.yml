@@ -55,6 +55,8 @@ on:
           - 5.10.1
           - 5.15.1
           - 6.1.1
+          - 5.10.110
+          - 6.1.27
       kernel_repo:
         description: "Set the kernel repository"
         required: false
