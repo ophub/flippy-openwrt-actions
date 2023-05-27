@@ -11,7 +11,7 @@
 # error_msg         : Output error message
 # init_var          : Initialize all variables
 # init_packit_repo  : Initialize packit openwrt repo
-# auto_kernel       : Automatically use the latest kernel
+# query_kernel      : Query the latest kernel version
 # check_kernel      : Check kernel files integrity
 # download_kernel   : Download the kernel
 # make_openwrt      : Loop to make OpenWrt files
@@ -249,7 +249,7 @@ init_packit_repo() {
     }
 }
 
-auto_kernel() {
+query_kernel() {
     echo -e "${STEPS} Start querying the latest kernel..."
 
     # Check the version on the kernel library
@@ -552,7 +552,7 @@ echo -e "${INFO} Server space usage before starting to compile:\n$(df -hT ${PWD}
 # Packit OpenWrt
 init_var
 init_packit_repo
-[[ "${KERNEL_AUTO_LATEST}" == "true" ]] && auto_kernel
+[[ "${KERNEL_AUTO_LATEST}" == "true" ]] && query_kernel
 download_kernel
 make_openwrt
 out_github_env
