@@ -369,7 +369,7 @@ download_kernel() {
                     wget "${kernel_down_from}" -q -P "${kernel_path}"
                     [[ "${?}" -ne "0" ]] && error_msg "Failed to download the kernel files from the server."
 
-                    tar -xf "${kernel_path}/${kernel_var}.tar.gz" -C "${kernel_path}"
+                    tar -mxf "${kernel_path}/${kernel_var}.tar.gz" -C "${kernel_path}"
                     [[ "${?}" -ne "0" ]] && error_msg "[ ${kernel_var} ] kernel decompression failed."
                 else
                     echo -e "${INFO} (${x}.${i}) [ ${vb} - ${kernel_var} ] Kernel is in the local directory."
