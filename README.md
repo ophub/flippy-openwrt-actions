@@ -2,7 +2,7 @@
 
 View Chinese description  |  [查看中文说明](README.cn.md)
 
-[unifreq/openwrt_packit](https://github.com/unifreq/openwrt_packit) is a repository of OpenWrt packaging scripts developed by `Flippy`. It supports Allwinner (VPlus), Rockchip (BeikeYun, Chainedbox-L1-Pro, FastRhino-R66S/R68S, Radxa-5B/E25, Hinlink-H66K/H68K), as well as the Amlogic S9xxx series models such as S905x3, S905x2, S922x, S905x, S905d, S905, S912, and other devices.
+[unifreq/openwrt_packit](https://github.com/unifreq/openwrt_packit) is a repository of OpenWrt packaging scripts developed by `Flippy`. It supports Allwinner (VPlus), Rockchip (BeikeYun, Chainedbox-L1-Pro, FastRhino-R66S/R68S, Hinlink-H88K/H66K/H68K/H69K, Radxa-5B/E25), as well as the Amlogic S9xxx series models such as S905x3, S905x2, S922x, S905x, S905d, S905, S912, and other devices.
 
 This Actions uses his packaging script without modification, only intelligentizes Action application development, making it easier and more personalized to use github Actions for packaging.
 
@@ -33,7 +33,7 @@ According to `Flippy`'s latest kernel packaging script, optional parameter confi
 | KERNEL_REPO_URL        | breakings/OpenWrt      | Set `<owner>/<repo>` of the kernel download repository. By default, it downloads from [kernel Releases](https://github.com/breakings/OpenWrt/releases/tag/kernel_stable) maintained by breakings. |
 | KERNEL_VERSION_NAME    | 6.1.1_5.15.1           | Set the [kernel version](https://github.com/breakings/OpenWrt/releases/tag/kernel_stable), which can be viewed and selected. A single kernel can be specified, such as `6.1.1`, or multiple kernels can be selected and connected using `_`, such as `6.1.1_5.15.1`. |
 | KERNEL_AUTO_LATEST     | true                   | Set whether to automatically adopt the latest version of the same series kernel. When set to `true`, it will automatically search for an updated version of the same series kernel specified in `KERNEL_VERSION_NAME`, such as `6.1.1`, in the kernel repository. If there is an updated version, it will be automatically replaced with the latest version. When set to `false`, the specified version of the kernel will be compiled. |
-| PACKAGE_SOC            | all                    | Set the `SOC` of the box to be packaged. By default, `all` packages all boxes. A single box can be specified, such as `s905x3`, or multiple boxes can be selected and connected using `_`, such as `s905x3_s905d`. The SoC codes for each box are: `vplus`, `cm3`, `beikeyun`, `l1pro`, `rock5b`, `h88k`, `ak88`, `r66s`, `r68s`, `h66k`, `h68k`, `e25`, `photonicat`, `s905`, `s905d`, `s905x2`, `s905x3`, `s912`, `s922x`, `s922x-n2`, `qemu`, `diy`. Note: `s922x-n2` is `s922x-odroid-n2`, and `diy` is a custom box. |
+| PACKAGE_SOC            | all                    | Set the `SOC` of the box to be packaged. By default, `all` packages all boxes. A single box can be specified, such as `s905x3`, or multiple boxes can be selected and connected using `_`, such as `s905x3_s905d`. The SoC codes for each box are: `vplus`, `cm3`, `beikeyun`, `l1pro`, `rock5b`, `h88k`, `ak88`, `r66s`, `r68s`, `h66k`, `h68k`, `h69k`, `e25`, `photonicat`, `s905`, `s905d`, `s905x2`, `s905x3`, `s912`, `s922x`, `s922x-n2`, `qemu`, `diy`. Note: `s922x-n2` is `s922x-odroid-n2`, and `diy` is a custom box. |
 | GZIP_IMGS              | auto                   | Set the compression format of the packaged file after packaging is complete. Optional values are `.gz` (default) / `.xz` / `.zip` / `.zst` / `.7z`. |
 | SELECT_PACKITPATH      | openwrt_packit         | Set the packaging directory name under `/opt`. |
 | SELECT_OUTPUTPATH      | output                 | Set the directory name for the firmware output in the `${SELECT_PACKITPATH}` directory. |
@@ -47,6 +47,7 @@ According to `Flippy`'s latest kernel packaging script, optional parameter confi
 | SCRIPT_R68S            | mk_rk3568_r68s.sh      | Set the script file name for packaging `rk3568 r68s`. |
 | SCRIPT_H66K            | mk_rk3568_h66k.sh      | Set the script file name for packaging `rk3568 h66k`. |
 | SCRIPT_H68K            | mk_rk3568_h68k.sh      | Set the script file name for packaging `rk3568 h68k`. |
+| SCRIPT_H69K            | mk_rk3568_h69k.sh      | Set the script file name for packaging `rk3568 h69k`. |
 | SCRIPT_E25             | mk_rk3568_e25.sh       | Set the script file name for packaging `rk3568 e25`.  |
 | SCRIPT_PHOTONICAT      | mk_rk3568_photonicat.sh  | Set the script file name for packaging `rk3568 photonicat`. |
 | SCRIPT_S905            | mk_s905_mxqpro+.sh     | Set the script file name for packaging `s905 mxqpro+`. |

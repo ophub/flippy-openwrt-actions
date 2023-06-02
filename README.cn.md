@@ -2,7 +2,7 @@
 
 查看英文说明 | [View English description](README.md)
 
-[unifreq/openwrt_packit](https://github.com/unifreq/openwrt_packit) 是 `Flippy` 开发的 OpenWrt 打包脚本仓库。支持全志（微加云）、瑞芯微（贝壳云，我家云，电犀牛R66S，电犀牛R68S，恒领H88K/H68K，瑞莎5B/E25），以及晶晨 S9xxx 系列型号如 S905x3、S905x2、S922x、S905x、S905d，S905，S912 等设备。
+[unifreq/openwrt_packit](https://github.com/unifreq/openwrt_packit) 是 `Flippy` 开发的 OpenWrt 打包脚本仓库。支持全志（微加云）、瑞芯微（贝壳云，我家云，电犀牛R66S/R68S，恒领H88K/H66K/H68K/H69K，瑞莎5B/E25），以及晶晨 S9xxx 系列型号如 S905x3、S905x2、S922x、S905x、S905d，S905，S912 等设备。
 
 此 Actions 使用他的打包脚本，未做任何修改，仅进行了智能化 Action 应用开发，让使用 github Actions 打包时变得更加简单化和个性化。
 
@@ -33,7 +33,7 @@
 | KERNEL_REPO_URL        | breakings/OpenWrt      | 设置内核下载仓库的 `<owner>/<repo>`，默认从 breakings 维护的[内核 Releases](https://github.com/breakings/OpenWrt/releases/tag/kernel_stable)里下载。 |
 | KERNEL_VERSION_NAME    | 6.1.1_5.15.1           | 设置[内核版本](https://github.com/breakings/OpenWrt/releases/tag/kernel_stable)，可以查看并选择指定。可指定单个内核如 `6.1.1` ，可选择多个内核用`_`连接如 `6.1.1_5.15.1` |
 | KERNEL_AUTO_LATEST     | true                   | 设置是否自动采用同系列最新版本内核。当为 `true` 时，将自动在内核库中查找在 `KERNEL_VERSION_NAME` 中指定的内核如 `6.1.1` 的同系列是否有更新的版本，如有更新版本时，将自动更换为最新版。设置为 `false` 时将编译指定版本内核。 |
-| PACKAGE_SOC            | all                    | 设置打包盒子的 `SOC` ，默认 `all` 打包全部盒子，可指定单个盒子如 `s905x3` ，可选择多个盒子用`_`连接如 `s905x3_s905d` 。各盒子的SoC代码为：`vplus`, `cm3`, `beikeyun`, `l1pro`, `rock5b`, `h88k`, `ak88`, `r66s`, `r68s`, `h66k`, `h68k`, `e25`, `photonicat`, `s905`, `s905d`, `s905x2`, `s905x3`, `s912`, `s922x`, `s922x-n2`, `qemu`, `diy`。说明：`s922x-n2` 是 `s922x-odroid-n2`, `diy` 是自定义盒子。 |
+| PACKAGE_SOC            | all                    | 设置打包盒子的 `SOC` ，默认 `all` 打包全部盒子，可指定单个盒子如 `s905x3` ，可选择多个盒子用`_`连接如 `s905x3_s905d` 。各盒子的SoC代码为：`vplus`, `cm3`, `beikeyun`, `l1pro`, `rock5b`, `h88k`, `ak88`, `r66s`, `r68s`, `h66k`, `h68k`, `h69k`, `e25`, `photonicat`, `s905`, `s905d`, `s905x2`, `s905x3`, `s912`, `s922x`, `s922x-n2`, `qemu`, `diy`。说明：`s922x-n2` 是 `s922x-odroid-n2`, `diy` 是自定义盒子。 |
 | GZIP_IMGS              | auto                   | 设置打包完毕后文件压缩的格式，可选值 `.gz`（默认） / `.xz` / `.zip` / `.zst` / `.7z` |
 | SELECT_PACKITPATH      | openwrt_packit         | 设置 `/opt` 下的打包目录名称                     |
 | SELECT_OUTPUTPATH      | output                 | 设置 `${SELECT_PACKITPATH}` 目录中固件输出的目录名称 |
@@ -47,6 +47,7 @@
 | SCRIPT_R68S            | mk_rk3568_r68s.sh      | 设置打包 `rk3568 r68s` 的脚本文件名              |
 | SCRIPT_H66K            | mk_rk3568_h66k.sh      | 设置打包 `rk3568 h66k` 的脚本文件名              |
 | SCRIPT_H68K            | mk_rk3568_h68k.sh      | 设置打包 `rk3568 h68k` 的脚本文件名              |
+| SCRIPT_H69K            | mk_rk3568_h69k.sh      | 设置打包 `rk3568 h69k` 的脚本文件名              |
 | SCRIPT_E25             | mk_rk3568_e25.sh       | 设置打包 `rk3568 e25` 的脚本文件名               |
 | SCRIPT_PHOTONICAT      | mk_rk3568_photonicat.sh  | 设置打包 `rk3568 photonicat` 的脚本文件名      |
 | SCRIPT_S905            | mk_s905_mxqpro+.sh     | 设置打包 `s905 mxqpro+` 的脚本文件名             |
