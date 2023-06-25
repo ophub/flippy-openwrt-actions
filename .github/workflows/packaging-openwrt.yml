@@ -83,6 +83,14 @@ on:
         options:
           - save
           - temp
+      builder_name:
+        description: "Set OpenWrt builder signature."
+        required: false
+        default: "angel"
+        type: choice
+        options:
+          - angel
+          - yourname
 
 env:
   TZ: America/New_York
@@ -156,6 +164,7 @@ jobs:
           KERNEL_VERSION_NAME: ${{ inputs.openwrt_kernel }}
           KERNEL_AUTO_LATEST: ${{ inputs.auto_kernel }}
           SCRIPT_DIY_PATH: ${{ inputs.script_diy_path }}
+          WHOAMI: ${{ inputs.builder_name }}
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
 
       - name: Upload OpenWrt Firmware to Release
