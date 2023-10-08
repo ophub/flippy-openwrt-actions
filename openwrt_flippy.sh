@@ -39,7 +39,9 @@ PACKAGE_OPENWRT=(
 # Set the list of devices using the [ rk3588 ] kernel
 PACKAGE_OPENWRT_RK3588=("rock5b")
 # Set the list of devices using the [ rk35xx ] kernel
-PACKAGE_OPENWRT_RK35XX=()
+# Devices from the rk3528/rk3566/rk3568 series can utilize the rk35xx and rk3588 kernels.
+# You can add tags for rk35xx in [ KERNEL_TAGS ], and specify which devices use the rk35xx kernel in [ PACKAGE_OPENWRT_RK35XX ].
+PACKAGE_OPENWRT_RK35XX=("")
 # Set the list of devices using the [ 6.x.y ] kernel
 PACKAGE_OPENWRT_KERNEL6=("r66s" "r68s" "e25" "photonicat" "cm3")
 # All are packaged by default, and independent settings are supported, such as: [ s905x3_s905d_rock5b ]
@@ -47,8 +49,8 @@ PACKAGE_SOC_VALUE="all"
 
 # Set the default packaged kernel download repository
 KERNEL_REPO_URL_VALUE="breakings/OpenWrt"
-# Set kernel tag: kernel_stable, kernel_rk3588, kernel_rk35xx
-KERNEL_TAGS=("stable" "rk3588" "rk35xx")
+# Set kernel tag: kernel_stable, kernel_rk3588, kernel_rk35xx(Unused)
+KERNEL_TAGS=("stable" "rk3588")
 STABLE_KERNEL=("6.1.1" "5.15.1")
 RK3588_KERNEL=("5.10.160")
 RK35XX_KERNEL=("5.10.160")
