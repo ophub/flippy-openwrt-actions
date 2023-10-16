@@ -18,7 +18,6 @@ This Actions can be used by referencing it in the `.github/workflows/*.yml` clou
     PACKAGE_SOC: all
     KERNEL_VERSION_NAME: 6.1.1_5.15.1
     KERNEL_AUTO_LATEST: true
-    GH_TOKEN: ${{ secrets.GH_TOKEN }}
 ```
 
 ## Optional Parameters
@@ -65,7 +64,6 @@ Based on the latest kernel packaging scripts released by `Flippy`, optional para
 | ENABLE_WIFI_K510       | 1                      | Set the value for `ENABLE_WIFI_K510` in `make.env`            |
 | DISTRIB_REVISION       | R$(date +%m.%d)        | Set the value for `DISTRIB_REVISION` in `make.env`            |
 | DISTRIB_DESCRIPTION    | OpenWrt                | Set the value for `DISTRIB_DESCRIPTION` in `make.env`         |
-| GH_TOKEN               | None                   | Optional. Set the value for `${{ secrets.GH_TOKEN }}` for querying [api.github.com](https://docs.github.com/en/rest/overview/resources-in-the-rest-api?apiVersion=2022-11-28#requests-from-personal-accounts) |
 
 💡 In general, using the default parameters is sufficient, but you can configure them according to your needs. For instance, if Flippy renames the packaging script making the original default script file unfindable, or if the firmware version number in make.env is not updated, you can use optional parameters for real-time specification and personalized configuration.
 
