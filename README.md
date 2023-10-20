@@ -32,7 +32,7 @@ Based on the latest kernel packaging scripts released by `Flippy`, optional para
 | KERNEL_REPO_URL        | breakings/OpenWrt      | Set `<owner>/<repo>` of the kernel download repository, it downloads from the [kernel Releases](https://github.com/breakings/OpenWrt/releases/tag/kernel_stable) maintained by breakings by default. |
 | KERNEL_VERSION_NAME    | 6.1.1_5.15.1           | Set the [Kernel version](https://github.com/breakings/OpenWrt/releases/tag/kernel_stable), you can check and select a specific one. You can specify a single kernel such as `6.1.1`, or select multiple kernels connected with `_` like `6.1.1_5.15.1` |
 | KERNEL_AUTO_LATEST     | true                   | Set whether to automatically adopt the latest version kernel of the same series. When set to `true`, it will automatically look for whether there is an updated version of the kernel specified in `KERNEL_VERSION_NAME`, such as `6.1.1`, in the kernel library, and if there is an updated version, it will automatically replace it with the latest version. When set to `false`, it will compile the specified version kernel. |
-| PACKAGE_SOC            | all                    | Set the `SOC` of the package box, the default is `all` to package all boxes, you can specify a single box like `s905x3`, or select multiple boxes connected with `_` like `s905x3_s905d`. The SoC codes for each box are: `vplus`, `cm3`, `beikeyun`, `l1pro`, `rock5b`, `r66s`, `r68s`, `e25`, `photonicat`, `s905`, `s905d`, `s905x2`, `s905x3`, `s912`, `s922x`, `s922x-n2`, `qemu`, `diy`. Note: `s922x-n2` is `s922x-odroid-n2`, `diy` is a custom box. |
+| PACKAGE_SOC            | all                    | Set the `SOC` of the package box, the default is `all` to package all boxes, you can specify a single box like `s905x3`, or select multiple boxes connected with `_` like `s905x3_s905d`. The SoC codes for each box are: `vplus`, `cm3`, `beikeyun`, `l1pro`, `rock5b`, `r66s`, `r68s`, `e25`, `photonicat`, `watermelon-pi`, `watermelon-pi-v3`, `s905`, `s905d`, `s905x2`, `s905x3`, `s912`, `s922x`, `s922x-n2`, `qemu`, `diy`. Note: `s922x-n2` is `s922x-odroid-n2`, `diy` is a custom box. |
 | GZIP_IMGS              | auto                   | Set the format of the file compression after packaging, optional values are `.gz` (default) / `.xz` / `.zip` / `.zst` / `.7z` |
 | SELECT_PACKITPATH      | openwrt_packit         | Set the name of the packaging directory under `/opt`          |
 | SELECT_OUTPUTPATH      | output                 | Set the name of the firmware output directory in the `${SELECT_PACKITPATH}` directory |
@@ -44,7 +44,9 @@ Based on the latest kernel packaging scripts released by `Flippy`, optional para
 | SCRIPT_R66S            | mk_rk3568_r66s.sh      | Set the script filename for packaging `rk3568 r66s`           |
 | SCRIPT_R68S            | mk_rk3568_r68s.sh      | Set the script filename for packaging `rk3568 r68s`           |
 | SCRIPT_E25             | mk_rk3568_e25.sh       | Set the script filename for packaging `rk3568 e25`            |
-| SCRIPT_PHOTONICAT      | mk_rk3568_photonicat.sh | Set the script filename for packaging `rk3568 photonicat`    |
+| SCRIPT_PHOTONICAT      | mk_rk3568_photonicat.sh       | Set the script filename for packaging `rk3568 photonicat`       |
+| SCRIPT_WATERMELONPI    | mk_rk3568_watermelon-pi.sh    | Set the script filename for packaging `rk3568 watermelon-pi`    |
+| SCRIPT_WATERMELONPI_V3 | mk_rk3568_watermelon-pi-v3.sh | Set the script filename for packaging `rk3568 watermelon-pi-v3` |
 | SCRIPT_S905            | mk_s905_mxqpro+.sh     | Set the script filename for packaging `s905 mxqpro+`          |
 | SCRIPT_S905D           | mk_s905d_n1.sh         | Set the script filename for packaging `s905d n1`              |
 | SCRIPT_S905X2          | mk_s905x2_x96max.sh    | Set the script filename for packaging `s905x2 x96max`         |
