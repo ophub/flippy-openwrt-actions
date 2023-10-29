@@ -162,7 +162,6 @@ init_var() {
 
     # Confirm package object
     [[ "${PACKAGE_SOC}" != "all" ]] && {
-        unset PACKAGE_OPENWRT
         oldIFS="${IFS}"
         IFS="_"
         PACKAGE_OPENWRT=(${PACKAGE_SOC})
@@ -188,7 +187,6 @@ init_var() {
 
     # Reset STABLE_KERNEL options
     [[ -n "${KERNEL_VERSION_NAME}" && " ${KERNEL_TAGS[@]} " =~ " stable " ]] && {
-        unset STABLE_KERNEL
         oldIFS="${IFS}"
         IFS="_"
         STABLE_KERNEL=(${KERNEL_VERSION_NAME})
@@ -256,7 +254,7 @@ query_kernel() {
 
     # Check the version on the kernel library
     x="1"
-    for vb in ${KERNEL_TAGS[@]}; do
+    for vb in "${KERNEL_TAGS[@]}"; do
         {
             # Select the corresponding kernel directory and list
             if [[ "${vb}" == "rk3588" ]]; then
@@ -270,7 +268,7 @@ query_kernel() {
             # Query the name of the latest kernel version
             TMP_ARR_KERNELS=()
             i=1
-            for kernel_var in ${down_kernel_list[@]}; do
+            for kernel_var in "${down_kernel_list[@]}"; do
                 echo -e "${INFO} (${i}) Auto query the latest kernel version of the same series for [ ${vb} - ${kernel_var} ]"
 
                 # Identify the kernel <VERSION> and <PATCHLEVEL>, such as [ 6.1 ]
@@ -316,7 +314,7 @@ check_kernel() {
     [[ -n "${1}" ]] && check_path="${1}" || error_msg "Invalid kernel path to check."
     check_files=($(cat "${check_path}/sha256sums" | awk '{print $2}'))
     m="1"
-    for cf in ${check_files[@]}; do
+    for cf in "${check_files[@]}"; do
         {
             # Check if file exists
             [[ -s "${check_path}/${cf}" ]] || error_msg "The [ ${cf} ] file is missing."
@@ -336,7 +334,7 @@ download_kernel() {
     cd /opt
 
     x="1"
-    for vb in ${KERNEL_TAGS[@]}; do
+    for vb in "${KERNEL_TAGS[@]}"; do
         {
             # Set the kernel download list
             if [[ "${vb}" == "rk3588" ]]; then
@@ -353,7 +351,7 @@ download_kernel() {
 
             # Download the kernel to the storage directory
             i="1"
-            for kernel_var in ${down_kernel_list[@]}; do
+            for kernel_var in "${down_kernel_list[@]}"; do
                 if [[ ! -d "${kernel_path}/${kernel_var}" ]]; then
                     kernel_down_from="https://github.com/${KERNEL_REPO_URL}/releases/download/kernel_${vb}/${kernel_var}.tar.gz"
                     echo -e "${INFO} (${x}.${i}) [ ${vb} - ${kernel_var} ] Kernel download from [ ${kernel_down_from} ]"
@@ -386,7 +384,7 @@ make_openwrt() {
     echo -e "${STEPS} Start packaging OpenWrt..."
 
     i="1"
-    for PACKAGE_VAR in ${PACKAGE_OPENWRT[@]}; do
+    for PACKAGE_VAR in "${PACKAGE_OPENWRT[@]}"; do
         {
             # Distinguish between different OpenWrt and use different kernel
             if [[ " ${PACKAGE_OPENWRT_RK3588[@]} " =~ " ${PACKAGE_VAR} " ]]; then
@@ -401,7 +399,7 @@ make_openwrt() {
             fi
 
             k="1"
-            for kernel_var in ${build_kernel[@]}; do
+            for kernel_var in "${build_kernel[@]}"; do
                 {
                     # Rockchip rk3568 series only support 6.x.y and above kernel
                     [[ -n "$(echo "${PACKAGE_OPENWRT_KERNEL6[@]}" | grep -w "${PACKAGE_VAR}")" && "${kernel_var:0:1}" -ne "6" ]] && {
