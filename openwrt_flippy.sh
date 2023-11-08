@@ -29,7 +29,7 @@ PACKAGE_FILE="openwrt-armvirt-64-generic-rootfs.tar.gz"
 # Set the list of supported device
 PACKAGE_OPENWRT=(
     "rock5b"
-    "r66s" "r68s" "e25" "photonicat" "cm3"
+    "r66s" "r68s" "e25" "photonicat" "cm3" "zcube1-max"
     "watermelon-pi"
     "beikeyun" "l1pro"
     "vplus"
@@ -43,7 +43,7 @@ PACKAGE_OPENWRT_RK3588=("rock5b")
 # Devices from the rk3528/rk3566/rk3568 series can utilize the rk35xx and rk3588 kernels.
 PACKAGE_OPENWRT_RK35XX=("watermelon-pi")
 # Set the list of devices using the [ 6.x.y ] kernel
-PACKAGE_OPENWRT_KERNEL6=("r66s" "r68s" "e25" "photonicat" "cm3")
+PACKAGE_OPENWRT_KERNEL6=("r66s" "r68s" "e25" "photonicat" "cm3" "zcube1-max")
 # All are packaged by default, and independent settings are supported, such as: [ s905x3_s905d_rock5b ]
 PACKAGE_SOC_VALUE="all"
 
@@ -66,6 +66,7 @@ SAVE_OPENWRT_ARMVIRT_VALUE="true"
 SCRIPT_VPLUS_FILE="mk_h6_vplus.sh"
 SCRIPT_BEIKEYUN_FILE="mk_rk3328_beikeyun.sh"
 SCRIPT_L1PRO_FILE="mk_rk3328_l1pro.sh"
+SCRIPT_ZCUBE1MAX_FILE="mk_rk3399_zcube1-max.sh"
 SCRIPT_CM3_FILE="mk_rk3566_radxa-cm3-rpi-cm4-io.sh"
 SCRIPT_R66S_FILE="mk_rk3568_r66s.sh"
 SCRIPT_R68S_FILE="mk_rk3568_r68s.sh"
@@ -132,6 +133,7 @@ init_var() {
     [[ -n "${SCRIPT_VPLUS}" ]] || SCRIPT_VPLUS="${SCRIPT_VPLUS_FILE}"
     [[ -n "${SCRIPT_BEIKEYUN}" ]] || SCRIPT_BEIKEYUN="${SCRIPT_BEIKEYUN_FILE}"
     [[ -n "${SCRIPT_L1PRO}" ]] || SCRIPT_L1PRO="${SCRIPT_L1PRO_FILE}"
+    [[ -n "${SCRIPT_ZCUBE1MAX}" ]] || SCRIPT_ZCUBE1MAX="${SCRIPT_ZCUBE1MAX_FILE}"
     [[ -n "${SCRIPT_CM3}" ]] || SCRIPT_CM3="${SCRIPT_CM3_FILE}"
     [[ -n "${SCRIPT_R66S}" ]] || SCRIPT_R66S="${SCRIPT_R66S_FILE}"
     [[ -n "${SCRIPT_R68S}" ]] || SCRIPT_R68S="${SCRIPT_R68S_FILE}"
@@ -464,6 +466,7 @@ EOF
                         vplus)            [[ -f "${SCRIPT_VPLUS}" ]]           && sudo ./${SCRIPT_VPLUS} ;;
                         beikeyun)         [[ -f "${SCRIPT_BEIKEYUN}" ]]        && sudo ./${SCRIPT_BEIKEYUN} ;;
                         l1pro)            [[ -f "${SCRIPT_L1PRO}" ]]           && sudo ./${SCRIPT_L1PRO} ;;
+                        zcube1-max)       [[ -f "${SCRIPT_ZCUBE1MAX}" ]]       && sudo ./${SCRIPT_ZCUBE1MAX} ;;
                         cm3)              [[ -f "${SCRIPT_CM3}" ]]             && sudo ./${SCRIPT_CM3} ;;
                         r66s)             [[ -f "${SCRIPT_R66S}" ]]            && sudo ./${SCRIPT_R66S} ;;
                         r68s)             [[ -f "${SCRIPT_R68S}" ]]            && sudo ./${SCRIPT_R68S} ;;
