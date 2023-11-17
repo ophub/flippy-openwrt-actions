@@ -29,8 +29,8 @@ PACKAGE_FILE="openwrt-armvirt-64-generic-rootfs.tar.gz"
 # Set the list of supported device
 PACKAGE_OPENWRT=(
     "rock5b" "ak88" "h88k" "h88k-v3"
-    "r66s" "r68s" "e25" "photonicat" "cm3" "zcube1-max" "jp-tvbox" "h66k" "h68k" "h69k" "h69k-max"
-    "watermelon-pi" "h28k"
+    "r66s" "r68s" "e25" "photonicat" "cm3"
+    "watermelon-pi" "zcube1-max" "jp-tvbox" "h28k" "h66k" "h68k" "h69k" "h69k-max"
     "beikeyun" "l1pro"
     "vplus"
     "s922x" "s922x-n2" "s905x3" "s905x2" "s912" "s905d" "s905"
@@ -41,9 +41,9 @@ PACKAGE_OPENWRT=(
 PACKAGE_OPENWRT_RK3588=("rock5b" "ak88" "h88k" "h88k-v3")
 # Set the list of devices using the [ rk35xx ] kernel
 # Devices from the rk3528/rk3566/rk3568 series can utilize the rk35xx and rk3588 kernels.
-PACKAGE_OPENWRT_RK35XX=("watermelon-pi" "h28k")
+PACKAGE_OPENWRT_RK35XX=("watermelon-pi" "zcube1-max" "jp-tvbox" "h28k" "h66k" "h68k" "h69k" "h69k-max")
 # Set the list of devices using the [ 6.x.y ] kernel
-PACKAGE_OPENWRT_KERNEL6=("r66s" "r68s" "e25" "photonicat" "cm3" "zcube1-max" "jp-tvbox" "h66k" "h68k" "h69k" "h69k-max")
+PACKAGE_OPENWRT_KERNEL6=("r66s" "r68s" "e25" "photonicat" "cm3")
 # All are packaged by default, and independent settings are supported, such as: [ s905x3_s905d_rock5b ]
 PACKAGE_SOC_VALUE="all"
 
