@@ -38,7 +38,7 @@
 | SELECT_OUTPUTPATH      | output                 | 设置 `${SELECT_PACKITPATH}` 目录中固件输出的目录名称 |
 | SCRIPT_VPLUS           | mk_h6_vplus.sh         | 设置打包 `h6 vplus` 的脚本文件名                 |
 | SCRIPT_CM3             | mk_rk3566_radxa-cm3-rpi-cm4-io.sh | 设置打包 `rk3566 radxa-cm3-rpi-cm4-io` 的脚本文件名 |
-| SCRIPT_HT2V            | mk_rk3528_ht2.sh       | 设置打包 `rk3588 ht2` 的脚本文件名              |
+| SCRIPT_HT2             | mk_rk3528_ht2.sh       | 设置打包 `rk3588 ht2` 的脚本文件名               |
 | SCRIPT_H28K            | mk_rk3528_h28k.sh      | 设置打包 `rk3588 h28k` 的脚本文件名              |
 | SCRIPT_H66K            | mk_rk3568_h66k.sh      | 设置打包 `rk3568 h66k` 的脚本文件名              |
 | SCRIPT_H68K            | mk_rk3568_h68k.sh      | 设置打包 `rk3568 h68k` 的脚本文件名              |
