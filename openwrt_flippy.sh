@@ -123,7 +123,7 @@ init_var() {
 
     # Install the compressed package
     sudo apt-get -qq update
-    sudo apt-get -qq install -y curl wget subversion git coreutils p7zip p7zip-full zip unzip gzip xz-utils pigz zstd jq tar
+    sudo apt-get -qq install -y curl git coreutils p7zip p7zip-full zip unzip gzip xz-utils pigz zstd jq tar
 
     # Specify the default value
     [[ -n "${SCRIPT_REPO_URL}" ]] || SCRIPT_REPO_URL="${SCRIPT_REPO_URL_VALUE}"
@@ -232,8 +232,8 @@ init_packit_repo() {
     # Load *-armvirt-64-default-rootfs.tar.gz
     rm -f ${SELECT_PACKITPATH}/${PACKAGE_FILE}
     if [[ "${OPENWRT_ARMVIRT}" == http* ]]; then
-        echo -e "${STEPS} wget [ ${OPENWRT_ARMVIRT} ] file into [ ${SELECT_PACKITPATH} ]"
-        wget ${OPENWRT_ARMVIRT} -q -O ${SELECT_PACKITPATH}/${PACKAGE_FILE}
+        echo -e "${STEPS} curl [ ${OPENWRT_ARMVIRT} ] file into [ ${SELECT_PACKITPATH} ]"
+        curl -fsSL "${OPENWRT_ARMVIRT}" -o "${SELECT_PACKITPATH}/${PACKAGE_FILE}"
         [[ "${?}" -eq "0" ]] || error_msg "Openwrt rootfs file download failed."
     else
         echo -e "${STEPS} copy [ ${GITHUB_WORKSPACE}/${OPENWRT_ARMVIRT} ] file into [ ${SELECT_PACKITPATH} ]"
@@ -254,8 +254,8 @@ init_packit_repo() {
     [[ -n "${SCRIPT_DIY_PATH}" ]] && {
         rm -f ${SELECT_PACKITPATH}/${SCRIPT_DIY}
         if [[ "${SCRIPT_DIY_PATH}" == http* ]]; then
-            echo -e "${INFO} Use wget to download custom script file: [ ${SCRIPT_DIY_PATH} ]"
-            wget ${SCRIPT_DIY_PATH} -q -O ${SELECT_PACKITPATH}/${SCRIPT_DIY}
+            echo -e "${INFO} Use curl to download custom script file: [ ${SCRIPT_DIY_PATH} ]"
+            curl -fsSL "${SCRIPT_DIY_PATH}" -o "${SELECT_PACKITPATH}/${SCRIPT_DIY}"
             [[ "${?}" -eq "0" ]] || error_msg "Custom script file download failed."
         else
             echo -e "${INFO} Copy custom script file: [ ${SCRIPT_DIY_PATH} ]"
@@ -374,7 +374,7 @@ download_kernel() {
                     kernel_down_from="https://github.com/${KERNEL_REPO_URL}/releases/download/kernel_${vb}/${kernel_var}.tar.gz"
                     echo -e "${INFO} (${x}.${i}) [ ${vb} - ${kernel_var} ] Kernel download from [ ${kernel_down_from} ]"
 
-                    wget "${kernel_down_from}" -q -P "${kernel_path}"
+                    curl -fsSL "${kernel_down_from}" -o "${kernel_path}/${kernel_var}.tar.gz"
                     [[ "${?}" -ne "0" ]] && error_msg "Failed to download the kernel files from the server."
 
                     tar -mxf "${kernel_path}/${kernel_var}.tar.gz" -C "${kernel_path}"
