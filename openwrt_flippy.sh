@@ -107,7 +107,7 @@ DISTRIB_DESCRIPTION_VALUE="OpenWrt"
 STEPS="[\033[95m STEPS \033[0m]"
 INFO="[\033[94m INFO \033[0m]"
 SUCCESS="[\033[92m SUCCESS \033[0m]"
-PROMPT="[\033[93m PROMPT \033[0m]"
+NOTE="[\033[93m NOTE \033[0m]"
 WARNING="[\033[93m WARNING \033[0m]"
 ERROR="[\033[91m ERROR \033[0m]"
 #
@@ -421,7 +421,7 @@ make_openwrt() {
                 {
                     # Rockchip rk3568 series only support 6.x.y and above kernel
                     [[ -n "$(echo "${PACKAGE_OPENWRT_KERNEL6[@]}" | grep -w "${PACKAGE_VAR}")" && "${kernel_var:0:1}" -ne "6" ]] && {
-                        echo -e "${STEPS} (${i}.${k}) ${PROMPT} ${PACKAGE_VAR} cannot use ${kernel_var} kernel, skip."
+                        echo -e "${STEPS} (${i}.${k}) ${NOTE} ${PACKAGE_VAR} cannot use ${kernel_var} kernel, skip."
                         let k++
                         continue
                     }
