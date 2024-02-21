@@ -200,6 +200,7 @@ init_var() {
         KERNEL_TAGS=()
         KERNEL_TAGS=($(echo "${KERNEL_TAGS_TMP[@]}" | tr ' ' '\n' | sort -u | tr '\n' ' '))
     }
+    echo -e "${INFO} Package directory: [ /opt/${SELECT_PACKITPATH} ]"
     echo -e "${INFO} Package SoC: [ $(echo ${PACKAGE_OPENWRT[@]} | xargs) ]"
     echo -e "${INFO} Kernel tags: [ $(echo ${KERNEL_TAGS[@]} | xargs) ]"
 
@@ -222,9 +223,11 @@ init_var() {
 init_packit_repo() {
     cd /opt
 
-    # clone ${SELECT_PACKITPATH} repo
-    echo -e "${STEPS} Start cloning repository [ ${SCRIPT_REPO_URL} ], branch [ ${SCRIPT_REPO_BRANCH} ] into [ ${SELECT_PACKITPATH} ]"
-    git clone -q --single-branch --depth=1 --branch=${SCRIPT_REPO_BRANCH} ${SCRIPT_REPO_URL} ${SELECT_PACKITPATH}
+    # Clone the repository into the packaging directory
+    [[ -d "${SELECT_PACKITPATH}" ]] || {
+        echo -e "${STEPS} Start cloning repository [ ${SCRIPT_REPO_URL} ], branch [ ${SCRIPT_REPO_BRANCH} ] into [ ${SELECT_PACKITPATH} ]"
+        git clone -q --single-branch --depth=1 --branch=${SCRIPT_REPO_BRANCH} ${SCRIPT_REPO_URL} ${SELECT_PACKITPATH}
+    }
 
     # Check the *rootfs.tar.gz package
     [[ -z "${OPENWRT_ARMVIRT}" ]] && error_msg "The [ OPENWRT_ARMVIRT ] variable must be specified."
@@ -427,7 +430,7 @@ make_openwrt() {
                     }
 
                     # Check the available size of server space
-                    now_remaining_space="$(df -Tk ${PWD} | grep '/dev/' | awk '{print $5}' | echo $(($(xargs) / 1024 / 1024)))"
+                    now_remaining_space="$(df -Tk /opt/${SELECT_PACKITPATH} | grep '/dev/' | awk '{print $5}' | echo $(($(xargs) / 1024 / 1024)))"
                     [[ "${now_remaining_space}" -le "3" ]] && {
                         echo -e "${WARNING} If the remaining space is less than 3G, exit this packaging. \n"
                         break
@@ -516,11 +519,11 @@ EOF
                     echo -e "${STEPS} (${i}.${k}) Start making compressed files in the [ ${SELECT_OUTPUTPATH} ] directory."
                     cd /opt/${SELECT_PACKITPATH}/${SELECT_OUTPUTPATH}
                     case "${GZIP_IMGS}" in
-                        7z | .7z)      ls *.img | head -n 1 | xargs -I % sh -c '7z a -t7z -r %.7z %; rm -f %' ;;
-                        zip | .zip)    ls *.img | head -n 1 | xargs -I % sh -c 'zip %.zip %; rm -f %' ;;
-                        zst | .zst)    zstd --rm *.img ;;
-                        xz | .xz)      xz -z *.img ;;
-                        gz | .gz | *)  pigz -f *.img ;;
+                        7z | .7z)      ls *.img | head -n 1 | xargs -I % sh -c 'sudo 7z a -t7z -r %.7z %; rm -f %' ;;
+                        zip | .zip)    ls *.img | head -n 1 | xargs -I % sh -c 'sudo zip %.zip %; rm -f %' ;;
+                        zst | .zst)    sudo zstd --rm *.img ;;
+                        xz | .xz)      sudo xz -z *.img ;;
+                        gz | .gz | *)  sudo pigz -f *.img ;;
                     esac
 
                     echo -e "${SUCCESS} (${i}.${k}) OpenWrt packaging succeeded: [ ${PACKAGE_VAR} - ${vb} - ${kernel_var} ] \n"
@@ -545,11 +548,12 @@ out_github_env() {
 
         if [[ "${SAVE_OPENWRT_ARMVIRT}" == "true" ]]; then
             echo -e "${INFO} copy [ ${PACKAGE_FILE} ] into [ ${SELECT_OUTPUTPATH} ]"
-            cp -f ../${PACKAGE_FILE} .
+            sudo cp -f ../${PACKAGE_FILE} .
         fi
 
         # Generate a sha256sum verification file for each OpenWrt file
-        for file in *; do [[ ! -d "${file}" ]] && sha256sum "${file}" >"${file}.sha"; done
+        for file in *; do [[ ! -d "${file}" ]] && sudo sha256sum "${file}" | sudo tee "${file}.sha" > /dev/null; done
+        sudo rm -f *.sha.sha 2>/dev/null
 
         echo "PACKAGED_OUTPUTPATH=${PWD}" >>${GITHUB_ENV}
         echo "PACKAGED_OUTPUTDATE=$(date +"%m.%d.%H%M")" >>${GITHUB_ENV}
@@ -564,20 +568,23 @@ out_github_env() {
         echo "PACKAGED_STATUS=failure" >>${GITHUB_ENV}
     fi
 }
-
 # Show welcome message
 echo -e "${STEPS} Welcome to use the OpenWrt packaging tool! \n"
 echo -e "${INFO} Server CPU configuration information: \n$(cat /proc/cpuinfo | grep name | cut -f2 -d: | uniq -c) \n"
-echo -e "${INFO} Server space usage before starting to compile:\n$(df -hT ${PWD}) \n"
 
-# Packit OpenWrt
+# Start initializing variables
 init_var
 init_packit_repo
+
+# Show server start information
+echo -e "${INFO} Server space usage before starting to compile:\n$(df -hT /opt/${SELECT_PACKITPATH}) \n"
+
+# Packit OpenWrt
 [[ "${KERNEL_AUTO_LATEST}" == "true" ]] && query_kernel
 download_kernel
 make_openwrt
 out_github_env
 
 # Show server end information
-echo -e "${INFO} Server space usage after compilation:\n$(df -hT ${PWD}) \n"
+echo -e "${INFO} Server space usage after compilation:\n$(df -hT /opt/${SELECT_PACKITPATH}) \n"
 echo -e "${SUCCESS} The packaging process has been completed. \n"
