@@ -516,15 +516,18 @@ EOF
                     esac
 
                     # Generate compressed file
-                    echo -e "${STEPS} (${i}.${k}) Start making compressed files in the [ ${SELECT_OUTPUTPATH} ] directory."
-                    cd /opt/${SELECT_PACKITPATH}/${SELECT_OUTPUTPATH}
-                    case "${GZIP_IMGS}" in
-                        7z | .7z)      ls *.img | head -n 1 | xargs -I % sh -c 'sudo 7z a -t7z -r %.7z %; rm -f %' ;;
-                        zip | .zip)    ls *.img | head -n 1 | xargs -I % sh -c 'sudo zip %.zip %; rm -f %' ;;
-                        zst | .zst)    sudo zstd --rm *.img ;;
-                        xz | .xz)      sudo xz -z *.img ;;
-                        gz | .gz | *)  sudo pigz -f *.img ;;
-                    esac
+                    img_num="$(ls /opt/${SELECT_PACKITPATH}/${SELECT_OUTPUTPATH}/*.img 2>/dev/null | wc -l)"
+                    [[ "${img_num}" -ne "0" ]] && {
+                        echo -e "${STEPS} (${i}.${k}) Start making compressed files in the [ ${SELECT_OUTPUTPATH} ] directory."
+                        cd /opt/${SELECT_PACKITPATH}/${SELECT_OUTPUTPATH}
+                        case "${GZIP_IMGS}" in
+                            7z | .7z)      ls *.img | head -n 1 | xargs -I % sh -c 'sudo 7z a -t7z -r %.7z %; rm -f %' ;;
+                            zip | .zip)    ls *.img | head -n 1 | xargs -I % sh -c 'sudo zip %.zip %; rm -f %' ;;
+                            zst | .zst)    sudo zstd --rm *.img ;;
+                            xz | .xz)      sudo xz -z *.img ;;
+                            gz | .gz | *)  sudo pigz -f *.img ;;
+                        esac
+                    }
 
                     echo -e "${SUCCESS} (${i}.${k}) OpenWrt packaging succeeded: [ ${PACKAGE_VAR} - ${vb} - ${kernel_var} ] \n"
                     sync
