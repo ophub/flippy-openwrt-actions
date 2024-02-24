@@ -79,7 +79,7 @@
 
 ## 输出参数说明
 
-根据 github.com 的标准输出了 3 个环境变量，方便编译步骤后续使用。由于 github.com 最近修改了 fork 仓库的设置，默认关闭了 Workflow 的读写权限，所以上传到 `Releases` 需要给仓库添加 `${{ secrets.GITHUB_TOKEN }}` 和 `${{ secrets.GH_TOKEN }}` 并设置 `Workflow 读写权限`，详见[使用说明](https://github.com/ophub/amlogic-s9xxx-openwrt/blob/main/documents/README.cn.md#2-设置隐私变量-github_token)。
+根据 github.com 的标准输出了 3 个环境变量，方便编译步骤后续使用。由于 github.com 最近修改了 fork 仓库的设置，默认关闭了 Workflow 的读写权限，所以上传到 `Releases` 需要设置 `Workflow 读写权限`，详见[使用说明](https://github.com/ophub/amlogic-s9xxx-openwrt/blob/main/documents/README.cn.md#3-fork-仓库并设置工作流权限)。
 
 | 参数                            | 默认值                      | 说明                       |
 |--------------------------------|----------------------------|----------------------------|

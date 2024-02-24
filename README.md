@@ -79,7 +79,7 @@ Based on the latest kernel packaging scripts released by `Flippy`, optional para
 
 ## Output Parameters Explanation
 
-According to the standard of github.com, 3 environment variables have been output for use in subsequent compilation steps. Since github.com recently changed the settings of fork repositories, read-write permissions for Workflow are turned off by default. Therefore, `${{ secrets.GITHUB_TOKEN }}` and `${{ secrets.GH_TOKEN }}` need to be added to the repository and the `Workflow read-write permissions` need to be set to upload to `Releases`. For details, see [User Manual](https://github.com/ophub/amlogic-s9xxx-openwrt/blob/main/documents/README.md#2-set-privacy-variable-github_token).
+According to the standard of github.com, 3 environment variables have been output for use in subsequent compilation steps. Since github.com recently changed the settings of fork repositories, read-write permissions for Workflow are turned off by default. Therefore, Therefore, to upload to Releases, it is necessary to `set Workflow read and write permissions`. For details, see [User Manual](https://github.com/ophub/amlogic-s9xxx-openwrt/tree/main/documents#3-fork-the-repository-and-set-workflow-permissions).
 
 | Parameter                      | Default Value              | Description                             |
 |--------------------------------|----------------------------|-----------------------------------------|
