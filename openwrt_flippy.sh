@@ -51,9 +51,9 @@ PACKAGE_SOC_VALUE="all"
 KERNEL_REPO_URL_VALUE="breakings/OpenWrt"
 # Set kernel tag: kernel_stable, kernel_rk3588, kernel_rk35xx
 KERNEL_TAGS=("stable" "rk3588" "rk35xx")
-STABLE_KERNEL=("6.6.1" "6.1.1")
-RK3588_KERNEL=("5.10.160")
-RK35XX_KERNEL=("5.10.160")
+STABLE_KERNEL=("6.1.y" "5.15.y")
+RK3588_KERNEL=("5.10.y")
+RK35XX_KERNEL=("5.10.y")
 KERNEL_AUTO_LATEST_VALUE="true"
 
 # Set the working directory under /opt
