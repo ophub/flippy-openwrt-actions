@@ -65,11 +65,11 @@ on:
       kernel_repo:
         description: "Set the kernel repository"
         required: false
-        default: "breakings/OpenWrt"
+        default: "ophub/kernel"
         type: choice
         options:
-          - breakings/OpenWrt
           - ophub/kernel
+          - breakings/OpenWrt
       auto_kernel:
         description: "Auto use the latest kernel"
         required: false
