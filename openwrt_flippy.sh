@@ -28,7 +28,7 @@ PACKAGE_FILE="openwrt-armvirt-64-generic-rootfs.tar.gz"
 
 # Set the list of supported device
 PACKAGE_OPENWRT=(
-    "rock5b" "ak88" "h88k" "h88k-v3"
+    "rock5b" "rock5c" "ak88" "h88k" "h88k-v3"
     "r66s" "r68s" "e25" "photonicat" "cm3"
     "watermelon-pi" "zcube1-max" "jp-tvbox" "ht2" "e20c" "h28k" "h66k" "h68k" "h69k" "h69k-max"
     "beikeyun" "l1pro"
@@ -38,7 +38,7 @@ PACKAGE_OPENWRT=(
     "diy"
 )
 # Set the list of devices using the [ rk3588 ] kernel
-PACKAGE_OPENWRT_RK3588=("rock5b" "ak88" "h88k" "h88k-v3")
+PACKAGE_OPENWRT_RK3588=("rock5b" "rock5c" "ak88" "h88k" "h88k-v3")
 # Set the list of devices using the [ rk35xx ] kernel
 # Devices from the rk3528/rk3566/rk3568 series can utilize the rk35xx and rk3588 kernels.
 PACKAGE_OPENWRT_RK35XX=("watermelon-pi" "zcube1-max" "jp-tvbox" "ht2" "e20c" "h28k" "h66k" "h68k" "h69k" "h69k-max")
@@ -83,6 +83,7 @@ SCRIPT_E25_FILE="mk_rk3568_e25.sh"
 SCRIPT_PHOTONICAT_FILE="mk_rk3568_photonicat.sh"
 SCRIPT_WATERMELONPI_FILE="mk_rk3568_watermelon-pi.sh"
 SCRIPT_ROCK5B_FILE="mk_rk3588_rock5b.sh"
+SCRIPT_ROCK5C_FILE="mk_rk3588_rock5c.sh"
 SCRIPT_S905_FILE="mk_s905_mxqpro+.sh"
 SCRIPT_S905D_FILE="mk_s905d_n1.sh"
 SCRIPT_S905X2_FILE="mk_s905x2_x96max.sh"
@@ -159,6 +160,7 @@ init_var() {
     [[ -n "${SCRIPT_PHOTONICAT}" ]] || SCRIPT_PHOTONICAT="${SCRIPT_PHOTONICAT_FILE}"
     [[ -n "${SCRIPT_WATERMELONPI}" ]] || SCRIPT_WATERMELONPI="${SCRIPT_WATERMELONPI_FILE}"
     [[ -n "${SCRIPT_ROCK5B}" ]] || SCRIPT_ROCK5B="${SCRIPT_ROCK5B_FILE}"
+    [[ -n "${SCRIPT_ROCK5C}" ]] || SCRIPT_ROCK5C="${SCRIPT_ROCK5C_FILE}"
     [[ -n "${SCRIPT_S905}" ]] || SCRIPT_S905="${SCRIPT_S905_FILE}"
     [[ -n "${SCRIPT_S905D}" ]] || SCRIPT_S905D="${SCRIPT_S905D_FILE}"
     [[ -n "${SCRIPT_S905X2}" ]] || SCRIPT_S905X2="${SCRIPT_S905X2_FILE}"
@@ -522,6 +524,7 @@ EOF
                         r66s)             [[ -f "${SCRIPT_R66S}" ]]            && sudo ./${SCRIPT_R66S} ;;
                         r68s)             [[ -f "${SCRIPT_R68S}" ]]            && sudo ./${SCRIPT_R68S} ;;
                         rock5b)           [[ -f "${SCRIPT_ROCK5B}" ]]          && sudo ./${SCRIPT_ROCK5B} ;;
+                        rock5c)           [[ -f "${SCRIPT_ROCK5C}" ]]          && sudo ./${SCRIPT_ROCK5C} ;;
                         e25)              [[ -f "${SCRIPT_E25}" ]]             && sudo ./${SCRIPT_E25} ;;
                         photonicat)       [[ -f "${SCRIPT_PHOTONICAT}" ]]      && sudo ./${SCRIPT_PHOTONICAT} ;;
                         watermelon-pi)    [[ -f "${SCRIPT_WATERMELONPI}" ]]    && sudo ./${SCRIPT_WATERMELONPI} ;;
