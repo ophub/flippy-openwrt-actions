@@ -225,10 +225,14 @@ init_var() {
 init_packit_repo() {
     cd /opt
 
-    # Clone the repository into the packaging directory
+    # Clone the repository into the packaging directory. If it fails, wait 1 minute and try again, try 10 times.
     [[ -d "${SELECT_PACKITPATH}" ]] || {
         echo -e "${STEPS} Start cloning repository [ ${SCRIPT_REPO_URL} ], branch [ ${SCRIPT_REPO_BRANCH} ] into [ ${SELECT_PACKITPATH} ]"
-        git clone -q --single-branch --depth=1 --branch=${SCRIPT_REPO_BRANCH} ${SCRIPT_REPO_URL} ${SELECT_PACKITPATH}
+        for i in {1..10}; do
+            git clone -q --single-branch --depth=1 --branch=${SCRIPT_REPO_BRANCH} ${SCRIPT_REPO_URL} ${SELECT_PACKITPATH}
+            [[ "${?}" -eq "0" ]] && break || sleep 60
+        done
+        [[ -d "${SELECT_PACKITPATH}" ]] || error_msg "Failed to clone the repository."
     }
 
     # Check the *rootfs.tar.gz package
@@ -237,8 +241,13 @@ init_packit_repo() {
     # Load *-armvirt-64-default-rootfs.tar.gz
     rm -f ${SELECT_PACKITPATH}/${PACKAGE_FILE}
     if [[ "${OPENWRT_ARMVIRT}" == http* ]]; then
-        echo -e "${STEPS} curl [ ${OPENWRT_ARMVIRT} ] file into [ ${SELECT_PACKITPATH} ]"
-        curl -fsSL "${OPENWRT_ARMVIRT}" -o "${SELECT_PACKITPATH}/${PACKAGE_FILE}"
+        echo -e "${STEPS} Download the [ ${OPENWRT_ARMVIRT} ] file into [ ${SELECT_PACKITPATH} ]"
+
+        # Download the *-armvirt-64-default-rootfs.tar.gz file. If the download fails, try again 10 times.
+        for i in {1..10}; do
+            curl -fsSL "${OPENWRT_ARMVIRT}" -o "${SELECT_PACKITPATH}/${PACKAGE_FILE}"
+            [[ "${?}" -eq "0" ]] && break || sleep 60
+        done
         [[ "${?}" -eq "0" ]] || error_msg "Openwrt rootfs file download failed."
     else
         echo -e "${STEPS} copy [ ${GITHUB_WORKSPACE}/${OPENWRT_ARMVIRT} ] file into [ ${SELECT_PACKITPATH} ]"
@@ -259,8 +268,13 @@ init_packit_repo() {
     [[ -n "${SCRIPT_DIY_PATH}" ]] && {
         rm -f ${SELECT_PACKITPATH}/${SCRIPT_DIY}
         if [[ "${SCRIPT_DIY_PATH}" == http* ]]; then
-            echo -e "${INFO} Use curl to download custom script file: [ ${SCRIPT_DIY_PATH} ]"
-            curl -fsSL "${SCRIPT_DIY_PATH}" -o "${SELECT_PACKITPATH}/${SCRIPT_DIY}"
+            echo -e "${INFO} Download the custom script file: [ ${SCRIPT_DIY_PATH} ]"
+
+            # Download the custom script file. If the download fails, try again 10 times.
+            for i in {1..10}; do
+                curl -fsSL "${SCRIPT_DIY_PATH}" -o "${SELECT_PACKITPATH}/${SCRIPT_DIY}"
+                [[ "${?}" -eq "0" ]] && break || sleep 60
+            done
             [[ "${?}" -eq "0" ]] || error_msg "Custom script file download failed."
         else
             echo -e "${INFO} Copy custom script file: [ ${SCRIPT_DIY_PATH} ]"
@@ -379,11 +393,16 @@ download_kernel() {
                     kernel_down_from="https://github.com/${KERNEL_REPO_URL}/releases/download/kernel_${vb}/${kernel_var}.tar.gz"
                     echo -e "${INFO} (${x}.${i}) [ ${vb} - ${kernel_var} ] Kernel download from [ ${kernel_down_from} ]"
 
-                    curl -fsSL "${kernel_down_from}" -o "${kernel_path}/${kernel_var}.tar.gz"
-                    [[ "${?}" -ne "0" ]] && error_msg "Failed to download the kernel files from the server."
+                    # Download the kernel file. If the download fails, try again 10 times.
+                    for i in {1..10}; do
+                        curl -fsSL "${kernel_down_from}" -o "${kernel_path}/${kernel_var}.tar.gz"
+                        [[ "${?}" -eq "0" ]] && break || sleep 60
+                    done
+                    [[ "${?}" -eq "0" ]] || error_msg "Failed to download the kernel files from the server."
 
+                    # Decompress the kernel file
                     tar -mxf "${kernel_path}/${kernel_var}.tar.gz" -C "${kernel_path}"
-                    [[ "${?}" -ne "0" ]] && error_msg "[ ${kernel_var} ] kernel decompression failed."
+                    [[ "${?}" -eq "0" ]] || error_msg "[ ${kernel_var} ] kernel decompression failed."
                 else
                     echo -e "${INFO} (${x}.${i}) [ ${vb} - ${kernel_var} ] Kernel is in the local directory."
                 fi
