@@ -453,7 +453,7 @@ make_openwrt() {
                     }
 
                     # Check the available size of server space
-                    now_remaining_space="$(df -Tk /opt/${SELECT_PACKITPATH} | grep '/dev/' | awk '{print $5}' | echo $(($(xargs) / 1024 / 1024)))"
+                    now_remaining_space="$(df -Tk /opt/${SELECT_PACKITPATH} | tail -n1 | awk '{print $5}' | echo $(($(xargs) / 1024 / 1024)))"
                     [[ "${now_remaining_space}" -le "3" ]] && {
                         echo -e "${WARNING} If the remaining space is less than 3G, exit this packaging. \n"
                         break
