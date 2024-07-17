@@ -215,6 +215,9 @@ init_var() {
         IFS="${oldIFS}"
     }
 
+    # Remove duplicate package drivers
+    PACKAGE_OPENWRT=($(echo "${PACKAGE_OPENWRT[@]}" | tr ' ' '\n' | sort -u | tr '\n' ' '))
+
     # Reset required kernel tags
     KERNEL_TAGS_TMP=()
     for kt in "${PACKAGE_OPENWRT[@]}"; do
@@ -227,7 +230,6 @@ init_var() {
         fi
     done
     # Remove duplicate kernel tags
-    KERNEL_TAGS=()
     KERNEL_TAGS=($(echo "${KERNEL_TAGS_TMP[@]}" | tr ' ' '\n' | sort -u | tr '\n' ' '))
 
     echo -e "${INFO} Package directory: [ /opt/${SELECT_PACKITPATH} ]"
