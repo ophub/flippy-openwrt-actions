@@ -564,7 +564,7 @@ EOF
                         s922x-n2)         [[ -f "${SCRIPT_S922X_N2}" ]]        && sudo ./${SCRIPT_S922X_N2} ;;
                         qemu)             [[ -f "${SCRIPT_QEMU}" ]]            && sudo ./${SCRIPT_QEMU} ;;
                         diy)              [[ -f "${SCRIPT_DIY}" ]]             && sudo ./${SCRIPT_DIY} ;;
-                        rk3399)           [[ -f "${SCRIPT_DIY}" ]] && {
+                        rk3399)           [[ -f "${SCRIPT_RK3399}" ]] && {
                                           for rbl in ${!RK3399_BOARD_LIST[@]}; do
                                               sudo ./${SCRIPT_RK3399} ${RK3399_BOARD_LIST[rbl]} ${RK3399_DTB_LIST[rbl]}
                                           done
