@@ -48,7 +48,7 @@ PACKAGE_OPENWRT_6XY=("r66s" "r68s" "e25" "photonicat" "cm3" "rk3399")
 PACKAGE_SOC_VALUE="all"
 
 # Set the default packaged kernel download repository
-KERNEL_REPO_URL_VALUE="breakings/OpenWrt"
+KERNEL_REPO_URL_VALUE="breakingbadboy/OpenWrt"
 # Set kernel tag: kernel_stable, kernel_rk3588, kernel_rk35xx
 KERNEL_TAGS=("stable" "rk3588" "rk35xx")
 STABLE_KERNEL=("6.1.y" "6.6.y")
