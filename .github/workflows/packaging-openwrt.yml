@@ -33,13 +33,12 @@ on:
           - h69k-max
           - h88k
           - h88k-v3
+          - jp-tvbox
           - l1pro
           - photonicat
           - qemu
           - r66s
           - r68s
-          - jp-tvbox
-          - watermelon-pi
           - rock5b
           - rock5c
           - rk3399
@@ -51,6 +50,7 @@ on:
           - s922x
           - s922x-n2
           - vplus
+          - watermelon-pi
           - zcube1-max
           - diy
       customize_rk3399:
