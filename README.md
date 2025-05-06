@@ -71,7 +71,7 @@ Based on the latest kernel packaging scripts released by `Flippy`, optional para
 | SCRIPT_QEMU            | mk_qemu-aarch64_img.sh | Set the script filename for packaging `qemu`                  |
 | SCRIPT_DIY             | mk_diy.sh              | Set the script filename for packaging `diy` custom            |
 | SCRIPT_DIY_PATH        | None                   | Set the source path for `SCRIPT_DIY`. It can be a URL like `https://weburl/mydiyfile` or a relative path in your repository like `script/mk_s905w.sh` |
-| CUSTOMIZE_RK3399       | None                   | Set custom rk3399 device list, format: `board1:dtb1/board2:dtb2` |
+| CUSTOMIZE_RK3399       | None                   | Set custom rk3399 device list, format: `board1:dtb1/board2:dtb2`. Setting this to `none` means that this option is ignored. |
 | WHOAMI                 | flippy                 | Set the value for `WHOAMI` in `make.env`                      |
 | OPENWRT_VER            | auto                   | Set the value for `OPENWRT_VER` in `make.env`. By default, `auto` will inherit the value from the file. When set to other parameters, it will replace the original parameter with the custom parameter |
 | SW_FLOWOFFLOAD         | 1                      | Set the value for `SW_FLOWOFFLOAD` in `make.env`              |

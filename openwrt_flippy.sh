@@ -202,10 +202,12 @@ init_var() {
 
     # Confirm customize rk3399 devices: ${CUSTOMIZE_RK3399}
     # Format:  [ board1:dtb1/board2:dtb2/board3:dtb3/... ]
+    #          [ none ]
     # Example: [ tvi3315a:rk3399-tvi3315a.dtb/sw799:rk3399-bozz-sw799.dtb ]
+    # If not specified, it can be set to 'none'.
     RK3399_BOARD_LIST=()
     RK3399_DTB_LIST=()
-    [[ -n "${CUSTOMIZE_RK3399}" ]] && {
+    [[ -n "${CUSTOMIZE_RK3399}" && "${CUSTOMIZE_RK3399}" != "none" ]] && {
         # Add rk3399 to the package list
         PACKAGE_OPENWRT+=("rk3399")
 

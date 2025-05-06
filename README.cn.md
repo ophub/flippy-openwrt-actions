@@ -71,7 +71,7 @@
 | SCRIPT_QEMU            | mk_qemu-aarch64_img.sh | 设置打包 `qemu` 的脚本文件名                     |
 | SCRIPT_DIY             | mk_diy.sh              | 设置打包 `diy` 自定义脚本文件名                   |
 | SCRIPT_DIY_PATH        | 无                     | 设置 `SCRIPT_DIY` 文件的来源路径。可以使用网址如 `https://weburl/mydiyfile` 或你仓库中的相对路径如 `script/mk_s905w.sh` |
-| CUSTOMIZE_RK3399       | 无                     | 设置自定义 rk3399 设备列表，格式：`board1:dtb1/board2:dtb2` |
+| CUSTOMIZE_RK3399       | 无                     | 设置自定义 rk3399 设备列表，格式：`board1:dtb1/board2:dtb2`。设置为 `none` 表示忽略该选项。 |
 | WHOAMI                 | flippy                 | 设置 `make.env` 中 `WHOAMI` 参数的值            |
 | OPENWRT_VER            | auto                   | 设置 `make.env` 中 `OPENWRT_VER` 参数的值。默认 `auto` 将自动继承文件中的赋值，设置为其他参数时将替换为自定义参数。 |
 | SW_FLOWOFFLOAD         | 1                      | 设置 `make.env` 中 `SW_FLOWOFFLOAD` 参数的值    |
