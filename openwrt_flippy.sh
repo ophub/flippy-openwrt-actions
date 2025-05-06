@@ -30,7 +30,7 @@ PACKAGE_FILE="openwrt-armvirt-64-generic-rootfs.tar.gz"
 PACKAGE_OPENWRT=(
     "ak88" "e52c" "e54c" "h88k" "h88k-v3" "rock5b" "rock5c"
     "cm3" "e25" "photonicat" "r66s" "r68s" "rk3399"
-    "e20c" "h28k" "h66k" "h68k" "h69k" "h69k-max" "ht2" "jp-tvbox" "watermelon-pi" "zcube1-max"
+    "e20c" "h28k" "h66k" "h68k" "h69k" "h69k-max" "ht2" "jp-tvbox" "netfusion" "watermelon-pi" "zcube1-max"
     "s922x" "s922x-n2" "s905x3" "s905x2" "s912" "s905d" "s905"
     "beikeyun" "l1pro"
     "vplus"
@@ -41,7 +41,7 @@ PACKAGE_OPENWRT=(
 PACKAGE_OPENWRT_RK3588=("ak88" "e52c" "e54c" "h88k" "h88k-v3" "rock5b" "rock5c")
 # Set the list of devices using the [ rk35xx ] kernel
 # Devices from the rk3528/rk3566/rk3568 series can utilize the rk35xx and rk3588 kernels.
-PACKAGE_OPENWRT_RK35XX=("e20c" "h28k" "h66k" "h68k" "h69k" "h69k-max" "ht2" "jp-tvbox" "watermelon-pi" "zcube1-max")
+PACKAGE_OPENWRT_RK35XX=("e20c" "h28k" "h66k" "h68k" "h69k" "h69k-max" "ht2" "jp-tvbox" "netfusion" "watermelon-pi" "zcube1-max")
 # Set the list of devices using the [ 6.x.y ] kernel
 PACKAGE_OPENWRT_6XY=("cm3" "e25" "photonicat" "r66s" "r68s" "rk3399")
 # All are packaged by default, and independent settings are supported, such as: [ s905x3_s905d_rock5b ]
@@ -78,6 +78,7 @@ SCRIPT_H88K_FILE="mk_rk3588_h88k.sh"
 SCRIPT_H88KV3_FILE="mk_rk3588_h88k-v3.sh"
 SCRIPT_HT2_FILE="mk_rk3528_ht2.sh"
 SCRIPT_JPTVBOX_FILE="mk_rk3566_jp-tvbox.sh"
+SCRIPT_NETFUSION_FILE="mk_rk3566_netfusion.sh"
 SCRIPT_L1PRO_FILE="mk_rk3328_l1pro.sh"
 SCRIPT_PHOTONICAT_FILE="mk_rk3568_photonicat.sh"
 SCRIPT_QEMU_FILE="mk_qemu-aarch64_img.sh"
@@ -158,6 +159,7 @@ init_var() {
     [[ -n "${SCRIPT_H88KV3}" ]] || SCRIPT_H88KV3="${SCRIPT_H88KV3_FILE}"
     [[ -n "${SCRIPT_HT2}" ]] || SCRIPT_HT2="${SCRIPT_HT2_FILE}"
     [[ -n "${SCRIPT_JPTVBOX}" ]] || SCRIPT_JPTVBOX="${SCRIPT_JPTVBOX_FILE}"
+    [[ -n "${SCRIPT_NETFUSION}" ]] || SCRIPT_NETFUSION="${SCRIPT_NETFUSION_FILE}"
     [[ -n "${SCRIPT_L1PRO}" ]] || SCRIPT_L1PRO="${SCRIPT_L1PRO_FILE}"
     [[ -n "${SCRIPT_PHOTONICAT}" ]] || SCRIPT_PHOTONICAT="${SCRIPT_PHOTONICAT_FILE}"
     [[ -n "${SCRIPT_QEMU}" ]] || SCRIPT_QEMU="${SCRIPT_QEMU_FILE}"
@@ -552,6 +554,7 @@ EOF
                         h88k-v3)          [[ -f "${SCRIPT_H88KV3}" ]]          && sudo ./${SCRIPT_H88KV3} ;;
                         ht2)              [[ -f "${SCRIPT_HT2}" ]]             && sudo ./${SCRIPT_HT2} ;;
                         jp-tvbox)         [[ -f "${SCRIPT_JPTVBOX}" ]]         && sudo ./${SCRIPT_JPTVBOX} ;;
+                        netfusion)        [[ -f "${SCRIPT_NETFUSION}" ]]         && sudo ./${SCRIPT_NETFUSION} ;;
                         l1pro)            [[ -f "${SCRIPT_L1PRO}" ]]           && sudo ./${SCRIPT_L1PRO} ;;
                         photonicat)       [[ -f "${SCRIPT_PHOTONICAT}" ]]      && sudo ./${SCRIPT_PHOTONICAT} ;;
                         qemu)             [[ -f "${SCRIPT_QEMU}" ]]            && sudo ./${SCRIPT_QEMU} ;;
