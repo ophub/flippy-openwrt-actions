@@ -134,7 +134,7 @@ init_var() {
 
     # Specify the default value
     [[ -n "${SCRIPT_REPO_URL}" ]] || SCRIPT_REPO_URL="${SCRIPT_REPO_URL_VALUE}"
-    [[ "${SCRIPT_REPO_URL}" == http* ]] || SCRIPT_REPO_URL="https://github.com/${SCRIPT_REPO_URL}"
+    [[ "${SCRIPT_REPO_URL,,}" =~ ^http ]] || SCRIPT_REPO_URL="https://github.com/${SCRIPT_REPO_URL}"
     [[ -n "${SCRIPT_REPO_BRANCH}" ]] || SCRIPT_REPO_BRANCH="${SCRIPT_REPO_BRANCH_VALUE}"
     [[ -n "${KERNEL_REPO_URL}" ]] || KERNEL_REPO_URL="${KERNEL_REPO_URL_VALUE}"
     [[ -n "${PACKAGE_SOC}" ]] || PACKAGE_SOC="${PACKAGE_SOC_VALUE}"
@@ -207,7 +207,7 @@ init_var() {
     # If not specified, it can be set to 'none'.
     RK3399_BOARD_LIST=()
     RK3399_DTB_LIST=()
-    [[ -n "${CUSTOMIZE_RK3399}" && "${CUSTOMIZE_RK3399}" != "none" ]] && {
+    [[ -n "${CUSTOMIZE_RK3399}" && "${CUSTOMIZE_RK3399,,}" != "none" ]] && {
         # Add rk3399 to the package list
         PACKAGE_OPENWRT+=("rk3399")
 
@@ -278,7 +278,7 @@ init_packit_repo() {
 
     # Load *-armvirt-64-default-rootfs.tar.gz
     rm -f ${SELECT_PACKITPATH}/${PACKAGE_FILE}
-    if [[ "${OPENWRT_ARMVIRT}" == http* ]]; then
+    if [[ "${OPENWRT_ARMVIRT,,}" =~ ^http ]]; then
         echo -e "${STEPS} Download the [ ${OPENWRT_ARMVIRT} ] file into [ ${SELECT_PACKITPATH} ]"
 
         # Download the *-armvirt-64-default-rootfs.tar.gz file. If the download fails, try again 10 times.
@@ -305,7 +305,7 @@ init_packit_repo() {
     # Add custom script
     [[ -n "${SCRIPT_DIY_PATH}" ]] && {
         rm -f ${SELECT_PACKITPATH}/${SCRIPT_DIY}
-        if [[ "${SCRIPT_DIY_PATH}" == http* ]]; then
+        if [[ "${SCRIPT_DIY_PATH,,}" =~ ^http ]]; then
             echo -e "${INFO} Download the custom script file: [ ${SCRIPT_DIY_PATH} ]"
 
             # Download the custom script file. If the download fails, try again 10 times.
@@ -332,9 +332,9 @@ query_kernel() {
     for vb in "${KERNEL_TAGS[@]}"; do
         {
             # Select the corresponding kernel directory and list
-            if [[ "${vb}" == "rk3588" ]]; then
+            if [[ "${vb,,}" == "rk3588" ]]; then
                 down_kernel_list=(${RK3588_KERNEL[@]})
-            elif [[ "${vb}" == "rk35xx" ]]; then
+            elif [[ "${vb,,}" == "rk35xx" ]]; then
                 down_kernel_list=(${RK35XX_KERNEL[@]})
             else
                 down_kernel_list=(${STABLE_KERNEL[@]})
@@ -369,10 +369,10 @@ query_kernel() {
             done
 
             # Reset the kernel array to the latest kernel version
-            if [[ "${vb}" == "rk3588" ]]; then
+            if [[ "${vb,,}" == "rk3588" ]]; then
                 RK3588_KERNEL=(${TMP_ARR_KERNELS[@]})
                 echo -e "${INFO} The latest version of the rk3588 kernel: [ ${RK3588_KERNEL[@]} ]"
-            elif [[ "${vb}" == "rk35xx" ]]; then
+            elif [[ "${vb,,}" == "rk35xx" ]]; then
                 RK35XX_KERNEL=(${TMP_ARR_KERNELS[@]})
                 echo -e "${INFO} The latest version of the rk35xx kernel: [ ${RK35XX_KERNEL[@]} ]"
             else
@@ -396,7 +396,7 @@ check_kernel() {
             # Check if the file sha256sum is correct
             tmp_sha256sum="$(sha256sum "${check_path}/${cf}" | awk '{print $1}')"
             tmp_checkcode="$(cat ${check_path}/sha256sums | grep ${cf} | awk '{print $1}')"
-            [[ "${tmp_sha256sum}" == "${tmp_checkcode}" ]] || error_msg "[ ${cf} ]: sha256sum verification failed."
+            [[ "${tmp_sha256sum,,}" == "${tmp_checkcode,,}" ]] || error_msg "[ ${cf} ]: sha256sum verification failed."
             let m++
         }
     done
@@ -412,9 +412,9 @@ download_kernel() {
     for vb in "${KERNEL_TAGS[@]}"; do
         {
             # Set the kernel download list
-            if [[ "${vb}" == "rk3588" ]]; then
+            if [[ "${vb,,}" == "rk3588" ]]; then
                 down_kernel_list=(${RK3588_KERNEL[@]})
-            elif [[ "${vb}" == "rk35xx" ]]; then
+            elif [[ "${vb,,}" == "rk35xx" ]]; then
                 down_kernel_list=(${RK35XX_KERNEL[@]})
             else
                 down_kernel_list=(${STABLE_KERNEL[@]})
@@ -503,8 +503,8 @@ make_openwrt() {
                     #
                     boot_kernel_file="$(ls boot-${kernel_var}* 2>/dev/null | head -n 1)"
                     KERNEL_VERSION="${boot_kernel_file:5:-7}"
-                    [[ "${vb}" == "rk3588" ]] && RK3588_KERNEL_VERSION="${KERNEL_VERSION}" || RK3588_KERNEL_VERSION=""
-                    [[ "${vb}" == "rk35xx" ]] && RK35XX_KERNEL_VERSION="${KERNEL_VERSION}" || RK35XX_KERNEL_VERSION=""
+                    [[ "${vb,,}" == "rk3588" ]] && RK3588_KERNEL_VERSION="${KERNEL_VERSION}" || RK3588_KERNEL_VERSION=""
+                    [[ "${vb,,}" == "rk35xx" ]] && RK35XX_KERNEL_VERSION="${KERNEL_VERSION}" || RK35XX_KERNEL_VERSION=""
                     echo -e "${STEPS} (${i}.${k}) Start packaging OpenWrt: [ ${PACKAGE_VAR} ], Kernel directory: [ ${vb} ], Kernel version: [ ${KERNEL_VERSION} ]"
                     echo -e "${INFO} Remaining space is ${now_remaining_space}G. \n"
 
@@ -513,7 +513,7 @@ make_openwrt() {
                     # If flowoffload is turned on, then sfe is forced to be closed by default
                     [[ "${SW_FLOWOFFLOAD}" -eq "1" ]] && SFE_FLOW="0"
 
-                    if [[ -n "${OPENWRT_VER}" && "${OPENWRT_VER}" == "auto" ]]; then
+                    if [[ -n "${OPENWRT_VER}" && "${OPENWRT_VER,,}" == "auto" ]]; then
                         OPENWRT_VER="$(cat make.env | grep "OPENWRT_VER=\"" | cut -d '"' -f2)"
                         echo -e "${INFO} (${i}.${k}) OPENWRT_VER: [ ${OPENWRT_VER} ]"
                     fi
@@ -619,7 +619,7 @@ out_github_env() {
 
         cd /opt/${SELECT_PACKITPATH}/${SELECT_OUTPUTPATH}
 
-        if [[ "${SAVE_OPENWRT_ARMVIRT}" == "true" ]]; then
+        if [[ "${SAVE_OPENWRT_ARMVIRT,,}" == "true" ]]; then
             echo -e "${INFO} copy [ ${PACKAGE_FILE} ] into [ ${SELECT_OUTPUTPATH} ]"
             sudo cp -f ../${PACKAGE_FILE} .
         fi
@@ -653,7 +653,7 @@ init_packit_repo
 echo -e "${INFO} Server space usage before starting to compile:\n$(df -hT /opt/${SELECT_PACKITPATH}) \n"
 
 # Packit OpenWrt
-[[ "${KERNEL_AUTO_LATEST}" == "true" ]] && query_kernel
+[[ "${KERNEL_AUTO_LATEST,,}" == "true" ]] && query_kernel
 download_kernel
 make_openwrt
 out_github_env
