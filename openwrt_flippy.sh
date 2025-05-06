@@ -30,7 +30,7 @@ PACKAGE_FILE="openwrt-armvirt-64-generic-rootfs.tar.gz"
 PACKAGE_OPENWRT=(
     "ak88" "e52c" "e54c" "h88k" "h88k-v3" "rock5b" "rock5c"
     "cm3" "e25" "photonicat" "r66s" "r68s" "rk3399"
-    "e20c" "h28k" "h66k" "h68k" "h69k" "h69k-max" "ht2" "jp-tvbox" "netfusion" "watermelon-pi" "zcube1-max"
+    "e20c" "e24c" "h28k" "h66k" "h68k" "h69k" "h69k-max" "ht2" "jp-tvbox" "netfusion" "watermelon-pi" "zcube1-max"
     "s922x" "s922x-n2" "s905x3" "s905x2" "s912" "s905d" "s905"
     "beikeyun" "l1pro"
     "vplus"
@@ -41,7 +41,7 @@ PACKAGE_OPENWRT=(
 PACKAGE_OPENWRT_RK3588=("ak88" "e52c" "e54c" "h88k" "h88k-v3" "rock5b" "rock5c")
 # Set the list of devices using the [ rk35xx ] kernel
 # Devices from the rk3528/rk3566/rk3568 series can utilize the rk35xx and rk3588 kernels.
-PACKAGE_OPENWRT_RK35XX=("e20c" "h28k" "h66k" "h68k" "h69k" "h69k-max" "ht2" "jp-tvbox" "netfusion" "watermelon-pi" "zcube1-max")
+PACKAGE_OPENWRT_RK35XX=("e20c" "e24c" "h28k" "h66k" "h68k" "h69k" "h69k-max" "ht2" "jp-tvbox" "netfusion" "watermelon-pi" "zcube1-max")
 # Set the list of devices using the [ 6.x.y ] kernel
 PACKAGE_OPENWRT_6XY=("cm3" "e25" "photonicat" "r66s" "r68s" "rk3399")
 # All are packaged by default, and independent settings are supported, such as: [ s905x3_s905d_rock5b ]
@@ -67,6 +67,7 @@ SCRIPT_BEIKEYUN_FILE="mk_rk3328_beikeyun.sh"
 SCRIPT_CM3_FILE="mk_rk3566_radxa-cm3-rpi-cm4-io.sh"
 SCRIPT_DIY_FILE="mk_diy.sh"
 SCRIPT_E20C_FILE="mk_rk3528_e20c.sh"
+SCRIPT_E24C_FILE="mk_rk3528_e24c.sh"
 SCRIPT_E25_FILE="mk_rk3568_e25.sh"
 SCRIPT_E52C_FILE="mk_rk3588s_e52c.sh"
 SCRIPT_E54C_FILE="mk_rk3588s_e54c.sh"
@@ -148,6 +149,7 @@ init_var() {
     [[ -n "${SCRIPT_CM3}" ]] || SCRIPT_CM3="${SCRIPT_CM3_FILE}"
     [[ -n "${SCRIPT_DIY}" ]] || SCRIPT_DIY="${SCRIPT_DIY_FILE}"
     [[ -n "${SCRIPT_E20C}" ]] || SCRIPT_E20C="${SCRIPT_E20C_FILE}"
+    [[ -n "${SCRIPT_E24C}" ]] || SCRIPT_E24C="${SCRIPT_E24C_FILE}"
     [[ -n "${SCRIPT_E25}" ]] || SCRIPT_E25="${SCRIPT_E25_FILE}"
     [[ -n "${SCRIPT_E52C}" ]] || SCRIPT_E52C="${SCRIPT_E52C_FILE}"
     [[ -n "${SCRIPT_E54C}" ]] || SCRIPT_E54C="${SCRIPT_E54C_FILE}"
@@ -542,6 +544,7 @@ EOF
                         cm3)              [[ -f "${SCRIPT_CM3}" ]]             && sudo ./${SCRIPT_CM3} ;;
                         diy)              [[ -f "${SCRIPT_DIY}" ]]             && sudo ./${SCRIPT_DIY} ;;
                         e20c)             [[ -f "${SCRIPT_E20C}" ]]            && sudo ./${SCRIPT_E20C} ;;
+                        e24c)             [[ -f "${SCRIPT_E24C}" ]]            && sudo ./${SCRIPT_E24C} ;;
                         e25)              [[ -f "${SCRIPT_E25}" ]]             && sudo ./${SCRIPT_E25} ;;
                         e52c)             [[ -f "${SCRIPT_E52C}" ]]            && sudo ./${SCRIPT_E52C} ;;
                         e54c)             [[ -f "${SCRIPT_E54C}" ]]            && sudo ./${SCRIPT_E54C} ;;
