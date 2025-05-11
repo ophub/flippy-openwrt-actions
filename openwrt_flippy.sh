@@ -24,7 +24,7 @@ SCRIPT_REPO_URL_VALUE="https://github.com/unifreq/openwrt_packit"
 SCRIPT_REPO_BRANCH_VALUE="master"
 
 # Set the *rootfs.tar.gz package save name
-PACKAGE_FILE="openwrt-armvirt-64-generic-rootfs.tar.gz"
+PACKAGE_FILE="openwrt-armsr-armv8-generic-rootfs.tar.gz"
 
 # Set the list of supported device
 PACKAGE_OPENWRT=(
@@ -276,12 +276,12 @@ init_packit_repo() {
     [[ -n "${OPENWRT_ARMVIRT}" && -z "${OPENWRT_ARMSR}" ]] && OPENWRT_ARMSR="${OPENWRT_ARMVIRT}"
     [[ -z "${OPENWRT_ARMSR}" ]] && error_msg "The [ OPENWRT_ARMSR ] variable must be specified."
 
-    # Load *-armvirt-64-default-rootfs.tar.gz
+    # Load *-armsr-armv8-generic-rootfs.tar.gz
     rm -f ${SELECT_PACKITPATH}/${PACKAGE_FILE}
     if [[ "${OPENWRT_ARMSR,,}" =~ ^http ]]; then
         echo -e "${STEPS} Download the [ ${OPENWRT_ARMSR} ] file into [ ${SELECT_PACKITPATH} ]"
 
-        # Download the *-armvirt-64-default-rootfs.tar.gz file. If the download fails, try again 10 times.
+        # Download the *-armsr-armv8-generic-rootfs.tar.gz file. If the download fails, try again 10 times.
         for i in {1..10}; do
             curl -fsSL "${OPENWRT_ARMSR}" -o "${SELECT_PACKITPATH}/${PACKAGE_FILE}"
             [[ "${?}" -eq "0" ]] && break || sleep 60
