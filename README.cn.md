@@ -14,7 +14,7 @@
 - name: Package OpenWrt Firmware
   uses: ophub/flippy-openwrt-actions@main
   env:
-    OPENWRT_ARMVIRT: openwrt/bin/targets/*/*/*.tar.gz
+    OPENWRT_ARMSR: openwrt/bin/targets/*/*/*.tar.gz
     PACKAGE_SOC: all
     KERNEL_VERSION_NAME: 6.1.y_6.6.y
     KERNEL_AUTO_LATEST: true
@@ -26,7 +26,7 @@
 
 | 参数                   | 默认值                  | 说明                                            |
 |------------------------|------------------------|------------------------------------------------|
-| OPENWRT_ARMVIRT        | 无                     | 必选项. 设置 `openwrt-armvirt-64-default-rootfs.tar.gz` 的文件路径，可以使用相对路径如 `openwrt/bin/targets/*/*/*.tar.gz` 或 网络文件下载地址如 `https://github.com/*/releases/*/*.tar.gz` |
+| OPENWRT_ARMSR          | 无                     | 必选项. 设置 `openwrt-armsr-armv8-generic-rootfs.tar.gz` 的文件路径，可以使用相对路径如 `openwrt/bin/targets/*/*/*.tar.gz` 或 网络文件下载地址如 `https://github.com/*/releases/*/*.tar.gz` |
 | SCRIPT_REPO_URL        | unifreq/openwrt_packit | 设置打包脚本源码仓库的 `<owner>/<repo>` |
 | SCRIPT_REPO_BRANCH     | master                 | 设置打包脚本源码仓库的分支                        |
 | KERNEL_REPO_URL        | breakingbadboy/OpenWrt | 设置内核下载仓库的 `<owner>/<repo>`，默认从 breakingbadboy 维护的[内核 Releases](https://github.com/breakingbadboy/OpenWrt/releases/tag/kernel_stable)里下载。 |

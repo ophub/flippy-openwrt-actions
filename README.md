@@ -14,7 +14,7 @@ This Actions can be used by referencing it in the `.github/workflows/*.yml` clou
 - name: Package OpenWrt Firmware
   uses: ophub/flippy-openwrt-actions@main
   env:
-    OPENWRT_ARMVIRT: openwrt/bin/targets/*/*/*.tar.gz
+    OPENWRT_ARMSR: openwrt/bin/targets/*/*/*.tar.gz
     PACKAGE_SOC: all
     KERNEL_VERSION_NAME: 6.1.y_6.6.y
     KERNEL_AUTO_LATEST: true
@@ -26,7 +26,7 @@ Based on the latest kernel packaging scripts released by `Flippy`, optional para
 
 | Parameter              | Default                | Description                                                    |
 |------------------------|------------------------|---------------------------------------------------------------|
-| OPENWRT_ARMVIRT        | None                   | Required. Set the file path for `openwrt-armvirt-64-default-rootfs.tar.gz`. You can use a relative path such as `openwrt/bin/targets/*/*/*.tar.gz` or a web file download link such as `https://github.com/*/releases/*/*.tar.gz` |
+| OPENWRT_ARMSR          | None                   | Required. Set the file path for `openwrt-armsr-armv8-generic-rootfs.tar.gz`. You can use a relative path such as `openwrt/bin/targets/*/*/*.tar.gz` or a web file download link such as `https://github.com/*/releases/*/*.tar.gz` |
 | SCRIPT_REPO_URL        | unifreq/openwrt_packit | Set `<owner>/<repo>` of the packaging script source repository |
 | SCRIPT_REPO_BRANCH     | master                 | Set the branch of the packaging script source repository      |
 | KERNEL_REPO_URL        | breakingbadboy/OpenWrt | Set `<owner>/<repo>` of the kernel download repository, it downloads from the [kernel Releases](https://github.com/breakingbadboy/OpenWrt/releases/tag/kernel_stable) maintained by breakingbadboy by default. |

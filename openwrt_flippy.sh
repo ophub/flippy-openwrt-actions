@@ -60,7 +60,7 @@ KERNEL_AUTO_LATEST_VALUE="true"
 SELECT_PACKITPATH_VALUE="openwrt_packit"
 SELECT_OUTPUTPATH_VALUE="output"
 GZIP_IMGS_VALUE="auto"
-SAVE_OPENWRT_ARMVIRT_VALUE="true"
+SAVE_OPENWRT_ARMSR_VALUE="true"
 
 # Set the default packaging script
 SCRIPT_BEIKEYUN_FILE="mk_rk3328_beikeyun.sh"
@@ -141,7 +141,7 @@ init_var() {
     [[ -n "${GZIP_IMGS}" ]] || GZIP_IMGS="${GZIP_IMGS_VALUE}"
     [[ -n "${SELECT_PACKITPATH}" ]] || SELECT_PACKITPATH="${SELECT_PACKITPATH_VALUE}"
     [[ -n "${SELECT_OUTPUTPATH}" ]] || SELECT_OUTPUTPATH="${SELECT_OUTPUTPATH_VALUE}"
-    [[ -n "${SAVE_OPENWRT_ARMVIRT}" ]] || SAVE_OPENWRT_ARMVIRT="${SAVE_OPENWRT_ARMVIRT_VALUE}"
+    [[ -n "${SAVE_OPENWRT_ARMSR}" ]] || SAVE_OPENWRT_ARMSR="${SAVE_OPENWRT_ARMSR_VALUE}"
 
     # Specify the default packaging script
     [[ -n "${SCRIPT_BEIKEYUN}" ]] || SCRIPT_BEIKEYUN="${SCRIPT_BEIKEYUN_FILE}"
@@ -272,22 +272,24 @@ init_packit_repo() {
     }
 
     # Check the *rootfs.tar.gz package
-    [[ -z "${OPENWRT_ARMVIRT}" ]] && error_msg "The [ OPENWRT_ARMVIRT ] variable must be specified."
+    # If the original variable name [ OPENWRT_ARMVIRT ] is detected, it will be inherited and used.
+    [[ -n "${OPENWRT_ARMVIRT}" && -z "${OPENWRT_ARMSR}" ]] && OPENWRT_ARMSR="${OPENWRT_ARMVIRT}"
+    [[ -z "${OPENWRT_ARMSR}" ]] && error_msg "The [ OPENWRT_ARMSR ] variable must be specified."
 
     # Load *-armvirt-64-default-rootfs.tar.gz
     rm -f ${SELECT_PACKITPATH}/${PACKAGE_FILE}
-    if [[ "${OPENWRT_ARMVIRT,,}" =~ ^http ]]; then
-        echo -e "${STEPS} Download the [ ${OPENWRT_ARMVIRT} ] file into [ ${SELECT_PACKITPATH} ]"
+    if [[ "${OPENWRT_ARMSR,,}" =~ ^http ]]; then
+        echo -e "${STEPS} Download the [ ${OPENWRT_ARMSR} ] file into [ ${SELECT_PACKITPATH} ]"
 
         # Download the *-armvirt-64-default-rootfs.tar.gz file. If the download fails, try again 10 times.
         for i in {1..10}; do
-            curl -fsSL "${OPENWRT_ARMVIRT}" -o "${SELECT_PACKITPATH}/${PACKAGE_FILE}"
+            curl -fsSL "${OPENWRT_ARMSR}" -o "${SELECT_PACKITPATH}/${PACKAGE_FILE}"
             [[ "${?}" -eq "0" ]] && break || sleep 60
         done
         [[ "${?}" -eq "0" ]] || error_msg "Openwrt rootfs file download failed."
     else
-        echo -e "${STEPS} copy [ ${GITHUB_WORKSPACE}/${OPENWRT_ARMVIRT} ] file into [ ${SELECT_PACKITPATH} ]"
-        cp -f ${GITHUB_WORKSPACE}/${OPENWRT_ARMVIRT} ${SELECT_PACKITPATH}/${PACKAGE_FILE}
+        echo -e "${STEPS} copy [ ${GITHUB_WORKSPACE}/${OPENWRT_ARMSR} ] file into [ ${SELECT_PACKITPATH} ]"
+        cp -f ${GITHUB_WORKSPACE}/${OPENWRT_ARMSR} ${SELECT_PACKITPATH}/${PACKAGE_FILE}
         [[ "${?}" -eq "0" ]] || error_msg "Openwrt rootfs file copy failed."
     fi
 
@@ -616,7 +618,7 @@ out_github_env() {
 
         cd /opt/${SELECT_PACKITPATH}/${SELECT_OUTPUTPATH}
 
-        if [[ "${SAVE_OPENWRT_ARMVIRT,,}" == "true" ]]; then
+        if [[ "${SAVE_OPENWRT_ARMSR,,}" == "true" ]]; then
             echo -e "${INFO} copy [ ${PACKAGE_FILE} ] into [ ${SELECT_OUTPUTPATH} ]"
             sudo cp -f ../${PACKAGE_FILE} .
         fi
