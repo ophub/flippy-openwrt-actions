@@ -320,7 +320,7 @@ init_packit_repo() {
             [[ "${?}" -eq "0" ]] || error_msg "Custom script file copy failed."
         fi
         chmod +x ${SELECT_PACKITPATH}/${SCRIPT_DIY}
-        echo -e "List of [ ${SELECT_PACKITPATH} ] directory files:\n $(ls -l ${SELECT_PACKITPATH})"
+        echo -e "List of [ ${SELECT_PACKITPATH} ] directory files:\n $(ls -lh ${SELECT_PACKITPATH})"
     }
 }
 
@@ -634,7 +634,7 @@ out_github_env() {
         echo -e "PACKAGED_OUTPUTDATE: $(date +"%m.%d.%H%M")"
         echo -e "PACKAGED_STATUS: success"
         echo -e "${INFO} PACKAGED_OUTPUTPATH files list:"
-        echo -e "$(ls /opt/${SELECT_PACKITPATH}/${SELECT_OUTPUTPATH} 2>/dev/null) \n"
+        echo -e "$(ls -lh /opt/${SELECT_PACKITPATH}/${SELECT_OUTPUTPATH} 2>/dev/null) \n"
     else
         echo -e "${ERROR} Packaging failed. \n"
         echo "PACKAGED_STATUS=failure" >>${GITHUB_ENV}
