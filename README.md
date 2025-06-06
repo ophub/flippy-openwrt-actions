@@ -8,7 +8,7 @@ This Actions uses his packaging scripts without any modification, only developed
 
 ## Usage
 
-This Actions can be used by referencing it in the `.github/workflows/*.yml` cloud compilation script, for example [packaging-openwrt.yml](.github/workflows/packaging-openwrt.yml). The code is as follows:
+This Actions can be used by referencing it in the `.github/workflows/*.yml` cloud compilation script, for example [package-openwrt-image.yml](.github/workflows/package-openwrt-image.yml). The code is as follows:
 
 ```yaml
 - name: Package OpenWrt Firmware

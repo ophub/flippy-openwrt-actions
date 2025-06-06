@@ -8,7 +8,7 @@
 
 ## 使用方法
 
-在 `.github/workflows/*.yml` 云编译脚本中引入此 Actions 即可使用，例如 [packaging-openwrt.yml](.github/workflows/packaging-openwrt.yml)。代码如下：
+在 `.github/workflows/*.yml` 云编译脚本中引入此 Actions 即可使用，例如 [package-openwrt-image.yml](.github/workflows/package-openwrt-image.yml)。代码如下：
 
 ```yaml
 - name: Package OpenWrt Firmware
