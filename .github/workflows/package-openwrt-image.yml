@@ -52,6 +52,7 @@ on:
           - s922x-n2
           - vplus
           - watermelon-pi
+          - yixun-rs6pro
           - zcube1-max
           - diy
       customize_rk3399:
