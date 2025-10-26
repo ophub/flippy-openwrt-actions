@@ -633,8 +633,8 @@ out_github_env() {
         fi
 
         # Generate a sha256sum verification file for each OpenWrt file
-        for file in *; do [[ -f "${file}" ]] && sudo sha256sum "${file}" | sudo tee "${file}.sha" >/dev/null; done
-        sudo rm -f *.sha.sha 2>/dev/null
+        #for file in *; do [[ -f "${file}" ]] && sudo sha256sum "${file}" | sudo tee "${file}.sha" >/dev/null; done
+        #sudo rm -f *.sha.sha 2>/dev/null
 
         echo "PACKAGED_OUTPUTPATH=${PWD}" >>${GITHUB_ENV}
         echo "PACKAGED_OUTPUTDATE=$(date +"%m.%d.%H%M")" >>${GITHUB_ENV}
