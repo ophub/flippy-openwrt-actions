@@ -94,6 +94,13 @@
 | ${{ env.PACKAGED_OUTPUTDATE }} | 07.15.1058                 | 打包日期                     |
 | ${{ env.PACKAGED_STATUS }}     | success / failure          | 打包状态。成功 / 失败          |
 
+## OpenWrt 固件默认信息
+
+| 系统名称        | 默认账号 | 默认密码  | SSH 端口 | IP 地址 |
+| -------------- | ------- | ------- | ------- | ------- |
+| 🛜 [OpenWrt.OS](https://github.com/ophub/flippy-openwrt-actions/releases) | root | password | 22 | 192.168.1.1 |
+| 🐋 [OpenWrt.Docker](https://hub.docker.com/u/ophub) | root | password | 22 | 192.168.1.1 |
+
 ## 链接
 
 - [OpenWrt](https://github.com/openwrt/openwrt)

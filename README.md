@@ -94,6 +94,13 @@ According to the standard of github.com, 3 environment variables have been outpu
 | ${{ env.PACKAGED_OUTPUTDATE }} | 07.15.1058                 | Packaging date                          |
 | ${{ env.PACKAGED_STATUS }}     | success / failure          | Packaging status. Success / Failure     |
 
+## Default Information for OpenWrt Firmware
+
+| System Name    | Default Username | Default Password  | SSH Port  | IP Address  |
+| -------------- | ---------------- | ----------------- | --------- | ----------- |
+| 🛜 [OpenWrt.OS](https://github.com/ophub/flippy-openwrt-actions/releases) | root | password | 22 | 192.168.1.1 |
+| 🐋 [OpenWrt.Docker](https://hub.docker.com/u/ophub) | root | password | 22 | 192.168.1.1 |
+
 ## Links
 
 - [OpenWrt](https://github.com/openwrt/openwrt)
