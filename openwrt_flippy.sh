@@ -629,7 +629,7 @@ out_github_env() {
 
         if [[ "${SAVE_OPENWRT_ARMSR,,}" == "true" ]]; then
             echo -e "${INFO} copy [ ${PACKAGE_FILE} ] into [ ${SELECT_OUTPUTPATH} ]"
-            sudo cp -f ../${PACKAGE_FILE} .
+            sudo cp -f ../${PACKAGE_FILE} . || true
         fi
 
         # Generate a sha256sum verification file for each OpenWrt file
