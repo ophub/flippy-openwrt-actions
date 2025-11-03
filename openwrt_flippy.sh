@@ -112,6 +112,8 @@ ENABLE_WIFI_K504_VALUE="1"
 ENABLE_WIFI_K510_VALUE="1"
 DISTRIB_REVISION_VALUE="R$(date +%Y.%m.%d)"
 DISTRIB_DESCRIPTION_VALUE="OpenWrt"
+OPENWRT_IP_DEFAULT_VALUE="192.168.1.1"
+IP_REGEX="^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$"
 
 # Set font color
 STEPS="[\033[95m STEPS \033[0m]"
@@ -194,6 +196,7 @@ init_var() {
     [[ -n "${ENABLE_WIFI_K510}" ]] || ENABLE_WIFI_K510="${ENABLE_WIFI_K510_VALUE}"
     [[ -n "${DISTRIB_REVISION}" ]] || DISTRIB_REVISION="${DISTRIB_REVISION_VALUE}"
     [[ -n "${DISTRIB_DESCRIPTION}" ]] || DISTRIB_DESCRIPTION="${DISTRIB_DESCRIPTION_VALUE}"
+    [[ -z "${OPENWRT_IP}" || ! "${OPENWRT_IP}" =~ ${IP_REGEX} ]] && OPENWRT_IP="${OPENWRT_IP_DEFAULT_VALUE}"
 
     # Confirm package object
     [[ "${PACKAGE_SOC}" != "all" ]] && {
@@ -306,6 +309,16 @@ init_packit_repo() {
     else
         error_msg "The [ ${SELECT_PACKITPATH}/${PACKAGE_FILE} ] failed to load."
     fi
+
+    # Modify default IP address
+    [[ "${OPENWRT_IP}" != "${OPENWRT_IP_DEFAULT_VALUE}" ]] && {
+        echo -e "${STEPS} Start modifying the OpenWrt default IP address to [ ${OPENWRT_IP} ]"
+        tmpdir="$(mktemp -d)"
+        tar -xzpf "${SELECT_PACKITPATH}/${PACKAGE_FILE}" -C "${tmpdir}"
+        sed -i "/lan) ipad=\${ipaddr:-/s/\${ipaddr:-\"[^\"]*\"}/\${ipaddr:-\"${OPENWRT_IP}\"}/" "${tmpdir}/bin/config_generate"
+        tar -czpf "${SELECT_PACKITPATH}/${PACKAGE_FILE}" -C "${tmpdir}" .
+        rm -rf "${tmpdir}"
+    }
 
     # Add custom script
     [[ -n "${SCRIPT_DIY_PATH}" ]] && {

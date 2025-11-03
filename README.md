@@ -18,6 +18,7 @@ This Actions can be used by referencing it in the `.github/workflows/*.yml` clou
     PACKAGE_SOC: all
     KERNEL_VERSION_NAME: 6.1.y_6.6.y
     KERNEL_AUTO_LATEST: true
+    OPENWRT_IP: 192.168.1.1
 ```
 
 ## Optional Parameters
@@ -33,6 +34,7 @@ Based on the latest kernel packaging scripts released by `Flippy`, optional para
 | KERNEL_VERSION_NAME    | 6.1.y_6.6.y            | Set the [Kernel version](https://github.com/breakingbadboy/OpenWrt/releases/tag/kernel_stable), you can check and select a specific one. You can specify a single kernel such as `6.1.y`, or select multiple kernels connected with `_` like `6.1.y_6.6.y` |
 | KERNEL_AUTO_LATEST     | true                   | Set whether to automatically adopt the latest version kernel of the same series. When set to `true`, it will automatically look for whether there is an updated version of the kernel specified in `KERNEL_VERSION_NAME`, such as `6.1.y`, in the kernel library, and if there is an updated version, it will automatically replace it with the latest version. When set to `false`, it will compile the specified version kernel. |
 | PACKAGE_SOC            | all                    | Set the `SOC` of the package box, the default is `all` to package all boxes, you can specify a single box like `s905x3`, or select multiple boxes connected with `_` like `s905x3_s905d`. The SoC codes for each box are: `vplus`, `cm3`, `jp-tvbox`, `beikeyun`, `l1pro`, `rock5b`, `rock5c`, `e52c`, `e54c`, `r66s`, `r68s`, `e25`, `photonicat`, `watermelon-pi`, `yixun-rs6pro`, `zcube1-max`, `ht2`, `e20c`, `e24c`, `h28k`, `h66k`, `h68k`, `h69k`, `h69k-max`, `h88k`, `h88k-v3`, `rk3399`, `s905`, `s905d`, `s905x2`, `s905x3`, `s912`, `s922x`, `s922x-n2`, `qemu`, `diy`. Note: `s922x-n2` is `s922x-odroid-n2`, `diy` is a custom box. |
+| OPENWRT_IP             | 192.168.1.1            | Set the default `IP` address for OpenWrt                      |
 | GZIP_IMGS              | auto                   | Set the format of the file compression after packaging, optional values are `.gz` (default) / `.xz` / `.zip` / `.zst` / `.7z` |
 | SELECT_PACKITPATH      | openwrt_packit         | Set the name of the packaging directory under `/opt`          |
 | SELECT_OUTPUTPATH      | output                 | Set the name of the firmware output directory in the `${SELECT_PACKITPATH}` directory |

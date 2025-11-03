@@ -93,6 +93,10 @@ on:
         required: false
         default: true
         type: boolean
+      openwrt_ip:
+        description: "Set OpenWrt default IP address"
+        required: false
+        default: "192.168.1.1"
       script_diy_path:
         description: "Set custom script loading path"
         required: false
@@ -239,6 +243,7 @@ jobs:
           KERNEL_REPO_URL: ${{ inputs.kernel_repo }}
           KERNEL_VERSION_NAME: ${{ inputs.openwrt_kernel }}
           KERNEL_AUTO_LATEST: ${{ inputs.auto_kernel }}
+          OPENWRT_IP: ${{ inputs.openwrt_ip }}
           CUSTOMIZE_RK3399: ${{ inputs.customize_rk3399 }}
           SCRIPT_DIY_PATH: ${{ inputs.script_diy_path }}
           WHOAMI: ${{ inputs.builder_name }}
