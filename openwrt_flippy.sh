@@ -69,7 +69,7 @@ IP_REGEX="^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01
 SELECT_PACKITPATH_VALUE="openwrt_packit"
 SELECT_OUTPUTPATH_VALUE="output"
 GZIP_IMGS_VALUE="auto"
-SAVE_OPENWRT_ARMSR_VALUE="true"
+SAVE_OPENWRT_ROOTFS_VALUE="true"
 
 # Set the default packaging script
 SCRIPT_BEIKEYUN_FILE="mk_rk3328_beikeyun.sh"
@@ -151,7 +151,7 @@ init_var() {
     [[ -n "${GZIP_IMGS}" ]] || GZIP_IMGS="${GZIP_IMGS_VALUE}"
     [[ -n "${SELECT_PACKITPATH}" ]] || SELECT_PACKITPATH="${SELECT_PACKITPATH_VALUE}"
     [[ -n "${SELECT_OUTPUTPATH}" ]] || SELECT_OUTPUTPATH="${SELECT_OUTPUTPATH_VALUE}"
-    [[ -n "${SAVE_OPENWRT_ARMSR}" ]] || SAVE_OPENWRT_ARMSR="${SAVE_OPENWRT_ARMSR_VALUE}"
+    [[ -n "${SAVE_OPENWRT_ROOTFS}" ]] || SAVE_OPENWRT_ROOTFS="${SAVE_OPENWRT_ROOTFS_VALUE}"
 
     # Specify the default packaging script
     [[ -n "${SCRIPT_BEIKEYUN}" ]] || SCRIPT_BEIKEYUN="${SCRIPT_BEIKEYUN_FILE}"
@@ -663,7 +663,7 @@ out_github_env() {
 
         cd /opt/${SELECT_PACKITPATH}/${SELECT_OUTPUTPATH}
 
-        if [[ "${SAVE_OPENWRT_ARMSR,,}" == "true" ]]; then
+        if [[ "${SAVE_OPENWRT_ROOTFS,,}" == "true" ]]; then
             echo -e "${INFO} copy [ ${PACKAGE_FILE} ] into [ ${SELECT_OUTPUTPATH} ]"
             sudo cp -f ../${PACKAGE_FILE} . || true
         fi

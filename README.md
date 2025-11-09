@@ -38,6 +38,7 @@ Based on the latest kernel packaging scripts released by `Flippy`, optional para
 | GZIP_IMGS              | auto                   | Set the format of the file compression after packaging, optional values are `.gz` (default) / `.xz` / `.zip` / `.zst` / `.7z` |
 | SELECT_PACKITPATH      | openwrt_packit         | Set the name of the packaging directory under `/opt`          |
 | SELECT_OUTPUTPATH      | output                 | Set the name of the firmware output directory in the `${SELECT_PACKITPATH}` directory |
+| SAVE_OPENWRT_ROOTFS    | true                   | Set whether to save the `*-rootfs.tar.gz` file after packaging |
 | SCRIPT_VPLUS           | mk_h6_vplus.sh         | Set the script filename for packaging `h6 vplus`              |
 | SCRIPT_CM3             | mk_rk3566_radxa-cm3-rpi-cm4-io.sh | Set the script filename for packaging `rk3566 radxa-cm3-rpi-cm4-io` |
 | SCRIPT_HT2             | mk_rk3528_ht2.sh       | Set the script filename for packaging `rk3528 ht2`            |
