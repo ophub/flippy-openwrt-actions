@@ -63,6 +63,18 @@ on:
         options:
           - tvi3315a:rk3399-tvi3315a.dtb/sw799:rk3399-bozz-sw799.dtb
           - none
+      openwrt_ip:
+        description: "Set OpenWrt default IP address"
+        required: false
+        default: "192.168.1.1"
+      kernel_repo:
+        description: "Set the kernel repository"
+        required: false
+        default: "breakingbadboy/OpenWrt"
+        type: choice
+        options:
+          - breakingbadboy/OpenWrt
+          - ophub/kernel
       openwrt_kernel:
         description: "Select kernel version"
         required: false
@@ -80,23 +92,15 @@ on:
           - 6.1.y_6.12.y
           - 6.1.y_6.6.y
           - 6.6.y_6.12.y
-      kernel_repo:
-        description: "Set the kernel repository"
-        required: false
-        default: "ophub/kernel"
-        type: choice
-        options:
-          - ophub/kernel
-          - breakingbadboy/OpenWrt
       auto_kernel:
         description: "Auto use the latest kernel"
         required: false
         default: true
         type: boolean
-      openwrt_ip:
-        description: "Set OpenWrt default IP address"
+      openwrt_rootfs:
+        description: "Set OpenWrt rootfs tags keywords"
         required: false
-        default: "192.168.1.1"
+        default: "OpenWrt_armv8_rootfs"
       script_diy_path:
         description: "Set custom script loading path"
         required: false
@@ -192,18 +196,15 @@ jobs:
         working-directory: /builder
         if: ${{ steps.init.outputs.status }} == 'success' && !cancelled()
         run: |
-          armvirt_tarfile_repo="ophub/amlogic-s9xxx-openwrt"
-          releases_tag_keywords="OpenWrt_lede"
-
-          armvirt_tarfile_path="openwrt/bin/targets/armvirt/64"
+          armvirt_tarfile_path="openwrt/bin/targets/armsr/armv8"
           [[ -d "${armvirt_tarfile_path}" ]] || mkdir -p ${armvirt_tarfile_path}
           ln -sf /builder/openwrt ${{ github.workspace }}/openwrt
 
           latest_version=$(curl -s \
                 -H "Accept: application/vnd.github+json" \
                 -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
-                https://api.github.com/repos/${armvirt_tarfile_repo}/releases?per_page=100 | \
-                jq -r --arg RTK "${releases_tag_keywords}" \
+                https://api.github.com/repos/${{ github.repository }}/releases?per_page=100 | \
+                jq -r --arg RTK "${{ inputs.openwrt_rootfs }}" \
                 --arg BOARD "-rootfs.tar.gz" \
                 '[.[] | select(.tag_name | contains($RTK))] |
                 map(.assets[] | select(.browser_download_url | endswith($BOARD))) |
@@ -215,12 +216,13 @@ jobs:
           [[ -z "${latest_version}" || "${latest_version}" == "null" ]] && echo "Invalid OpenWrt rootfs download address." && exit 1
           latest_updated_at="$(echo ${latest_version} | jq -r '.data')"
           latest_url="$(echo ${latest_version} | jq -r '.url')"
+          echo "Latest OpenWrt rootfs file: ${latest_url}"
 
           openwrt_filename="${latest_url##*/}"
           curl -fsSL "${latest_url}" -o "${armvirt_tarfile_path}/${openwrt_filename}"
           [[ "${?}" -ne "0" ]] && echo "Invalid OpenWrt rootfs download address." && exit 1
 
-          echo "build_tag=${releases_tag_keywords}_${{ inputs.openwrt_storage }}_$(date +"%Y.%m")" >> ${GITHUB_OUTPUT}
+          echo "build_tag=OpenWrt_armv8_${{ inputs.openwrt_storage }}_$(date +"%Y.%m")" >> ${GITHUB_OUTPUT}
           echo "status=success" >> ${GITHUB_OUTPUT}
 
       - name: Clone packit source code
@@ -269,5 +271,6 @@ jobs:
             - Login to OpenWrt → System → Amlogic Service → Install OpenWrt
             ### OpenWrt source code
             - [lede](https://github.com/coolsnowwolf/lede)
+            - The OpenWrt [rootfs](https://github.com/ophub/flippy-openwrt-actions/releases/tag/OpenWrt_armv8_rootfs) and [kernel](https://github.com/breakingbadboy/OpenWrt/releases/tag/kernel_stable) files are both shared by flipy
             ### OpenWrt Image Verification
             - sha256sum

@@ -298,7 +298,7 @@ init_packit_repo() {
         [[ "${?}" -eq "0" ]] || error_msg "Openwrt rootfs file download failed."
     else
         echo -e "${STEPS} copy [ ${GITHUB_WORKSPACE}/${OPENWRT_ARMSR} ] file into [ ${SELECT_PACKITPATH} ]"
-        cp -f ${GITHUB_WORKSPACE}/${OPENWRT_ARMSR} ${SELECT_PACKITPATH}/${PACKAGE_FILE}
+        cp -vf ${GITHUB_WORKSPACE}/${OPENWRT_ARMSR} ${SELECT_PACKITPATH}/${PACKAGE_FILE}
         [[ "${?}" -eq "0" ]] || error_msg "Openwrt rootfs file copy failed."
     fi
 
