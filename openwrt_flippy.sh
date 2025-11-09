@@ -48,7 +48,7 @@ PACKAGE_OPENWRT_6XY=("cm3" "e25" "photonicat" "r66s" "r68s" "rk3399")
 # All are packaged by default, and independent settings are supported, such as: [ s905x3_s905d_rock5b ]
 PACKAGE_SOC_VALUE="all"
 
-# Set the default packaged kernel download repository
+# Set the default packaged kernel download repository: https://github.com/breakingbadboy/OpenWrt/releases
 KERNEL_REPO_URL_VALUE="breakingbadboy/OpenWrt"
 # Set kernel tag: kernel_stable, kernel_rk3588, kernel_rk35xx
 KERNEL_TAGS=("stable" "rk3588" "rk35xx")
@@ -56,6 +56,9 @@ STABLE_KERNEL=("6.1.y" "6.12.y")
 RK3588_KERNEL=("5.10.y" "6.1.y")
 RK35XX_KERNEL=("5.10.y" "6.1.y")
 RK35XX_KERNEL_5XY=("5.10.y")
+# The kernel_flippy provided by flippy in ophub/kernel repository: https://github.com/ophub/kernel/releases
+FLIPPY_KERNEL=(${STABLE_KERNEL[@]})
+# Set to automatically query the latest kernel version
 KERNEL_AUTO_LATEST_VALUE="true"
 
 # Set the default OpenWrt IP address
@@ -233,6 +236,11 @@ init_var() {
     # Remove duplicate package drivers
     PACKAGE_OPENWRT=($(echo "${PACKAGE_OPENWRT[@]}" | tr ' ' '\n' | sort -u | tr '\n' ' '))
 
+    # Convert kernel library address to api format
+    echo -e "${INFO} Kernel download repository: [ ${KERNEL_REPO_URL} ]"
+    [[ "${KERNEL_REPO_URL}" =~ ^https: ]] && KERNEL_REPO_URL="$(echo ${KERNEL_REPO_URL} | awk -F'/' '{print $4"/"$5}')"
+    kernel_api="https://github.com/${KERNEL_REPO_URL}"
+
     # Reset required kernel tags
     KERNEL_TAGS_TMP=()
     for kt in "${PACKAGE_OPENWRT[@]}"; do
@@ -241,7 +249,12 @@ init_var() {
         elif [[ " ${PACKAGE_OPENWRT_RK35XX[@]} " =~ " ${kt} " || " ${PACKAGE_OPENWRT_RK35XX_5XY[@]} " =~ " ${kt} " ]]; then
             KERNEL_TAGS_TMP+=("rk35xx")
         else
-            KERNEL_TAGS_TMP+=("stable")
+            # The stable kernel is used by default, and the flippy kernel is used with the ophub repository.
+            if [[ "${KERNEL_REPO_URL}" == "ophub/kernel" ]]; then
+                KERNEL_TAGS_TMP+=("flippy")
+            else
+                KERNEL_TAGS_TMP+=("stable")
+            fi
         fi
     done
     # Remove duplicate kernel tags
@@ -250,21 +263,17 @@ init_var() {
     echo -e "${INFO} Package directory: [ /opt/${SELECT_PACKITPATH} ]"
     echo -e "${INFO} Package SoC: [ $(echo ${PACKAGE_OPENWRT[@]} | xargs) ]"
     echo -e "${INFO} Kernel tags: [ $(echo ${KERNEL_TAGS[@]} | xargs) ]"
+    echo -e "${INFO} Kernel Query API: [ ${kernel_api} ]"
 
-    # Reset STABLE_KERNEL options
-    [[ -n "${KERNEL_VERSION_NAME}" && " ${KERNEL_TAGS[@]} " =~ " stable " ]] && {
+    # Reset STABLE & FLIPPY kernel options
+    [[ -n "${KERNEL_VERSION_NAME}" && " ${KERNEL_TAGS[@]} " =~ (stable|flippy) ]] && {
         oldIFS="${IFS}"
         IFS="_"
         STABLE_KERNEL=(${KERNEL_VERSION_NAME})
+        FLIPPY_KERNEL=(${KERNEL_VERSION_NAME})
         IFS="${oldIFS}"
-        echo -e "${INFO} Stable kernel: [ $(echo ${STABLE_KERNEL[@]} | xargs) ]"
+        echo -e "${INFO} Use custom kernel: [ $(echo ${STABLE_KERNEL[@]} | xargs) ]"
     }
-
-    # Convert kernel library address to api format
-    echo -e "${INFO} Kernel download repository: [ ${KERNEL_REPO_URL} ]"
-    [[ "${KERNEL_REPO_URL}" =~ ^https: ]] && KERNEL_REPO_URL="$(echo ${KERNEL_REPO_URL} | awk -F'/' '{print $4"/"$5}')"
-    kernel_api="https://github.com/${KERNEL_REPO_URL}"
-    echo -e "${INFO} Kernel Query API: [ ${kernel_api} ]"
 }
 
 init_packit_repo() {
@@ -356,6 +365,8 @@ query_kernel() {
                 down_kernel_list=(${RK3588_KERNEL[@]})
             elif [[ "${vb,,}" == "rk35xx" ]]; then
                 down_kernel_list=(${RK35XX_KERNEL[@]})
+            elif [[ "${vb,,}" == "flippy" ]]; then
+                down_kernel_list=(${FLIPPY_KERNEL[@]})
             else
                 down_kernel_list=(${STABLE_KERNEL[@]})
             fi
@@ -395,6 +406,9 @@ query_kernel() {
             elif [[ "${vb,,}" == "rk35xx" ]]; then
                 RK35XX_KERNEL=(${TMP_ARR_KERNELS[@]})
                 echo -e "${INFO} The latest version of the rk35xx kernel: [ ${RK35XX_KERNEL[@]} ]"
+            elif [[ "${vb,,}" == "flippy" ]]; then
+                FLIPPY_KERNEL=(${TMP_ARR_KERNELS[@]})
+                echo -e "${INFO} The latest version of the flippy kernel: [ ${FLIPPY_KERNEL[@]} ]"
             else
                 STABLE_KERNEL=(${TMP_ARR_KERNELS[@]})
                 echo -e "${INFO} The latest version of the stable kernel: [ ${STABLE_KERNEL[@]} ]"
@@ -436,6 +450,8 @@ download_kernel() {
                 down_kernel_list=(${RK3588_KERNEL[@]})
             elif [[ "${vb,,}" == "rk35xx" ]]; then
                 down_kernel_list=(${RK35XX_KERNEL[@]})
+            elif [[ "${vb,,}" == "flippy" ]]; then
+                down_kernel_list=(${FLIPPY_KERNEL[@]})
             else
                 down_kernel_list=(${STABLE_KERNEL[@]})
             fi
@@ -497,8 +513,13 @@ make_openwrt() {
                 build_kernel=($(printf "%s\n" "${RK35XX_KERNEL[@]}" | grep -E "^$(IFS='|'; echo "${RK35XX_KERNEL_5XY[@]//.y/\\.}" | sed 's/ /|/g')"))
                 vb="rk35xx"
             else
-                build_kernel=(${STABLE_KERNEL[@]})
-                vb="stable"
+                if [[ "${KERNEL_REPO_URL}" == "ophub/kernel" ]]; then
+                    build_kernel=(${FLIPPY_KERNEL[@]})
+                    vb="flippy"
+                else
+                    build_kernel=(${STABLE_KERNEL[@]})
+                    vb="stable"
+                fi
             fi
 
             k="1"
