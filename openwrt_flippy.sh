@@ -303,10 +303,11 @@ init_packit_repo() {
     fi
 
     # Normal ${PACKAGE_FILE} file should not be less than 10MB
-    armvirt_rootfs_size="$(ls -l ${SELECT_PACKITPATH}/${PACKAGE_FILE} 2>/dev/null | awk '{print $5}')"
-    echo -e "${INFO} armvirt_rootfs_size: [ ${armvirt_rootfs_size} ]"
-    if [[ "${armvirt_rootfs_size}" -ge "10000000" ]]; then
+    openwrt_rootfs_size="$(du -b "${SELECT_PACKITPATH}/${PACKAGE_FILE}" 2>/dev/null | awk '{print $1}')"
+    if [[ "${openwrt_rootfs_size}" -ge "10485760" ]]; then
+        human_size="$(awk "BEGIN{printf \"%.2f MB\", ${openwrt_rootfs_size}/1048576}")"
         echo -e "${INFO} [ ${SELECT_PACKITPATH}/${PACKAGE_FILE} ] loaded successfully."
+        echo -e "${INFO} OpenWrt rootfs file size: [ ${human_size} ]"
     else
         error_msg "The [ ${SELECT_PACKITPATH}/${PACKAGE_FILE} ] failed to load."
     fi
