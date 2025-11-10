@@ -272,6 +272,6 @@ jobs:
             - Login to OpenWrt → System → Amlogic Service → Install OpenWrt
             ### OpenWrt source code
             - [coolsnowwolf/lede](https://github.com/coolsnowwolf/lede)
-            - The OpenWrt [rootfs and kernel](https://github.com/ophub/flippy-openwrt-actions/releases/tag/OpenWrt_armv8_rootfs) files are both shared by [flipy](https://github.com/unifreq/openwrt_packit).
+            - The OpenWrt [rootfs and kernel](https://github.com/ophub/flippy-openwrt-actions/releases/tag/OpenWrt_armv8_rootfs) files are both shared by [flippy](https://github.com/unifreq/openwrt_packit).
             ### OpenWrt Image Verification
             - sha256sum
