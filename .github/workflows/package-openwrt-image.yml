@@ -70,7 +70,7 @@ on:
       kernel_repo:
         description: "Set the kernel repository"
         required: false
-        default: "breakingbadboy/OpenWrt"
+        default: "ophub/kernel"
         type: choice
         options:
           - breakingbadboy/OpenWrt
@@ -270,7 +270,7 @@ jobs:
             ### Install to EMMC
             - Login to OpenWrt → System → Amlogic Service → Install OpenWrt
             ### OpenWrt source code
-            - [lede](https://github.com/coolsnowwolf/lede)
-            - The OpenWrt [rootfs](https://github.com/ophub/flippy-openwrt-actions/releases/tag/OpenWrt_armv8_rootfs) and [kernel](https://github.com/breakingbadboy/OpenWrt/releases/tag/kernel_stable) files are both shared by flipy
+            - [coolsnowwolf/lede](https://github.com/coolsnowwolf/lede)
+            - The OpenWrt [rootfs and kernel](https://github.com/ophub/flippy-openwrt-actions/releases/tag/OpenWrt_armv8_rootfs) files are both shared by [flipy](https://github.com/unifreq/openwrt_packit).
             ### OpenWrt Image Verification
             - sha256sum
