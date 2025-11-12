@@ -6,6 +6,13 @@
 
 此 Actions 使用他的打包脚本，未做任何修改，仅进行了智能化 Action 应用开发，让使用 github Actions 打包时变得更加简单化和个性化。
 
+## OpenWrt 固件默认信息
+
+| 系统名称        | 默认账号 | 默认密码  | SSH 端口 | IP 地址 |
+| -------------- | ------- | ------- | ------- | ------- |
+| 🛜 [OpenWrt.OS](https://github.com/ophub/flippy-openwrt-actions/releases) | root | password | 22 | 192.168.1.1 |
+| 🐋 [OpenWrt.Docker](https://hub.docker.com/u/ophub) | root | password | 22 | 192.168.1.1 |
+
 ## 使用方法
 
 在 `.github/workflows/*.yml` 云编译脚本中引入此 Actions 即可使用，例如 [package-openwrt-image.yml](.github/workflows/package-openwrt-image.yml)。代码如下：
@@ -96,13 +103,6 @@
 | ${{ env.PACKAGED_OUTPUTPATH }} | /opt/openwrt_packit/output | 打包后的固件所在文件夹的路径    |
 | ${{ env.PACKAGED_OUTPUTDATE }} | 07.15.1058                 | 打包日期                     |
 | ${{ env.PACKAGED_STATUS }}     | success / failure          | 打包状态。成功 / 失败          |
-
-## OpenWrt 固件默认信息
-
-| 系统名称        | 默认账号 | 默认密码  | SSH 端口 | IP 地址 |
-| -------------- | ------- | ------- | ------- | ------- |
-| 🛜 [OpenWrt.OS](https://github.com/ophub/flippy-openwrt-actions/releases) | root | password | 22 | 192.168.1.1 |
-| 🐋 [OpenWrt.Docker](https://hub.docker.com/u/ophub) | root | password | 22 | 192.168.1.1 |
 
 ## 链接
 

@@ -6,6 +6,13 @@ View Chinese description  |  [查看中文说明](README.cn.md)
 
 This Actions uses his packaging scripts without any modification, only developed into a smart Action application, making the use of github Actions for packaging simpler and more personalized.
 
+## Default Information for OpenWrt Firmware
+
+| System Name    | Default Username | Default Password  | SSH Port  | IP Address  |
+| -------------- | ---------------- | ----------------- | --------- | ----------- |
+| 🛜 [OpenWrt.OS](https://github.com/ophub/flippy-openwrt-actions/releases) | root | password | 22 | 192.168.1.1 |
+| 🐋 [OpenWrt.Docker](https://hub.docker.com/u/ophub) | root | password | 22 | 192.168.1.1 |
+
 ## Usage
 
 This Actions can be used by referencing it in the `.github/workflows/*.yml` cloud compilation script, for example [package-openwrt-image.yml](.github/workflows/package-openwrt-image.yml). The code is as follows:
@@ -96,13 +103,6 @@ According to the standard of github.com, 3 environment variables have been outpu
 | ${{ env.PACKAGED_OUTPUTPATH }} | /opt/openwrt_packit/output | Path of the folder containing the packaged firmware |
 | ${{ env.PACKAGED_OUTPUTDATE }} | 07.15.1058                 | Packaging date                          |
 | ${{ env.PACKAGED_STATUS }}     | success / failure          | Packaging status. Success / Failure     |
-
-## Default Information for OpenWrt Firmware
-
-| System Name    | Default Username | Default Password  | SSH Port  | IP Address  |
-| -------------- | ---------------- | ----------------- | --------- | ----------- |
-| 🛜 [OpenWrt.OS](https://github.com/ophub/flippy-openwrt-actions/releases) | root | password | 22 | 192.168.1.1 |
-| 🐋 [OpenWrt.Docker](https://hub.docker.com/u/ophub) | root | password | 22 | 192.168.1.1 |
 
 ## Links
 
