@@ -18,6 +18,7 @@ on:
         options:
           - all
           - s922x_s905x3_s905x2_s912_s905d_s905
+          - rock5b_h28k_r66s_vplus
           - ak88
           - beikeyun
           - cm3
