@@ -663,7 +663,7 @@ out_github_env() {
 
         cd /opt/${SELECT_PACKITPATH}/${SELECT_OUTPUTPATH}
 
-        if [[ "${SAVE_OPENWRT_ROOTFS,,}" == "true" ]]; then
+        if [[ "${SAVE_OPENWRT_ROOTFS,,}" =~ ^(true|yes)$ ]]; then
             echo -e "${INFO} copy [ ${PACKAGE_FILE} ] into [ ${SELECT_OUTPUTPATH} ]"
             sudo cp -f ../${PACKAGE_FILE} . || true
         fi
@@ -697,7 +697,7 @@ init_packit_repo
 echo -e "${INFO} Server space usage before starting to compile:\n$(df -hT /opt/${SELECT_PACKITPATH}) \n"
 
 # Packit OpenWrt
-[[ "${KERNEL_AUTO_LATEST,,}" == "true" ]] && query_kernel
+[[ "${KERNEL_AUTO_LATEST,,}" =~ ^(true|yes)$ ]] && query_kernel
 download_kernel
 make_openwrt
 out_github_env
