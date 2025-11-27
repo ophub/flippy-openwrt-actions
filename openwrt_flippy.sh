@@ -50,8 +50,6 @@ PACKAGE_OPENWRT_RK35XX=(
     "100ask-dshanpi-a1" "e20c" "e24c" "h28k" "h66k" "h68k" "h69k" "h69k-max" "ht2"
     "jp-tvbox" "watermelon-pi" "yixun-rs6pro" "zcube1-max"
 )
-# Set the list of devices that can only use the [ rk35xx/5.1.y ] kernel
-PACKAGE_OPENWRT_RK35XX_5XY=()
 # Set the list of devices using the [ 6.x.y ] kernel
 PACKAGE_OPENWRT_6XY=("cm3" "e25" "photonicat" "r66s" "r68s" "rk3399")
 # All are packaged by default, and independent settings are supported, such as: [ s905x3_s905d_rock5b ]
@@ -62,9 +60,8 @@ KERNEL_REPO_URL_VALUE="breakingbadboy/OpenWrt"
 # Set kernel tag: kernel_stable, kernel_rk3588, kernel_rk35xx
 KERNEL_TAGS=("stable" "rk3588" "rk35xx")
 STABLE_KERNEL=("6.1.y" "6.12.y")
-RK3588_KERNEL=("5.10.y" "6.1.y")
-RK35XX_KERNEL=("5.10.y" "6.1.y")
-RK35XX_KERNEL_5XY=("5.10.y")
+RK3588_KERNEL=("6.1.y")
+RK35XX_KERNEL=("6.1.y")
 # The kernel_flippy provided by flippy in ophub/kernel repository: https://github.com/ophub/kernel/releases
 FLIPPY_KERNEL=(${STABLE_KERNEL[@]})
 # Set to automatically query the latest kernel version
@@ -264,7 +261,7 @@ init_var() {
     for kt in "${PACKAGE_OPENWRT[@]}"; do
         if [[ " ${PACKAGE_OPENWRT_RK3588[@]} " =~ " ${kt} " ]]; then
             KERNEL_TAGS_TMP+=("rk3588")
-        elif [[ " ${PACKAGE_OPENWRT_RK35XX[@]} " =~ " ${kt} " || " ${PACKAGE_OPENWRT_RK35XX_5XY[@]} " =~ " ${kt} " ]]; then
+        elif [[ " ${PACKAGE_OPENWRT_RK35XX[@]} " =~ " ${kt} " ]]; then
             KERNEL_TAGS_TMP+=("rk35xx")
         else
             # The stable kernel is used by default, and the flippy kernel is used with the ophub repository.
@@ -517,9 +514,6 @@ make_openwrt() {
                 vb="rk3588"
             elif [[ " ${PACKAGE_OPENWRT_RK35XX[@]} " =~ " ${PACKAGE_VAR} " ]]; then
                 build_kernel=(${RK35XX_KERNEL[@]})
-                vb="rk35xx"
-            elif [[ " ${PACKAGE_OPENWRT_RK35XX_5XY[@]} " =~ " ${PACKAGE_VAR} " ]]; then
-                build_kernel=($(printf "%s\n" "${RK35XX_KERNEL[@]}" | grep -E "^$(IFS='|'; echo "${RK35XX_KERNEL_5XY[@]//.y/\\.}" | sed 's/ /|/g')"))
                 vb="rk35xx"
             else
                 if [[ "${KERNEL_REPO_URL}" == "ophub/kernel" ]]; then
