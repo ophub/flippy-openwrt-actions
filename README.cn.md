@@ -99,11 +99,11 @@
 
 根据 github.com 的标准输出了 3 个环境变量，方便编译步骤后续使用。由于 github.com 最近修改了 fork 仓库的设置，默认关闭了 Workflow 的读写权限，所以上传到 `Releases` 需要设置 `Workflow 读写权限`，详见[使用说明](https://github.com/ophub/amlogic-s9xxx-openwrt/blob/main/documents/README.cn.md#3-fork-仓库并设置工作流权限)。
 
-| 参数                            | 默认值                      | 说明                       |
-|--------------------------------|----------------------------|----------------------------|
-| ${{ env.PACKAGED_OUTPUTPATH }} | /opt/openwrt_packit/output | 打包后的固件所在文件夹的路径    |
-| ${{ env.PACKAGED_OUTPUTDATE }} | 07.15.1058                 | 打包日期                     |
-| ${{ env.PACKAGED_STATUS }}     | success / failure          | 打包状态。成功 / 失败          |
+| 参数                            | 默认值                      | 说明                 |
+|--------------------------------|----------------------------|----------------------|
+| ${{ env.PACKAGED_OUTPUTPATH }} | /opt/openwrt_packit/output | 打包输出路径           |
+| ${{ env.PACKAGED_OUTPUTDATE }} | 07.15.1058                 | 打包日期              |
+| ${{ env.PACKAGED_STATUS }}     | success / failure          | 打包状态。成功 / 失败   |
 
 ## 链接
 
