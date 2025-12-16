@@ -10,8 +10,9 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - run: ./openwrt_${{ inputs.mode }}.sh
-      shell: bash
+    - shell: bash
+      run: |
+        ${{ github.action_path }}/openwrt_flippy.sh
 
 branding:
   icon: "terminal"
