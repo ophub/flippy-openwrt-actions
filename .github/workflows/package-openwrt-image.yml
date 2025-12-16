@@ -98,10 +98,6 @@ on:
         required: false
         default: true
         type: boolean
-      openwrt_rootfs:
-        description: "Set OpenWrt rootfs tags keywords"
-        required: false
-        default: "OpenWrt_armv8_rootfs"
       script_diy_path:
         description: "Set custom script loading path"
         required: false
@@ -186,35 +182,43 @@ jobs:
         working-directory: /builder
         if: ${{ steps.init.outputs.status }} == 'success' && !cancelled()
         run: |
-          # Get the latest OpenWrt rootfs download URL
-          latest_version=$(curl -s \
-                -H "Accept: application/vnd.github+json" \
-                -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
-                https://api.github.com/repos/${{ github.repository }}/releases?per_page=20 | \
-                jq -r --arg RTK "${{ inputs.openwrt_rootfs }}" \
-                --arg BOARD "-rootfs.tar.gz" \
-                '[.[] | select(.tag_name | contains($RTK))] |
-                map(.assets[] | select(.browser_download_url | endswith($BOARD))) |
-                sort_by(.updated_at) |
-                reverse |
-                .[0] |
-                {data: .updated_at, url: .browser_download_url}')
-
-          [[ -z "${latest_version}" || "${latest_version}" == "null" ]] && echo "Invalid OpenWrt rootfs download address." && exit 1
-          latest_url="$(echo ${latest_version} | jq -r '.url')"
-          rootfsfile_name="${latest_url##*/}"
-          echo "Latest OpenWrt rootfs file: ${rootfsfile_name}"
-
-          # Download OpenWrt rootfs file
-          download_path="download"
-          [[ -d "${download_path}" ]] || mkdir -p ${download_path}
-          curl -fsSL "${latest_url}" -o "${download_path}/${rootfsfile_name}"
-          [[ "${?}" -ne "0" ]] && echo "Invalid OpenWrt rootfs download address." && exit 1
-
-          # Mount builder directory
-          mkdir -p opt
+          # Create download directory
+          armsr_tarfile_path="opt/download"
+          [[ -d "${armsr_tarfile_path}" ]] || mkdir -p ${armsr_tarfile_path}
+          ln -sf /builder/opt ${{ github.workspace }}/opt
           sudo rm -rf /opt && sudo ln -sf /builder/opt /opt
-          ln -sf /builder/${download_path} ${{ github.workspace }}/${download_path}
+
+          # Get name (file name) and url (API asset URL)
+          latest_version=$(curl -s \
+              -H "Accept: application/vnd.github+json" \
+              -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+              https://api.github.com/repos/${{ github.repository }}/releases?per_page=20 | \
+              jq -r --arg RTK "OpenWrt_armv8_rootfs" \
+              --arg BOARD "-rootfs.tar.gz" \
+              '[.[] | select(.tag_name | contains($RTK))] |
+              map(.assets[] | select(.name | endswith($BOARD))) |
+              sort_by(.updated_at) |
+              reverse |
+              .[0] |
+              {data: .updated_at, url: .url, name: .name}')
+
+          [[ -z "${latest_version}" || "${latest_version}" == "null" ]] && {
+              echo "Invalid OpenWrt rootfs download address."
+              exit 1
+          }
+
+          # Get URL and filename separately
+          latest_url="$(echo ${latest_version} | jq -r '.url')"
+          openwrt_filename="$(echo ${latest_version} | jq -r '.name')"
+
+          # Download using API method (add octet-stream header)
+          echo "Downloading: ${openwrt_filename}"
+          curl -fsSL \
+              -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+              -H "Accept: application/octet-stream" \
+              "${latest_url}" \
+              -o "${armsr_tarfile_path}/${openwrt_filename}"
+          [[ "${?}" -ne "0" ]] && echo "Download failed." && exit 1
 
           echo "build_tag=OpenWrt_armv8_${{ inputs.openwrt_storage }}_$(date +"%Y.%m")" >> ${GITHUB_ENV}
           echo "status=success" >> ${GITHUB_OUTPUT}
@@ -223,7 +227,7 @@ jobs:
         uses: ophub/flippy-openwrt-actions@main
         if: ${{ steps.download.outputs.status }} == 'success' && !cancelled()
         env:
-          OPENWRT_ARMSR: download/*rootfs.tar.gz
+          OPENWRT_ARMSR: opt/download/*rootfs.tar.gz
           PACKAGE_SOC: ${{ inputs.openwrt_soc }}
           KERNEL_REPO_URL: ${{ inputs.kernel_repo }}
           KERNEL_VERSION_NAME: ${{ inputs.openwrt_kernel }}
