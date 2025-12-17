@@ -12,7 +12,8 @@ runs:
   steps:
     - shell: bash
       run: |
-        ${{ github.action_path }}/openwrt_flippy.sh
+        cd ${{ github.action_path }}
+        ./openwrt_flippy.sh
 
 branding:
   icon: "terminal"
