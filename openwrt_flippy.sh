@@ -59,7 +59,7 @@ PACKAGE_SOC_VALUE="all"
 KERNEL_REPO_URL_VALUE="breakingbadboy/OpenWrt"
 # Set kernel tag: kernel_stable, kernel_rk3588, kernel_rk35xx
 KERNEL_TAGS=("stable" "rk3588" "rk35xx")
-STABLE_KERNEL=("6.1.y" "6.12.y")
+STABLE_KERNEL=("6.12.y" "6.18.y")
 RK3588_KERNEL=("6.1.y")
 RK35XX_KERNEL=("6.1.y")
 # The kernel_flippy provided by flippy in ophub/kernel repository: https://github.com/ophub/kernel/releases
