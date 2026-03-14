@@ -2,9 +2,9 @@
 
 View Chinese description  |  [查看中文说明](README.cn.md)
 
-[unifreq/openwrt_packit](https://github.com/unifreq/openwrt_packit) is an OpenWrt packaging script repository developed by `Flippy`. It supports Allwinner (VPlus), Rockchip (BeikeYun, Chainedbox-L1-Pro, FastRhino-R66S/R68S, Radxa-5B/E25, Watermelon-pi, etc.), and Amlogic S9xxx series models such as S905x3, S905x2, S922x, S905x, S905d, S905, S912, etc.
+[unifreq/openwrt_packit](https://github.com/unifreq/openwrt_packit) is an OpenWrt packaging script repository developed by `Flippy`. It supports Allwinner (VPlus), Rockchip (BeikeYun, Chainedbox-L1-Pro, FastRhino R66S/R68S, Radxa 5B/E25, Watermelon-Pi, etc.), and Amlogic S9xxx series models such as S905x3, S905x2, S922x, S905x, S905d, S905, S912, etc.
 
-This Actions uses his packaging scripts without any modification, only developed into a smart Action application, making the use of github Actions for packaging simpler and more personalized.
+This Action uses the original packaging scripts without any modification, and has been developed into an intelligent GitHub Action wrapper, making firmware packaging via GitHub Actions simpler and more customizable.
 
 ## Default Information for OpenWrt Firmware
 
@@ -15,7 +15,7 @@ This Actions uses his packaging scripts without any modification, only developed
 
 ## Usage
 
-This Actions can be used by referencing it in the `.github/workflows/*.yml` cloud compilation script, for example [package-openwrt-image.yml](.github/workflows/package-openwrt-image.yml). The code is as follows:
+This Action can be used by referencing it in your `.github/workflows/*.yml` workflow file, for example [package-openwrt-image.yml](.github/workflows/package-openwrt-image.yml). The code is as follows:
 
 ```yaml
 - name: Package OpenWrt Firmware
@@ -30,19 +30,19 @@ This Actions can be used by referencing it in the `.github/workflows/*.yml` clou
 
 ## Optional Parameters
 
-Based on the latest kernel packaging scripts released by `Flippy`, optional parameter configurations have been made for `Packaging Files`, `make.env`, `Select Kernel Version`, `Select Box SoC`, and so on.
+Based on the latest kernel packaging scripts released by `Flippy`, optional parameters are provided for configuring `Packaging Files`, `make.env`, `Kernel Version Selection`, `Target Device SoC`, and more.
 
 | Parameter              | Default                | Description                                                    |
 |------------------------|------------------------|---------------------------------------------------------------|
-| OPENWRT_ARMSR          | None                   | Required. Set the file path for `openwrt-armsr-armv8-generic-rootfs.tar.gz`. You can use a relative path such as `openwrt/bin/targets/*/*/*.tar.gz` or a web file download link such as `https://github.com/*/releases/*/*.tar.gz` |
+| OPENWRT_ARMSR          | None                   | Required. Set the file path for `openwrt-armsr-armv8-generic-rootfs.tar.gz`. You can use a relative path (e.g., `openwrt/bin/targets/*/*/*.tar.gz`) or a download URL (e.g., `https://github.com/*/releases/*/*.tar.gz`) |
 | SCRIPT_REPO_URL        | unifreq/openwrt_packit | Set `<owner>/<repo>` of the packaging script source repository |
 | SCRIPT_REPO_BRANCH     | master                 | Set the branch of the packaging script source repository      |
-| KERNEL_REPO_URL        | breakingbadboy/OpenWrt | Set `<owner>/<repo>` of the kernel download repository, it downloads from the [kernel Releases](https://github.com/breakingbadboy/OpenWrt/releases/tag/kernel_stable) maintained by breakingbadboy by default. |
-| KERNEL_VERSION_NAME    | 6.12.y_6.18.y          | Set the [Kernel version](https://github.com/breakingbadboy/OpenWrt/releases/tag/kernel_stable), you can check and select a specific one. You can specify a single kernel such as `6.12.y`, or select multiple kernels connected with `_` like `6.12.y_6.18.y` |
-| KERNEL_AUTO_LATEST     | true                   | Set whether to automatically adopt the latest version kernel of the same series. When set to `true`, it will automatically look for whether there is an updated version of the kernel specified in `KERNEL_VERSION_NAME`, such as `6.12.y`, in the kernel library, and if there is an updated version, it will automatically replace it with the latest version. When set to `false`, it will compile the specified version kernel. |
-| PACKAGE_SOC            | all                    | Set the `SOC` of the package box, the default is `all` to package all boxes, you can specify a single box like `s905x3`, or select multiple boxes connected with `_` like `s905x3_s905d`. The SoC codes for each box are: `100ask-dshanpi-a1`, `vplus`, `cm3`, `jp-tvbox`, `beikeyun`, `l1pro`, `rock5b`, `rock5c`, `e52c`, `e54c`, `r66s`, `r68s`, `e25`, `photonicat`, `watermelon-pi`, `yixun-rs6pro`, `zcube1-max`, `ht2`, `e20c`, `e24c`, `h28k`, `h66k`, `h68k`, `h69k`, `h69k-max`, `h88k`, `h88k-v3`, `rk3399`, `s905`, `s905d`, `s905x2`, `s905x3`, `s912`, `s922x`, `s922x-n2`, `qemu`, `diy`. Note: `s922x-n2` is `s922x-odroid-n2`, `diy` is a custom box. |
+| KERNEL_REPO_URL        | breakingbadboy/OpenWrt | Set `<owner>/<repo>` of the kernel download repository. By default, kernels are downloaded from the [kernel Releases](https://github.com/breakingbadboy/OpenWrt/releases/tag/kernel_stable) maintained by breakingbadboy. |
+| KERNEL_VERSION_NAME    | 6.12.y_6.18.y          | Set the [kernel version](https://github.com/breakingbadboy/OpenWrt/releases/tag/kernel_stable). You can specify a single kernel (e.g., `6.12.y`) or select multiple kernels connected with `_` (e.g., `6.12.y_6.18.y`) |
+| KERNEL_AUTO_LATEST     | true                   | Set whether to automatically use the latest kernel version within the same series. When set to `true`, the system will check the kernel repository for a newer version of the kernel specified in `KERNEL_VERSION_NAME` (e.g., `6.12.y`) and automatically replace it with the latest available version. When set to `false`, the specified kernel version will be used as-is. |
+| PACKAGE_SOC            | all                    | Set the target device `SOC` for packaging. The default `all` packages all supported devices. You can specify a single device (e.g., `s905x3`) or select multiple devices connected with `_` (e.g., `s905x3_s905d`). The SoC codes for each device are: `100ask-dshanpi-a1`, `vplus`, `cm3`, `jp-tvbox`, `beikeyun`, `l1pro`, `rock5b`, `rock5c`, `e52c`, `e54c`, `r66s`, `r68s`, `e25`, `photonicat`, `watermelon-pi`, `yixun-rs6pro`, `zcube1-max`, `ht2`, `e20c`, `e24c`, `h28k`, `h66k`, `h68k`, `h69k`, `h69k-max`, `h88k`, `h88k-v3`, `rk3399`, `s905`, `s905d`, `s905x2`, `s905x3`, `s912`, `s922x`, `s922x-n2`, `qemu`, `diy`. Note: `s922x-n2` is `s922x-odroid-n2`, `diy` is a custom device. |
 | OPENWRT_IP             | 192.168.1.1            | Set the default `IP` address for OpenWrt                      |
-| GZIP_IMGS              | auto                   | Set the format of the file compression after packaging, optional values are `.gz` (default) / `.xz` / `.zip` / `.zst` / `.7z` |
+| GZIP_IMGS              | auto                   | Set the firmware compression format after packaging. Available options: `.gz` (default) / `.xz` / `.zip` / `.zst` / `.7z` |
 | SELECT_PACKITPATH      | openwrt_packit         | Set the name of the packaging directory under `/opt`          |
 | SELECT_OUTPUTPATH      | output                 | Set the name of the firmware output directory in the `${SELECT_PACKITPATH}` directory |
 | SAVE_OPENWRT_ROOTFS    | true                   | Set whether to save the `*-rootfs.tar.gz` file after packaging |
@@ -81,10 +81,10 @@ Based on the latest kernel packaging scripts released by `Flippy`, optional para
 | SCRIPT_S922X_N2        | mk_s922x_odroid-n2.sh  | Set the script filename for packaging `s922x odroid-n2`       |
 | SCRIPT_QEMU            | mk_qemu-aarch64_img.sh | Set the script filename for packaging `qemu`                  |
 | SCRIPT_DIY             | mk_diy.sh              | Set the script filename for packaging `diy` custom            |
-| SCRIPT_DIY_PATH        | None                   | Set the source path for `SCRIPT_DIY`. It can be a URL like `https://weburl/mydiyfile` or a relative path in your repository like `script/mk_s905w.sh` |
-| CUSTOMIZE_RK3399       | None                   | Set custom rk3399 device list, format: `board1:dtb1/board2:dtb2`. Setting this to `none` means that this option is ignored. |
+| SCRIPT_DIY_PATH        | None                   | Set the source path for `SCRIPT_DIY`. You can use a URL (e.g., `https://weburl/mydiyfile`) or a relative path in your repository (e.g., `script/mk_s905w.sh`) |
+| CUSTOMIZE_RK3399       | None                   | Set a custom rk3399 device list in the format `board1:dtb1/board2:dtb2`. Set to `none` to ignore this option. |
 | WHOAMI                 | flippy                 | Set the value for `WHOAMI` in `make.env`                      |
-| OPENWRT_VER            | auto                   | Set the value for `OPENWRT_VER` in `make.env`. By default, `auto` will inherit the value from the file. When set to other parameters, it will replace the original parameter with the custom parameter |
+| OPENWRT_VER            | auto                   | Set the value for `OPENWRT_VER` in `make.env`. The default `auto` inherits the value from the file. When set to another value, it overrides the original with the custom value. |
 | SW_FLOWOFFLOAD         | 1                      | Set the value for `SW_FLOWOFFLOAD` in `make.env`              |
 | HW_FLOWOFFLOAD         | 0                      | Set the value for `HW_FLOWOFFLOAD` in `make.env`              |
 | SFE_FLOW               | 1                      | Set the value for `SFE_FLOW` in `make.env`                    |
@@ -93,17 +93,17 @@ Based on the latest kernel packaging scripts released by `Flippy`, optional para
 | DISTRIB_REVISION       | R$(date +%m.%d)        | Set the value for `DISTRIB_REVISION` in `make.env`            |
 | DISTRIB_DESCRIPTION    | OpenWrt                | Set the value for `DISTRIB_DESCRIPTION` in `make.env`         |
 
-💡 In general, using the default parameters is sufficient, but you can configure them according to your needs. For instance, if Flippy renames the packaging script making the original default script file unfindable, or if the firmware version number in make.env is not updated, you can use optional parameters for real-time specification and personalized configuration.
+💡 In most cases, the default parameters are sufficient, but you can customize them as needed. For example, if Flippy renames a packaging script causing the default script to become unavailable, or if the firmware version number in make.env is not updated, you can use optional parameters to specify values at build time and customize the configuration.
 
 ## Output Parameters Explanation
 
-According to the standard of github.com, 3 environment variables have been output for use in subsequent compilation steps. Since github.com recently changed the settings of fork repositories, read-write permissions for Workflow are turned off by default. Therefore, Therefore, to upload to Releases, it is necessary to `set Workflow read and write permissions`. For details, see [User Manual](https://github.com/ophub/amlogic-s9xxx-openwrt/tree/main/documents#3-fork-the-repository-and-set-workflow-permissions).
+Following GitHub Actions standards, 3 environment variables are output for use in subsequent workflow steps. Since GitHub recently changed the default settings for forked repositories, Workflow read-write permissions are disabled by default. Therefore, uploading to Releases requires enabling `Workflow read and write permissions`. For details, see [User Manual](https://github.com/ophub/amlogic-s9xxx-openwrt/tree/main/documents#3-fork-the-repository-and-set-workflow-permissions).
 
 | Parameter                      | Default Value              | Description                          |
 |--------------------------------|----------------------------|--------------------------------------|
 | ${{ env.PACKAGED_OUTPUTPATH }} | /opt/openwrt_packit/output | Packaging output path                |
 | ${{ env.PACKAGED_OUTPUTDATE }} | 07.15.1058                 | Packaging date                       |
-| ${{ env.PACKAGED_STATUS }}     | success / failure          | Packaging status. Success / Failure  |
+| ${{ env.PACKAGED_STATUS }}     | success / failure          | Packaging status: success / failure  |
 
 ## Links
 
