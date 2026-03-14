@@ -1,9 +1,9 @@
-name: "Make OpenWrt using flippy's script"
+name: "Package OpenWrt with Flippy's Script"
 author: "https://github.com/ophub/flippy-openwrt-actions"
-description: "Support Amlogic, Rockchip and Allwinner boxes."
+description: "Package OpenWrt firmware for Amlogic, Rockchip, and Allwinner devices."
 inputs:
   mode:
-    description: "Select script."
+    description: "Select the packaging mode."
     required: false
     default: "flippy"
 
