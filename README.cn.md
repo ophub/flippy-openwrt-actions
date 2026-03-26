@@ -1,6 +1,6 @@
 # 功能说明
 
-查看英文说明 | [View English description](README.md)
+[English Instructions](README.md) | [中文说明](README.cn.md)
 
 [unifreq/openwrt_packit](https://github.com/unifreq/openwrt_packit) 是 `Flippy` 开发的 OpenWrt 打包脚本仓库。支持全志（微加云）、瑞芯微（贝壳云、我家云、电犀牛 R66S/R68S、瑞莎 5B/E25、西瓜皮等）以及晶晨 S9xxx 系列型号（如 S905x3、S905x2、S922x、S905x、S905d、S905、S912 等）设备。
 

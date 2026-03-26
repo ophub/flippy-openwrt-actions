@@ -1,6 +1,6 @@
 # Function description
 
-View Chinese description  |  [查看中文说明](README.cn.md)
+[English Instructions](README.md) | [中文说明](README.cn.md)
 
 [unifreq/openwrt_packit](https://github.com/unifreq/openwrt_packit) is an OpenWrt packaging script repository developed by `Flippy`. It supports Allwinner (VPlus), Rockchip (BeikeYun, Chainedbox-L1-Pro, FastRhino R66S/R68S, Radxa 5B/E25, Watermelon-Pi, etc.), and Amlogic S9xxx series models such as S905x3, S905x2, S922x, S905x, S905d, S905, S912, etc.
 
