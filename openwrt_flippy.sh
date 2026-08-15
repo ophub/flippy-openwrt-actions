@@ -35,8 +35,8 @@ SAVE_OPENWRT_ROOTFS_VALUE="true"
 PACKAGE_OPENWRT=(
     "ak88" "e52c" "e54c" "h88k" "h88k-v3" "rock5b" "rock5c"
     "100ask-dshanpi-a1" "e20c" "e24c" "h28k" "h66k" "h68k" "h69k" "h69k-max" "ht2"
-    "jp-tvbox" "watermelon-pi" "yixun-rs6pro" "zcube1-max" "xylink-xr3528"
-    "cm3" "e25" "photonicat" "r66s" "r68s" "rk3399"
+    "jp-tvbox" "watermelon-pi" "yixun-rs6pro" "zcube1-max"
+    "cm3" "e25" "photonicat" "r66s" "r68s" "rk3399" "xylink-xr3528"
     "s922x" "s922x-n2" "s905x3" "s905x2" "s912" "s905d" "s905"
     "beikeyun" "l1pro"
     "vplus"
@@ -48,10 +48,10 @@ PACKAGE_OPENWRT_RK3588=("ak88" "e52c" "e54c" "h88k" "h88k-v3" "rock5b" "rock5c")
 # Devices using the [ rk35xx ] kernel
 PACKAGE_OPENWRT_RK35XX=(
     "100ask-dshanpi-a1" "e20c" "e24c" "h28k" "h66k" "h68k" "h69k" "h69k-max" "ht2"
-    "jp-tvbox" "watermelon-pi" "yixun-rs6pro" "zcube1-max" "xylink-xr3528"
+    "jp-tvbox" "watermelon-pi" "yixun-rs6pro" "zcube1-max"
 )
 # Devices using the [ 6.x.y ] kernel
-PACKAGE_OPENWRT_6XY=("cm3" "e25" "photonicat" "r66s" "r68s" "rk3399")
+PACKAGE_OPENWRT_6XY=("cm3" "e25" "photonicat" "r66s" "r68s" "rk3399" "xylink-xr3528")
 # Package all devices by default; specify individual devices like: [ s905x3_s905d_rock5b ]
 PACKAGE_SOC_VALUE="all"
 
