@@ -79,6 +79,7 @@ Based on the latest kernel packaging scripts released by `Flippy`, optional para
 | SCRIPT_S912            | mk_s912_zyxq.sh        | Set the script filename for packaging `s912 zyxq`             |
 | SCRIPT_S922X           | mk_s922x_gtking.sh     | Set the script filename for packaging `s922x gtking`          |
 | SCRIPT_S922X_N2        | mk_s922x_odroid-n2.sh  | Set the script filename for packaging `s922x odroid-n2`       |
+| SCRIPT_XYLINK_XR3528   | mk_rk3528_xylink-xr3528.sh | Set the script filename for packaging `xylink xr3528` |
 | SCRIPT_QEMU            | mk_qemu-aarch64_img.sh | Set the script filename for packaging `qemu`                  |
 | SCRIPT_DIY             | mk_diy.sh              | Set the script filename for packaging `diy` custom            |
 | SCRIPT_DIY_PATH        | None                   | Set the source path for `SCRIPT_DIY`. You can use a URL (e.g., `https://weburl/mydiyfile`) or a relative path in your repository (e.g., `script/mk_s905w.sh`) |

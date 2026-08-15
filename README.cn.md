@@ -79,6 +79,7 @@
 | SCRIPT_S912            | mk_s912_zyxq.sh        | 设置打包 `s912 zyxq` 的脚本文件名                |
 | SCRIPT_S922X           | mk_s922x_gtking.sh     | 设置打包 `s922x gtking` 的脚本文件名             |
 | SCRIPT_S922X_N2        | mk_s922x_odroid-n2.sh  | 设置打包 `s922x odroid-n2` 的脚本文件名          |
+| SCRIPT_XYLINK_XR3528   | mk_rk3528_xylink-xr3528.sh | 设置打包 `xylink xr3528` 的脚本文件名            |
 | SCRIPT_QEMU            | mk_qemu-aarch64_img.sh | 设置打包 `qemu` 的脚本文件名                     |
 | SCRIPT_DIY             | mk_diy.sh              | 设置打包 `diy` 自定义脚本文件名                   |
 | SCRIPT_DIY_PATH        | 无                     | 设置 `SCRIPT_DIY` 文件的来源路径。可使用网络地址（如 `https://weburl/mydiyfile`）或仓库中的相对路径（如 `script/mk_s905w.sh`） |
