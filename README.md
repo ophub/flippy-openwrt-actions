@@ -8,8 +8,8 @@ This Action uses the original packaging scripts without any modification, and ha
 
 ## Default Information for OpenWrt Firmware
 
-| System Name    | Default Username | Default Password  | SSH Port  | IP Address  |
-| -------------- | ---------------- | ----------------- | --------- | ----------- |
+| System Name | Default Username | Default Password | SSH Port | IP Address |
+| ----------- | ---------------- | ---------------- | -------- | ---------- |
 | 🛜 [OpenWrt.OS](https://github.com/ophub/flippy-openwrt-actions/releases) | root | password | 22 | 192.168.1.1 |
 | 🐋 [OpenWrt.Docker](https://hub.docker.com/u/ophub) | root | password | 22 | 192.168.1.1 |
 
@@ -32,67 +32,67 @@ This Action can be used by referencing it in your `.github/workflows/*.yml` work
 
 Based on the latest kernel packaging scripts released by `Flippy`, optional parameters are provided for configuring `Packaging Files`, `make.env`, `Kernel Version Selection`, `Target Device SoC`, and more.
 
-| Parameter              | Default                | Description                                                    |
-|------------------------|------------------------|---------------------------------------------------------------|
-| OPENWRT_ARMSR          | None                   | Required. Set the file path for `openwrt-armsr-armv8-generic-rootfs.tar.gz`. You can use a relative path (e.g., `openwrt/bin/targets/*/*/*.tar.gz`) or a download URL (e.g., `https://github.com/*/releases/*/*.tar.gz`) |
-| SCRIPT_REPO_URL        | unifreq/openwrt_packit | Set `<owner>/<repo>` of the packaging script source repository |
-| SCRIPT_REPO_BRANCH     | master                 | Set the branch of the packaging script source repository      |
-| KERNEL_REPO_URL        | breakingbadboy/OpenWrt | Set `<owner>/<repo>` of the kernel download repository. By default, kernels are downloaded from the [kernel Releases](https://github.com/breakingbadboy/OpenWrt/releases/tag/kernel_stable) maintained by breakingbadboy. |
-| KERNEL_VERSION_NAME    | 6.12.y_6.18.y          | Set the [kernel version](https://github.com/breakingbadboy/OpenWrt/releases/tag/kernel_stable). You can specify a single kernel (e.g., `6.12.y`) or select multiple kernels connected with `_` (e.g., `6.12.y_6.18.y`) |
-| KERNEL_AUTO_LATEST     | true                   | Set whether to automatically use the latest kernel version within the same series. When set to `true`, the system will check the kernel repository for a newer version of the kernel specified in `KERNEL_VERSION_NAME` (e.g., `6.12.y`) and automatically replace it with the latest available version. When set to `false`, the specified kernel version will be used as-is. |
-| PACKAGE_SOC            | all                    | Set the target device `SOC` for packaging. The default `all` packages all supported devices. You can specify a single device (e.g., `s905x3`) or select multiple devices connected with `_` (e.g., `s905x3_s905d`). The SoC codes for each device are: `100ask-dshanpi-a1`, `vplus`, `cm3`, `jp-tvbox`, `beikeyun`, `l1pro`, `rock5b`, `rock5c`, `e52c`, `e54c`, `r66s`, `r68s`, `e25`, `photonicat`, `watermelon-pi`, `xylink-xr3528`, `yixun-rs6pro`, `zcube1-max`, `ht2`, `e20c`, `e24c`, `h28k`, `h66k`, `h68k`, `h69k`, `h69k-max`, `h88k`, `h88k-v3`, `rk3399`, `s905`, `s905d`, `s905x2`, `s905x3`, `s912`, `s922x`, `s922x-n2`, `qemu`, `diy`. Note: `s922x-n2` is `s922x-odroid-n2`, `diy` is a custom device. |
-| OPENWRT_IP             | 192.168.1.1            | Set the default `IP` address for OpenWrt                      |
-| GZIP_IMGS              | auto                   | Set the firmware compression format after packaging. Available options: `.gz` (default) / `.xz` / `.zip` / `.zst` / `.7z` |
-| SELECT_PACKITPATH      | openwrt_packit         | Set the name of the packaging directory under `/opt`          |
-| SELECT_OUTPUTPATH      | output                 | Set the name of the firmware output directory in the `${SELECT_PACKITPATH}` directory |
-| SAVE_OPENWRT_ROOTFS    | true                   | Set whether to save the `*-rootfs.tar.gz` file after packaging |
+| Parameter | Default | Description |
+| --------- | ------- | ----------- |
+| OPENWRT_ARMSR | None | Required. Set the file path for `openwrt-armsr-armv8-generic-rootfs.tar.gz`. You can use a relative path (e.g., `openwrt/bin/targets/*/*/*.tar.gz`) or a download URL (e.g., `https://github.com/*/releases/*/*.tar.gz`) |
+| SCRIPT_REPO_URL | unifreq/openwrt_packit | Set `<owner>/<repo>` of the packaging script source repository |
+| SCRIPT_REPO_BRANCH | master | Set the branch of the packaging script source repository |
+| KERNEL_REPO_URL | breakingbadboy/OpenWrt | Set `<owner>/<repo>` of the kernel download repository. By default, kernels are downloaded from the [kernel Releases](https://github.com/breakingbadboy/OpenWrt/releases/tag/kernel_stable) maintained by breakingbadboy. |
+| KERNEL_VERSION_NAME | 6.12.y_6.18.y | Set the [kernel version](https://github.com/breakingbadboy/OpenWrt/releases/tag/kernel_stable). You can specify a single kernel (e.g., `6.12.y`) or select multiple kernels connected with `_` (e.g., `6.12.y_6.18.y`) |
+| KERNEL_AUTO_LATEST | true | Set whether to automatically use the latest kernel version within the same series. When set to `true`, the system will check the kernel repository for a newer version of the kernel specified in `KERNEL_VERSION_NAME` (e.g., `6.12.y`) and automatically replace it with the latest available version. When set to `false`, the specified kernel version will be used as-is. |
+| PACKAGE_SOC | all | Set the target device `SOC` for packaging. The default `all` packages all supported devices. You can specify a single device (e.g., `s905x3`) or select multiple devices connected with `_` (e.g., `s905x3_s905d`). The SoC codes for each device are: `100ask-dshanpi-a1`, `vplus`, `cm3`, `jp-tvbox`, `beikeyun`, `l1pro`, `rock5b`, `rock5c`, `e52c`, `e54c`, `r66s`, `r68s`, `e25`, `photonicat`, `watermelon-pi`, `xylink-xr3528`, `yixun-rs6pro`, `zcube1-max`, `ht2`, `e20c`, `e24c`, `h28k`, `h66k`, `h68k`, `h69k`, `h69k-max`, `h88k`, `h88k-v3`, `rk3399`, `s905`, `s905d`, `s905x2`, `s905x3`, `s912`, `s922x`, `s922x-n2`, `qemu`, `diy`. Note: `s922x-n2` is `s922x-odroid-n2`, `diy` is a custom device. |
+| OPENWRT_IP | 192.168.1.1 | Set the default `IP` address for OpenWrt |
+| GZIP_IMGS | auto | Set the firmware compression format after packaging. Default: `.gz`. Available options: `.gz` / `.xz` / `.zip` / `.zst` / `.7z` |
+| SELECT_PACKITPATH | openwrt_packit | Set the name of the packaging directory under `/opt` |
+| SELECT_OUTPUTPATH | output | Set the name of the firmware output directory in the `${SELECT_PACKITPATH}` directory |
+| SAVE_OPENWRT_ROOTFS | true | Set whether to save the `*-rootfs.tar.gz` file after packaging |
 | SCRIPT_100ASKDSHANPIA1 | mk_rk3576_100ask-dshanpi-a1.sh | Set the script filename for packaging `rk3576 100ask-dshanpi-a1` |
-| SCRIPT_VPLUS           | mk_h6_vplus.sh         | Set the script filename for packaging `h6 vplus`              |
-| SCRIPT_CM3             | mk_rk3566_radxa-cm3-rpi-cm4-io.sh | Set the script filename for packaging `rk3566 radxa-cm3-rpi-cm4-io` |
-| SCRIPT_HT2             | mk_rk3528_ht2.sh       | Set the script filename for packaging `rk3528 ht2`            |
-| SCRIPT_E20C            | mk_rk3528_e20c.sh      | Set the script filename for packaging `rk3528 e20c`           |
-| SCRIPT_E24C            | mk_rk3528_e24c.sh      | Set the script filename for packaging `rk3528 e24c`           |
-| SCRIPT_H28K            | mk_rk3528_h28k.sh      | Set the script filename for packaging `rk3528 h28k`           |
-| SCRIPT_H66K            | mk_rk3568_h66k.sh      | Set the script filename for packaging `rk3568 h66k`           |
-| SCRIPT_H68K            | mk_rk3568_h68k.sh      | Set the script filename for packaging `rk3568 h68k`           |
-| SCRIPT_H69K            | mk_rk3568_h69k.sh      | Set the script filename for packaging `rk3568 h69k`           |
-| SCRIPT_H88K            | mk_rk3588_h88k.sh      | Set the script filename for packaging `rk3588 h88k/ak88`      |
-| SCRIPT_H88KV3          | mk_rk3588_h88k-v3.sh   | Set the script filename for packaging `rk3588 h88k-v3`        |
-| SCRIPT_JPTVBOX         | mk_rk3566_jp-tvbox.sh  | Set the script filename for packaging `rk3566 jp-tvbox`       |
-| SCRIPT_BEIKEYUN        | mk_rk3328_beikeyun.sh  | Set the script filename for packaging `rk3328 beikeyun`       |
-| SCRIPT_L1PRO           | mk_rk3328_l1pro.sh     | Set the script filename for packaging `rk3328 l1pro`          |
-| SCRIPT_ZCUBE1MAX       | mk_rk3399_zcube1-max.sh | Set the script filename for packaging `rk3399 zcube1-max`    |
-| SCRIPT_ROCK5B          | mk_rk3588_rock5b.sh    | Set the script filename for packaging `rk3588 rock5b`         |
-| SCRIPT_ROCK5C          | mk_rk3588s_rock5c.sh   | Set the script filename for packaging `rk3588s rock5c`        |
-| SCRIPT_E52C            | mk_rk3588s_e52c.sh     | Set the script filename for packaging `rk3588s e52c`          |
-| SCRIPT_E54C            | mk_rk3588s_e54c.sh     | Set the script filename for packaging `rk3588s e54c`          |
-| SCRIPT_R66S            | mk_rk3568_r66s.sh      | Set the script filename for packaging `rk3568 r66s`           |
-| SCRIPT_R68S            | mk_rk3568_r68s.sh      | Set the script filename for packaging `rk3568 r68s`           |
-| SCRIPT_E25             | mk_rk3568_e25.sh       | Set the script filename for packaging `rk3568 e25`            |
-| SCRIPT_PHOTONICAT      | mk_rk3568_photonicat.sh | Set the script filename for packaging `rk3568 photonicat`    |
-| SCRIPT_RS6PRO          | mk_rk3528_rs6pro.sh    | Set the script filename for packaging `rk3528 yixun-rs6pro`   |
-| SCRIPT_WATERMELONPI    | mk_rk3568_watermelon-pi.sh | Set the script filename for packaging `rk3568 watermelon-pi` |
-| SCRIPT_S905            | mk_s905_mxqpro+.sh     | Set the script filename for packaging `s905 mxqpro+`          |
-| SCRIPT_S905D           | mk_s905d_n1.sh         | Set the script filename for packaging `s905d n1`              |
-| SCRIPT_S905X2          | mk_s905x2_x96max.sh    | Set the script filename for packaging `s905x2 x96max`         |
-| SCRIPT_S905X3          | mk_s905x3_multi.sh     | Set the script filename for packaging `s905x3 multi`          |
-| SCRIPT_S912            | mk_s912_zyxq.sh        | Set the script filename for packaging `s912 zyxq`             |
-| SCRIPT_S922X           | mk_s922x_gtking.sh     | Set the script filename for packaging `s922x gtking`          |
-| SCRIPT_S922X_N2        | mk_s922x_odroid-n2.sh  | Set the script filename for packaging `s922x odroid-n2`       |
-| SCRIPT_XYLINK_XR3528   | mk_rk3528_xylink-xr3528.sh | Set the script filename for packaging `xylink xr3528` |
-| SCRIPT_QEMU            | mk_qemu-aarch64_img.sh | Set the script filename for packaging `qemu`                  |
-| SCRIPT_DIY             | mk_diy.sh              | Set the script filename for packaging `diy` custom            |
-| SCRIPT_DIY_PATH        | None                   | Set the source path for `SCRIPT_DIY`. You can use a URL (e.g., `https://weburl/mydiyfile`) or a relative path in your repository (e.g., `script/mk_s905w.sh`) |
-| CUSTOMIZE_RK3399       | None                   | Set a custom rk3399 device list in the format `board1:dtb1/board2:dtb2`. Set to `none` to ignore this option. |
-| WHOAMI                 | flippy                 | Set the value for `WHOAMI` in `make.env`                      |
-| OPENWRT_VER            | auto                   | Set the value for `OPENWRT_VER` in `make.env`. The default `auto` inherits the value from the file. When set to another value, it overrides the original with the custom value. |
-| SW_FLOWOFFLOAD         | 1                      | Set the value for `SW_FLOWOFFLOAD` in `make.env`              |
-| HW_FLOWOFFLOAD         | 0                      | Set the value for `HW_FLOWOFFLOAD` in `make.env`              |
-| SFE_FLOW               | 1                      | Set the value for `SFE_FLOW` in `make.env`                    |
-| ENABLE_WIFI_K504       | 1                      | Set the value for `ENABLE_WIFI_K504` in `make.env`            |
-| ENABLE_WIFI_K510       | 1                      | Set the value for `ENABLE_WIFI_K510` in `make.env`            |
-| DISTRIB_REVISION       | R$(date +%m.%d)        | Set the value for `DISTRIB_REVISION` in `make.env`            |
-| DISTRIB_DESCRIPTION    | OpenWrt                | Set the value for `DISTRIB_DESCRIPTION` in `make.env`         |
+| SCRIPT_VPLUS | mk_h6_vplus.sh | Set the script filename for packaging `h6 vplus` |
+| SCRIPT_CM3 | mk_rk3566_radxa-cm3-rpi-cm4-io.sh | Set the script filename for packaging `rk3566 radxa-cm3-rpi-cm4-io` |
+| SCRIPT_HT2 | mk_rk3528_ht2.sh | Set the script filename for packaging `rk3528 ht2` |
+| SCRIPT_E20C | mk_rk3528_e20c.sh | Set the script filename for packaging `rk3528 e20c` |
+| SCRIPT_E24C | mk_rk3528_e24c.sh | Set the script filename for packaging `rk3528 e24c` |
+| SCRIPT_H28K | mk_rk3528_h28k.sh | Set the script filename for packaging `rk3528 h28k` |
+| SCRIPT_H66K | mk_rk3568_h66k.sh | Set the script filename for packaging `rk3568 h66k` |
+| SCRIPT_H68K | mk_rk3568_h68k.sh | Set the script filename for packaging `rk3568 h68k` |
+| SCRIPT_H69K | mk_rk3568_h69k.sh | Set the script filename for packaging `rk3568 h69k` |
+| SCRIPT_H88K | mk_rk3588_h88k.sh | Set the script filename for packaging `rk3588 h88k/ak88` |
+| SCRIPT_H88KV3 | mk_rk3588_h88k-v3.sh | Set the script filename for packaging `rk3588 h88k-v3` |
+| SCRIPT_JPTVBOX | mk_rk3566_jp-tvbox.sh | Set the script filename for packaging `rk3566 jp-tvbox` |
+| SCRIPT_BEIKEYUN | mk_rk3328_beikeyun.sh | Set the script filename for packaging `rk3328 beikeyun` |
+| SCRIPT_L1PRO | mk_rk3328_l1pro.sh | Set the script filename for packaging `rk3328 l1pro` |
+| SCRIPT_ZCUBE1MAX | mk_rk3399_zcube1-max.sh | Set the script filename for packaging `rk3399 zcube1-max` |
+| SCRIPT_ROCK5B | mk_rk3588_rock5b.sh | Set the script filename for packaging `rk3588 rock5b` |
+| SCRIPT_ROCK5C | mk_rk3588s_rock5c.sh | Set the script filename for packaging `rk3588s rock5c` |
+| SCRIPT_E52C | mk_rk3588s_e52c.sh | Set the script filename for packaging `rk3588s e52c` |
+| SCRIPT_E54C | mk_rk3588s_e54c.sh | Set the script filename for packaging `rk3588s e54c` |
+| SCRIPT_R66S | mk_rk3568_r66s.sh | Set the script filename for packaging `rk3568 r66s` |
+| SCRIPT_R68S | mk_rk3568_r68s.sh | Set the script filename for packaging `rk3568 r68s` |
+| SCRIPT_E25 | mk_rk3568_e25.sh | Set the script filename for packaging `rk3568 e25` |
+| SCRIPT_PHOTONICAT | mk_rk3568_photonicat.sh | Set the script filename for packaging `rk3568 photonicat` |
+| SCRIPT_RS6PRO | mk_rk3528_rs6pro.sh | Set the script filename for packaging `rk3528 yixun-rs6pro` |
+| SCRIPT_WATERMELONPI | mk_rk3568_watermelon-pi.sh | Set the script filename for packaging `rk3568 watermelon-pi` |
+| SCRIPT_S905 | mk_s905_mxqpro+.sh | Set the script filename for packaging `s905 mxqpro+` |
+| SCRIPT_S905D | mk_s905d_n1.sh | Set the script filename for packaging `s905d n1` |
+| SCRIPT_S905X2 | mk_s905x2_x96max.sh | Set the script filename for packaging `s905x2 x96max` |
+| SCRIPT_S905X3 | mk_s905x3_multi.sh | Set the script filename for packaging `s905x3 multi` |
+| SCRIPT_S912 | mk_s912_zyxq.sh | Set the script filename for packaging `s912 zyxq` |
+| SCRIPT_S922X | mk_s922x_gtking.sh | Set the script filename for packaging `s922x gtking` |
+| SCRIPT_S922X_N2 | mk_s922x_odroid-n2.sh | Set the script filename for packaging `s922x odroid-n2` |
+| SCRIPT_XYLINK_XR3528 | mk_rk3528_xylink-xr3528.sh | Set the script filename for packaging `xylink xr3528` |
+| SCRIPT_QEMU | mk_qemu-aarch64_img.sh | Set the script filename for packaging `qemu` |
+| SCRIPT_DIY | mk_diy.sh | Set the script filename for packaging `diy` custom |
+| SCRIPT_DIY_PATH | None | Set the source path for `SCRIPT_DIY`. You can use a URL (e.g., `https://weburl/mydiyfile`) or a relative path in your repository (e.g., `script/mk_s905w.sh`) |
+| CUSTOMIZE_RK3399 | None | Set a custom rk3399 device list in the format `board1:dtb1/board2:dtb2`. Set to `none` to ignore this option. |
+| WHOAMI | flippy | Set the value for `WHOAMI` in `make.env` |
+| OPENWRT_VER | auto | Set the value for `OPENWRT_VER` in `make.env`. The default `auto` inherits the value from the file. When set to another value, it overrides the original with the custom value. |
+| SW_FLOWOFFLOAD | 1 | Set the value for `SW_FLOWOFFLOAD` in `make.env` |
+| HW_FLOWOFFLOAD | 0 | Set the value for `HW_FLOWOFFLOAD` in `make.env` |
+| SFE_FLOW | 1 | Set the value for `SFE_FLOW` in `make.env` |
+| ENABLE_WIFI_K504 | 1 | Set the value for `ENABLE_WIFI_K504` in `make.env` |
+| ENABLE_WIFI_K510 | 1 | Set the value for `ENABLE_WIFI_K510` in `make.env` |
+| DISTRIB_REVISION | R$(date +%m.%d) | Set the value for `DISTRIB_REVISION` in `make.env` |
+| DISTRIB_DESCRIPTION | OpenWrt | Set the value for `DISTRIB_DESCRIPTION` in `make.env` |
 
 💡 In most cases, the default parameters are sufficient, but you can customize them as needed. For example, if Flippy renames a packaging script causing the default script to become unavailable, or if the firmware version number in make.env is not updated, you can use optional parameters to specify values at build time and customize the configuration.
 
@@ -116,5 +116,4 @@ Following GitHub Actions standards, 3 environment variables are output for use i
 
 ## License
 
-The flippy-openwrt-actions © OPHUB is licensed under [GPL-2.0](https://github.com/ophub/flippy-openwrt-actions/blob/main/LICENSE)
-
+flippy-openwrt-actions © OPHUB is licensed under [GPL-2.0](https://github.com/ophub/flippy-openwrt-actions/blob/main/LICENSE)
