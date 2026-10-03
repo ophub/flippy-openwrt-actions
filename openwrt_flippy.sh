@@ -55,8 +55,8 @@ PACKAGE_OPENWRT_6XY=("cm3" "e25" "photonicat" "r66s" "r68s" "rk3399" "xylink-xr3
 # Package all devices by default; specify individual devices like: [ s905x3_s905d_rock5b ]
 PACKAGE_SOC_VALUE="all"
 
-# Default kernel download repository: https://github.com/breakingbadboy/OpenWrt/releases
-KERNEL_REPO_URL_VALUE="breakingbadboy/OpenWrt"
+# Default kernel download repository: https://github.com/ophub/kernel
+KERNEL_REPO_URL_VALUE="ophub/kernel"
 # Kernel tags and version configuration: kernel_stable, kernel_rk3588, kernel_rk35xx
 KERNEL_TAGS=("stable" "rk3588" "rk35xx")
 STABLE_KERNEL=("6.12.y" "6.18.y")
